@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
