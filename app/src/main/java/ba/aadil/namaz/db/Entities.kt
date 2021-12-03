@@ -1,4 +1,4 @@
-package ba.aadil.namaz.ui.db
+package ba.aadil.namaz.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -1,9 +1,9 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.ui.db.CityOffset
-import ba.aadil.namaz.ui.db.OffsetDao
-import ba.aadil.namaz.ui.db.PrayerSchedule
-import ba.aadil.namaz.ui.db.PrayerScheduleDao
+import ba.aadil.namaz.db.CityOffset
+import ba.aadil.namaz.db.OffsetDao
+import ba.aadil.namaz.db.PrayerSchedule
+import ba.aadil.namaz.db.PrayerScheduleDao
 import ba.aadil.namaz.vaktija.PrayerRepository
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

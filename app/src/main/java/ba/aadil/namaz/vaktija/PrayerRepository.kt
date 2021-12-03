@@ -1,7 +1,7 @@
 package ba.aadil.namaz.vaktija
 
-import ba.aadil.namaz.ui.db.OffsetDao
-import ba.aadil.namaz.ui.db.PrayerScheduleDao
+import ba.aadil.namaz.db.OffsetDao
+import ba.aadil.namaz.db.PrayerScheduleDao
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

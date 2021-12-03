@@ -1,4 +1,4 @@
-package ba.aadil.namaz.ui.db
+package ba.aadil.namaz.db
 
 import androidx.room.Dao
 import androidx.room.Query
