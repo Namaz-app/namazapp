@@ -17,8 +17,46 @@ import java.time.LocalDate
  */
 class PrayerTimesRepositoryTest {
     @Test
-    fun addition_isCorrect() {
-        val mockPrayerTimes = object : PrayerScheduleDao {
+    fun testNoonPrayerTime() {
+        val mockOffset = getOffsetObject(0)
+        val prayerTimes = PrayerRepository(getPrayerTimes(), mockOffset)
+
+        runBlocking {
+            val date = LocalDate.now()
+            assertEquals("12:00", prayerTimes.timeForNoonPrayer(date, 1))
+        }
+    }
+
+    @Test
+    fun testNoonPrayerOffsetIsAdded() {
+        val mockOffset = getOffsetObject(10)
+        val prayerTimes = PrayerRepository(getPrayerTimes(), mockOffset)
+
+        runBlocking {
+            val date = LocalDate.now()
+            assertEquals("12:10", prayerTimes.timeForNoonPrayer(date, 1))
+        }
+    }
+
+    private fun getOffsetObject(noonOffset: Int): OffsetDao {
+        return object : OffsetDao {
+            override fun getOffsetForACity(month: Int, locationId: Int): List<CityOffset> {
+                return listOf(
+                    CityOffset(
+                        1,
+                        1,
+                        1,
+                        0,
+                        noonOffset,
+                        0
+                    )
+                )
+            }
+        }
+    }
+
+    private fun getPrayerTimes(): PrayerScheduleDao {
+        return object : PrayerScheduleDao {
             override fun getPrayersForADay(date: String): List<PrayerSchedule> {
                 return listOf(
                     PrayerSchedule(
@@ -33,26 +71,6 @@ class PrayerTimesRepositoryTest {
                     )
                 )
             }
-        }
-        val mockOffset = object : OffsetDao {
-            override fun getOffsetForACity(month: Int, locationId: Int): List<CityOffset> {
-                return listOf(
-                    CityOffset(
-                        1,
-                        1,
-                        1,
-                        0,
-                        0,
-                        0
-                    )
-                )
-            }
-        }
-
-        val prayerTimes = PrayerRepository(mockPrayerTimes, mockOffset)
-        runBlocking {
-            val date = LocalDate.now()
-            assertEquals("12:00", prayerTimes.timeForNoonPrayer(date, 1))
         }
     }
 }
