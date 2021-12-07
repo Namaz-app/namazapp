@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "schedule")
 data class PrayerSchedule(
-    @PrimaryKey val id: Int,
-    @ColumnInfo(name = "datum") val date: String,
+    @PrimaryKey val _id: Int?,
+    @ColumnInfo(name = "datum") val date: String?,
     @ColumnInfo(name = "fajr") val morningPrayer: String,
     @ColumnInfo(name = "sunrise") val sunrise: String,
     @ColumnInfo(name = "dhuhr") val noonPrayer: String,
@@ -18,7 +18,7 @@ data class PrayerSchedule(
 
 @Entity(tableName = "offset")
 data class CityOffset(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val _id: Int?,
     @ColumnInfo(name = "month") val month: Int,
     @ColumnInfo(name = "location_id") val locationId: Int,
     @ColumnInfo(name = "fajr") val morningPrayerOffset: Int,
@@ -28,7 +28,7 @@ data class CityOffset(
 
 @Entity(tableName = "locations")
 data class City(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val _id: Int?,
     @ColumnInfo(name = "location") val name: String,
     @ColumnInfo(name = "weight") val generalPrayerOffset: Int,
 )
