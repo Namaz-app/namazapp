@@ -23,7 +23,7 @@ class PrayerTimesRepositoryTest {
 
         runBlocking {
             val date = LocalDate.now()
-            assertEquals("12:00", prayerTimes.timeForNoonPrayer(date, 1))
+            assertEquals("12:00", prayerTimes.getPrayerSchedule(date, 1)?.noonPrayer)
         }
     }
 
@@ -34,7 +34,18 @@ class PrayerTimesRepositoryTest {
 
         runBlocking {
             val date = LocalDate.now()
-            assertEquals("12:10", prayerTimes.timeForNoonPrayer(date, 1))
+            assertEquals("12:10", prayerTimes.getPrayerSchedule(date, 1)?.noonPrayer)
+        }
+    }
+
+    @Test
+    fun testMorningPrayerTime() {
+        val mockOffset = getOffsetObject(0)
+        val prayerTimes = PrayerRepository(getPrayerTimes(), mockOffset)
+
+        runBlocking {
+            val date = LocalDate.now()
+            assertEquals("06:00", prayerTimes.getPrayerSchedule(date, 1)?.morningPrayer)
         }
     }
 
