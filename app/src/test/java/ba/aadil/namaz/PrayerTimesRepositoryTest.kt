@@ -4,7 +4,7 @@ import ba.aadil.namaz.db.CityOffset
 import ba.aadil.namaz.db.OffsetDao
 import ba.aadil.namaz.db.PrayerSchedule
 import ba.aadil.namaz.db.PrayerScheduleDao
-import ba.aadil.namaz.vaktija.PrayerRepository
+import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -19,7 +19,7 @@ class PrayerTimesRepositoryTest {
     @Test
     fun testNoonPrayerTime() {
         val mockOffset = getOffsetObject(0)
-        val prayerTimes = PrayerRepository(getPrayerTimes(), mockOffset)
+        val prayerTimes = PrayerSchedulesUseCase(getPrayerTimes(), mockOffset)
 
         runBlocking {
             val date = LocalDate.now()
@@ -30,7 +30,7 @@ class PrayerTimesRepositoryTest {
     @Test
     fun testNoonPrayerOffsetIsAdded() {
         val mockOffset = getOffsetObject(10)
-        val prayerTimes = PrayerRepository(getPrayerTimes(), mockOffset)
+        val prayerTimes = PrayerSchedulesUseCase(getPrayerTimes(), mockOffset)
 
         runBlocking {
             val date = LocalDate.now()
@@ -41,7 +41,7 @@ class PrayerTimesRepositoryTest {
     @Test
     fun testMorningPrayerTime() {
         val mockOffset = getOffsetObject(0)
-        val prayerTimes = PrayerRepository(getPrayerTimes(), mockOffset)
+        val prayerTimes = PrayerSchedulesUseCase(getPrayerTimes(), mockOffset)
 
         runBlocking {
             val date = LocalDate.now()
