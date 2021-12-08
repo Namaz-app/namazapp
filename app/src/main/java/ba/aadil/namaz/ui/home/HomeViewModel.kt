@@ -1,13 +1,28 @@
 package ba.aadil.namaz.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import ba.aadil.namaz.city.GetCurrentCityUseCase
+import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
+import ba.aadil.namaz.prayertimes.PrayersSchedule
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import java.time.LocalDate
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val prayerSchedulesUseCase: PrayerSchedulesUseCase,
+    private val getCurrentCityUseCase: GetCurrentCityUseCase
+) : ViewModel() {
+    private val _prayerSchedule = MutableStateFlow<PrayersSchedule?>(null)
+    val prayersSchedule = _prayerSchedule.asStateFlow()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    fun getPrayersSchedule() {
+        viewModelScope.launch {
+            _prayerSchedule.value = prayerSchedulesUseCase.getPrayerSchedule(
+                LocalDate.now(),
+                getCurrentCityUseCase.getId()
+            )
+        }
     }
-    val text: LiveData<String> = _text
 }
