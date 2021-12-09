@@ -12,4 +12,12 @@ val dataModule = module {
             PrayerDatabase::class.java, "prayers.db"
         ).addMigrations(MIGRATION_1_2).createFromAsset("vaktija.db").build()
     }
+    single {
+        val db: PrayerDatabase = get()
+        db.prayerScheduleDao()
+    }
+    single {
+        val db: PrayerDatabase = get()
+        db.offsetDao()
+    }
 }
