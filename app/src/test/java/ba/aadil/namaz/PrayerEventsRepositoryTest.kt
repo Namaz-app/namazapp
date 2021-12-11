@@ -15,7 +15,7 @@ import java.time.LocalDate
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class PrayerTimesRepositoryTest {
+class PrayerEventsRepositoryTest {
     @Test
     fun testNoonPrayerTime() {
         val mockOffset = getOffsetObject(0)

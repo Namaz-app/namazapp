@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.city.GetCurrentCityUseCase
 import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
-import ba.aadil.namaz.prayertimes.PrayersSchedule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,7 +15,7 @@ class HomeViewModel(
     private val prayerSchedulesUseCase: PrayerSchedulesUseCase,
     private val getCurrentCityUseCase: GetCurrentCityUseCase
 ) : ViewModel() {
-    private val _prayerSchedule = MutableStateFlow<PrayersSchedule?>(null)
+    private val _prayerSchedule = MutableStateFlow<PrayerSchedulesUseCase.EventsSchedule?>(null)
     val prayersSchedule = _prayerSchedule.asStateFlow()
 
     fun getPrayersSchedule() {
