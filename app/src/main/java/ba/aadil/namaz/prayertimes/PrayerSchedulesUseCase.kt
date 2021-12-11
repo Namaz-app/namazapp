@@ -34,14 +34,14 @@ class PrayerSchedulesUseCase(
                         dailyPrayer,
                         offset
                     ),
-                    sunrise = getFormattedTimeForEvents(Events.MorningPrayer, dailyPrayer, offset),
+                    sunrise = getFormattedTimeForEvents(Events.Sunrise, dailyPrayer, offset),
                     noonPrayer = getFormattedTimeForEvents(
-                        Events.MorningPrayer,
+                        Events.NoonPrayer,
                         dailyPrayer,
                         offset
                     ),
                     afterNoonPrayer = getFormattedTimeForEvents(
-                        Events.MorningPrayer,
+                        Events.AfterNoonPrayer,
                         dailyPrayer,
                         offset
                     ),
@@ -70,10 +70,11 @@ class PrayerSchedulesUseCase(
         val morningPrayer = LocalTime.parse(dailyPrayer.morningPrayer, prayerTimeFormat)
             .plus(offset.morningPrayerOffset.toLong(), ChronoUnit.MINUTES)
         val sunrise = LocalTime.parse(dailyPrayer.sunrise, prayerTimeFormat)
+            .plus(offset.morningPrayerOffset.toLong(), ChronoUnit.MINUTES)
         val noonPrayer = LocalTime.parse(dailyPrayer.noonPrayer, prayerTimeFormat)
             .plus(offset.noonPrayerOffset.toLong(), ChronoUnit.MINUTES)
         val afterNoonPrayer = LocalTime.parse(dailyPrayer.afternoonPrayer, prayerTimeFormat)
-            .plus(offset.noonPrayerOffset.toLong(), ChronoUnit.MINUTES)
+            .plus(offset.afternoonPrayerOffset.toLong(), ChronoUnit.MINUTES)
         val sunsetPrayer = LocalTime.parse(dailyPrayer.sunsetPrayer, prayerTimeFormat)
             .plus(offset.afternoonPrayerOffset.toLong(), ChronoUnit.MINUTES)
         val nightPrayer = LocalTime.parse(dailyPrayer.nightPrayer, prayerTimeFormat)

@@ -58,10 +58,10 @@ class HomeFragment : Fragment() {
             homeViewModel.prayersSchedule.filterNotNull().collect {
                 rvAdapter.setItems(
                     listOf(
-                        PrayerUIModel(name = "Sabah", it.morningPrayer),
+                        PrayerUIModel(name = "Zora", it.morningPrayer),
                         PrayerUIModel(name = "Izlaz sunca", it.sunrise),
                         PrayerUIModel(name = "Podne", it.noonPrayer),
-                        PrayerUIModel(name = "Ikinda", it.afterNoonPrayer),
+                        PrayerUIModel(name = "Ikindija", it.afterNoonPrayer),
                         PrayerUIModel(name = "Aksam", it.sunsetPrayer),
                         PrayerUIModel(name = "Jacija", it.nightPrayer)
                     )
