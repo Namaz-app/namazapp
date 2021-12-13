@@ -1,5 +1,6 @@
 package ba.aadil.namaz.prayertimes
 
+import ba.aadil.namaz.city.GetCurrentCityUseCase
 import ba.aadil.namaz.db.CityOffset
 import ba.aadil.namaz.db.OffsetDao
 import ba.aadil.namaz.db.PrayerSchedule
@@ -10,12 +11,14 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 class PrayerSchedulesUseCase(
+    private val getCurrentCityUseCase: GetCurrentCityUseCase,
     private val prayerScheduleDao: PrayerScheduleDao,
     private val offsetDao: OffsetDao
 ) {
     private val prayerTimeFormat = DateTimeFormatter.ofPattern("HH:mm")
 
-    fun getPrayerSchedule(date: LocalDate, locationId: Int): EventsSchedule? {
+    suspend fun getPrayerSchedule(date: LocalDate): EventsSchedule? {
+        val locationId = getCurrentCityUseCase.getId()
         val monthWithLeadingZero = String.format(
             "%02d",
             date.month.value

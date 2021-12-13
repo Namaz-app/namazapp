@@ -1,5 +1,6 @@
 package ba.aadil.namaz
 
+import ba.aadil.namaz.city.MockStoredCity
 import ba.aadil.namaz.db.CityOffset
 import ba.aadil.namaz.db.OffsetDao
 import ba.aadil.namaz.db.PrayerSchedule
@@ -19,33 +20,34 @@ class PrayerEventsRepositoryTest {
     @Test
     fun testNoonPrayerTime() {
         val mockOffset = getOffsetObject(0)
-        val prayerTimes = PrayerSchedulesUseCase(getPrayerTimes(), mockOffset)
+        val prayerTimes =
+            PrayerSchedulesUseCase(MockStoredCity(), getPrayerTimes(), mockOffset)
 
         runBlocking {
             val date = LocalDate.now()
-            assertEquals("12:00", prayerTimes.getPrayerSchedule(date, 1)?.noonPrayer)
+            assertEquals("12:00", prayerTimes.getPrayerSchedule(date)?.noonPrayer)
         }
     }
 
     @Test
     fun testNoonPrayerOffsetIsAdded() {
         val mockOffset = getOffsetObject(10)
-        val prayerTimes = PrayerSchedulesUseCase(getPrayerTimes(), mockOffset)
+        val prayerTimes = PrayerSchedulesUseCase(MockStoredCity(), getPrayerTimes(), mockOffset)
 
         runBlocking {
             val date = LocalDate.now()
-            assertEquals("12:10", prayerTimes.getPrayerSchedule(date, 1)?.noonPrayer)
+            assertEquals("12:10", prayerTimes.getPrayerSchedule(date)?.noonPrayer)
         }
     }
 
     @Test
     fun testMorningPrayerTime() {
         val mockOffset = getOffsetObject(0)
-        val prayerTimes = PrayerSchedulesUseCase(getPrayerTimes(), mockOffset)
+        val prayerTimes = PrayerSchedulesUseCase(MockStoredCity(), getPrayerTimes(), mockOffset)
 
         runBlocking {
             val date = LocalDate.now()
-            assertEquals("06:00", prayerTimes.getPrayerSchedule(date, 1)?.morningPrayer)
+            assertEquals("06:00", prayerTimes.getPrayerSchedule(date)?.morningPrayer)
         }
     }
 
