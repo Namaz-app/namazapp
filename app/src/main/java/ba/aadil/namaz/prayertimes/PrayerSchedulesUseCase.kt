@@ -24,37 +24,37 @@ class PrayerSchedulesUseCase(
             date.month.value
         )
         val dayWithLeadingZero = String.format("%02d", date.dayOfMonth)
-        val prayers =
+        val prayerSchedule =
             prayerScheduleDao.getPrayersForADay("$monthWithLeadingZero-$dayWithLeadingZero")
         val offset = offsetDao.getOffsetForACity(date.monthValue, locationId)
 
-        prayers.firstOrNull()?.let { dailyPrayer ->
+        prayerSchedule.firstOrNull()?.let { dailyPrayer ->
             offset.firstOrNull()?.let { offset ->
                 LocalTime.parse(dailyPrayer.noonPrayer)
                 return EventsSchedule(
                     morningPrayer = getFormattedTimeForEvents(
-                        Events.MorningPrayer,
+                        Events.Prayers.MorningPrayer,
                         dailyPrayer,
                         offset
                     ),
                     sunrise = getFormattedTimeForEvents(Events.Sunrise, dailyPrayer, offset),
                     noonPrayer = getFormattedTimeForEvents(
-                        Events.NoonPrayer,
+                        Events.Prayers.NoonPrayer,
                         dailyPrayer,
                         offset
                     ),
                     afterNoonPrayer = getFormattedTimeForEvents(
-                        Events.AfterNoonPrayer,
+                        Events.Prayers.AfterNoonPrayer,
                         dailyPrayer,
                         offset
                     ),
                     sunsetPrayer = getFormattedTimeForEvents(
-                        Events.SunsetPrayer,
+                        Events.Prayers.SunsetPrayer,
                         dailyPrayer,
                         offset
                     ),
                     nightPrayer = getFormattedTimeForEvents(
-                        Events.NightPrayer,
+                        Events.Prayers.NightPrayer,
                         dailyPrayer,
                         offset
                     ),
@@ -85,23 +85,14 @@ class PrayerSchedulesUseCase(
 
         return prayerTimeFormat.format(
             when (event) {
-                Events.MorningPrayer -> morningPrayer
+                Events.Prayers.MorningPrayer -> morningPrayer
                 Events.Sunrise -> sunrise
-                Events.NoonPrayer -> noonPrayer
-                Events.AfterNoonPrayer -> afterNoonPrayer
-                Events.SunsetPrayer -> sunsetPrayer
-                Events.NightPrayer -> nightPrayer
+                Events.Prayers.NoonPrayer -> noonPrayer
+                Events.Prayers.AfterNoonPrayer -> afterNoonPrayer
+                Events.Prayers.SunsetPrayer -> sunsetPrayer
+                Events.Prayers.NightPrayer -> nightPrayer
             }
         )
-    }
-
-    enum class Events {
-        MorningPrayer,
-        Sunrise,
-        NoonPrayer,
-        AfterNoonPrayer,
-        SunsetPrayer,
-        NightPrayer
     }
 
     data class EventsSchedule(

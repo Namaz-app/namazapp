@@ -3,6 +3,7 @@ package ba.aadil.namaz.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ba.aadil.namaz.prayertimes.Events
 
 @Entity(tableName = "schedule")
 data class PrayerSchedule(
@@ -32,3 +33,14 @@ data class City(
     @ColumnInfo(name = "location") val name: String,
     @ColumnInfo(name = "weight") val generalPrayerOffset: Int,
 )
+
+@Entity(tableName = "tracking")
+data class Track(
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    val prayer: Events.Prayers,
+    val completed: Boolean,
+    val date: String,
+    val prayerDateTime: Long,
+    val completedDateTime: Long
+)
+
