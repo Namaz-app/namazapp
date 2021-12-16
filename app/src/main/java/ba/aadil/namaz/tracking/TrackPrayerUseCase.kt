@@ -4,13 +4,13 @@ import ba.aadil.namaz.db.Track
 import ba.aadil.namaz.db.TrackingDao
 import ba.aadil.namaz.prayertimes.Events
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class TrackPrayerUseCase(private val trackingDao: TrackingDao) {
-    suspend fun getOrTrackPrayer(prayer: Events.Prayers, date: LocalDate) {
-        val dateFormatted = date.format(DateTimeFormatter.ISO_LOCAL_DATE)
+    suspend fun getOrTrackPrayer(prayer: Events.Prayers, date: LocalDate): Track? {
+        val dateFormatted = date.format(Track.dateFormatter)
         val currentData =
             trackingDao.getPrayerForDay(prayer, dateFormatted)
+
         // todo update prayerDateTime
         if (currentData.isEmpty()) {
             trackingDao.startTracking(
@@ -24,5 +24,7 @@ class TrackPrayerUseCase(private val trackingDao: TrackingDao) {
                 )
             )
         }
+
+        return trackingDao.getPrayerForDay(prayer, dateFormatted).firstOrNull()
     }
 }

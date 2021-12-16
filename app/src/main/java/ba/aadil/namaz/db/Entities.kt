@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ba.aadil.namaz.prayertimes.Events
+import java.time.format.DateTimeFormatter
 
 @Entity(tableName = "schedule")
 data class PrayerSchedule(
@@ -42,5 +43,10 @@ data class Track(
     val date: String,
     val prayerDateTime: Long,
     val completedDateTime: Long
-)
+) {
+    companion object {
+        val dateFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
+    }
+}
+
 
