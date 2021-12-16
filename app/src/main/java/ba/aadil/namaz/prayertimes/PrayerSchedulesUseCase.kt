@@ -1,6 +1,7 @@
 package ba.aadil.namaz.prayertimes
 
 import ba.aadil.namaz.city.GetCurrentCityUseCase
+import ba.aadil.namaz.core.Result
 import ba.aadil.namaz.db.CityOffset
 import ba.aadil.namaz.db.OffsetDao
 import ba.aadil.namaz.db.PrayerSchedule
@@ -65,6 +66,57 @@ class PrayerSchedulesUseCase(
         return null
     }
 
+    suspend fun getPrayerScheduleMap(date: LocalDate): Result<EventsMap> {
+        val locationId = getCurrentCityUseCase.getId()
+        val monthWithLeadingZero = String.format(
+            "%02d",
+            date.month.value
+        )
+        val dayWithLeadingZero = String.format("%02d", date.dayOfMonth)
+        val prayerSchedule =
+            prayerScheduleDao.getPrayersForADay("$monthWithLeadingZero-$dayWithLeadingZero")
+        val offset = offsetDao.getOffsetForACity(date.monthValue, locationId)
+
+        prayerSchedule.firstOrNull()?.let { dailyPrayer ->
+            offset.firstOrNull()?.let { offset ->
+                val eventsMap = hashMapOf<Events, String>()
+                eventsMap[Events.Prayers.MorningPrayer] = getFormattedTimeForEvents(
+                    Events.Prayers.MorningPrayer,
+                    dailyPrayer,
+                    offset
+                )
+                eventsMap[Events.Sunrise] = getFormattedTimeForEvents(
+                    Events.Sunrise,
+                    dailyPrayer,
+                    offset
+                )
+                eventsMap[Events.Prayers.NoonPrayer] = getFormattedTimeForEvents(
+                    Events.Prayers.NoonPrayer,
+                    dailyPrayer,
+                    offset
+                )
+                eventsMap[Events.Prayers.AfterNoonPrayer] = getFormattedTimeForEvents(
+                    Events.Prayers.AfterNoonPrayer,
+                    dailyPrayer,
+                    offset
+                )
+                eventsMap[Events.Prayers.SunsetPrayer] = getFormattedTimeForEvents(
+                    Events.Prayers.SunsetPrayer,
+                    dailyPrayer,
+                    offset
+                )
+                eventsMap[Events.Prayers.NightPrayer] = getFormattedTimeForEvents(
+                    Events.Prayers.NightPrayer,
+                    dailyPrayer,
+                    offset
+                )
+                return Result(EventsMap(eventsMap), null)
+            }
+        }
+
+        return Result(null, Pair(null, "Data can not be read from db"))
+    }
+
     private fun getFormattedTimeForEvents(
         event: Events,
         dailyPrayer: PrayerSchedule,
@@ -103,4 +155,6 @@ class PrayerSchedulesUseCase(
         val sunsetPrayer: String,
         val nightPrayer: String
     )
+
+    data class EventsMap(val map: Map<Events, String>)
 }
