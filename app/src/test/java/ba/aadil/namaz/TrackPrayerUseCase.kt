@@ -61,12 +61,54 @@ class TrackPrayerUseCaseTest {
         }
     }
 
+    @Test
+    fun testMarkAsCompletedUpdatesDbAndPrayerTime() {
+        val fakeDao = FakeTrackingDao()
+        val fakeDate = LocalDateTime.now()
+        val testTrack = Track(
+            0,
+            Events.Prayers.MorningPrayer,
+            false,
+            fakeDate.format(Track.dateFormatter),
+            0,
+            0
+        )
+        fakeDao.prayerForDayValue = mutableListOf(testTrack)
+        val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
+            override suspend fun get(
+                date: LocalDate,
+                event: Events.Prayers
+            ): Result<LocalDateTime> {
+                return Result(fakeDate, null)
+            }
+        })
+
+        val today = LocalDate.now()
+
+        runBlocking {
+            val track = trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.MorningPrayer, today)
+            assertEquals(false, track?.completed)
+
+            val completedTime = LocalDateTime.now()
+            trackPrayerUseCase.markAsPrayed(
+                Events.Prayers.MorningPrayer,
+                today.format(Track.dateFormatter),
+                completedTime
+            )
+
+            assertEquals(
+                completedTime.toEpochSecond(ZoneOffset.ofTotalSeconds(0)),
+                fakeDao.completedTimeLong
+            )
+        }
+    }
+
     class FakeTrackingDao : TrackingDao {
         var startTrackingValue: Track? = null
         var prayerForDayValue = mutableListOf<Track>()
         var togglePrayerValue: Events.Prayers? = null
         var toggleCompleted = false
-        var toggleDate: String? = null
+        var completedTimeLong: Long = 0
 
         override fun getPrayerForDay(prayer: Events.Prayers, date: String): List<Track> {
             return prayerForDayValue
@@ -78,12 +120,13 @@ class TrackPrayerUseCaseTest {
 
         override fun togglePrayerCompletion(
             prayer: Events.Prayers,
+            date: String,
             completed: Boolean,
-            date: String
+            completedTime: Long
         ) {
             togglePrayerValue = prayer
             toggleCompleted = completed
-            toggleDate = date
+            completedTimeLong = completedTime
         }
     }
 }

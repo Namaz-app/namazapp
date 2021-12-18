@@ -26,6 +26,11 @@ interface TrackingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun startTracking(track: Track)
 
-    @Query("update tracking set completed=:completed where prayer=:prayer and date=:date")
-    fun togglePrayerCompletion(prayer: Events.Prayers, completed: Boolean, date: String)
+    @Query("update tracking set completed=:completed, completedDateTime=:completionTime where prayer=:prayer and date=:date")
+    fun togglePrayerCompletion(
+        prayer: Events.Prayers,
+        date: String,
+        completed: Boolean,
+        completionTime: Long
+    )
 }
