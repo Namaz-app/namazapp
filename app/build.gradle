@@ -4,6 +4,12 @@ plugins {
     id 'kotlin-kapt'
 }
 
+kapt {
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas".toString())
+    }
+}
+
 android {
     compileSdk 31
 
@@ -69,7 +75,10 @@ dependencies {
     // lists
     implementation 'com.github.vivchar:RendererRecyclerViewAdapter:3.0.1'
 
+    // testing
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    testImplementation "io.mockk:mockk:1.12.1"
+    testImplementation "io.mockk:mockk-agent-jvm:1.12.1"
 }

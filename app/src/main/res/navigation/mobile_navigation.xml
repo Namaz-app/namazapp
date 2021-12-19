@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="ba.aadil.namaz.ui.notifications.NotificationsFragment"
+        android:name="ba.aadil.namaz.ui.tracking.TrackingFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_tracking" />
 </navigation>

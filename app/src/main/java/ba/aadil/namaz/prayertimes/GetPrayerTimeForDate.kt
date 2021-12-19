@@ -18,7 +18,7 @@ class GetPrayerTimeForDateRealz(private val prayerSchedulesUseCase: PrayerSchedu
             val hourMinute = time.split(":")
             val hour = Integer.parseInt(hourMinute.first())
             val minute = Integer.parseInt(hourMinute.last())
-            val prayerDateTime = LocalDateTime.from(date).withHour(hour).withMinute(minute)
+            val prayerDateTime = date.atTime(hour, minute)
             return Result(prayerDateTime, null)
         }
 
