@@ -66,6 +66,7 @@ class HomeFragment : Fragment() {
                         PrayerUIModel(name = "Jacija", it.nightPrayer)
                     )
                 )
+                rvAdapter.notifyDataSetChanged()
             }
         }
 

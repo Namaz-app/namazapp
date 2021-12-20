@@ -9,11 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentTrackingBinding
-import ba.aadil.namaz.prayertimes.Events
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
@@ -54,22 +54,22 @@ class TrackingFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            val morningPrayer = trackingViewModel.getTrackingFor(Events.Prayers.MorningPrayer)
-            val noonPrayer = trackingViewModel.getTrackingFor(Events.Prayers.NoonPrayer)
-            val afterNoonPrayer = trackingViewModel.getTrackingFor(Events.Prayers.AfterNoonPrayer)
-            val sunsetPrayer = trackingViewModel.getTrackingFor(Events.Prayers.SunsetPrayer)
-            val nightPrayer = trackingViewModel.getTrackingFor(Events.Prayers.NightPrayer)
+            trackingViewModel.state.collect {
+                when (it) {
+                    is TrackingViewModel.TrackingPrayersState.Data -> {
+                        rvAdapter.setItems(it.list)
+                        rvAdapter.notifyDataSetChanged()
+                    }
+                    is TrackingViewModel.TrackingPrayersState.Error -> {
+                    }
+                    TrackingViewModel.TrackingPrayersState.Loading -> {
 
-            rvAdapter.setItems(
-                listOf(
-                    morningPrayer,
-                    noonPrayer,
-                    afterNoonPrayer,
-                    sunsetPrayer,
-                    nightPrayer
-                )
-            )
+                    }
+                }
+            }
         }
+
+        trackingViewModel.getTracking()
     }
 
     class TrackingUIModel(val prayerName: String, val track: Boolean) : ViewModel
