@@ -4,4 +4,11 @@
     <string name="title_vaktija">Vaktija</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="dusk">Zora</string>
+    <string name="sunrise">Izlaz sunca</string>
+    <string name="noonPrayer">Podne</string>
+    <string name="afternoonPrayer">Ikindija</string>
+    <string name="sunsetPrayer">Aksam</string>
+    <string name="nightPrayer">Jacija</string>
+    <string name="morningPrayer">Sabah</string>
 </resources>

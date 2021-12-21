@@ -1,7 +1,9 @@
 package ba.aadil.namaz.ui.tracking
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ba.aadil.namaz.R
 import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.tracking.TrackPrayerUseCase
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +13,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
-class TrackingViewModel(private val trackPrayerUseCase: TrackPrayerUseCase) : ViewModel() {
+class TrackingViewModel(
+    private val context: Context,
+    private val trackPrayerUseCase: TrackPrayerUseCase
+) : ViewModel() {
     private val _state = MutableStateFlow<TrackingPrayersState>(TrackingPrayersState.Loading)
     val state: StateFlow<TrackingPrayersState> = _state
 
@@ -33,23 +38,23 @@ class TrackingViewModel(private val trackPrayerUseCase: TrackPrayerUseCase) : Vi
                 TrackingPrayersState.Data(
                     listOf(
                         TrackingFragment.TrackingUIModel(
-                            Events.Prayers.MorningPrayer.toString(),
+                            context.getString(R.string.morningPrayer),
                             morningPrayer?.completed ?: false
                         ),
                         TrackingFragment.TrackingUIModel(
-                            Events.Prayers.NoonPrayer.toString(),
+                            context.getString(R.string.noonPrayer),
                             noonPrayer?.completed ?: false
                         ),
                         TrackingFragment.TrackingUIModel(
-                            Events.Prayers.AfterNoonPrayer.toString(),
+                            context.getString(R.string.afternoonPrayer),
                             afternoonPrayer?.completed ?: false
                         ),
                         TrackingFragment.TrackingUIModel(
-                            Events.Prayers.SunsetPrayer.toString(),
+                            context.getString(R.string.sunsetPrayer),
                             sunsetPrayer?.completed ?: false
                         ),
                         TrackingFragment.TrackingUIModel(
-                            Events.Prayers.NightPrayer.toString(),
+                            context.getString(R.string.nightPrayer),
                             nightPrayer?.completed ?: false
                         ),
                     )

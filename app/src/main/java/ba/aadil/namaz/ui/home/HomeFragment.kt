@@ -58,12 +58,15 @@ class HomeFragment : Fragment() {
             homeViewModel.prayersSchedule.filterNotNull().collect {
                 rvAdapter.setItems(
                     listOf(
-                        PrayerUIModel(name = "Zora", it.morningPrayer),
-                        PrayerUIModel(name = "Izlaz sunca", it.sunrise),
-                        PrayerUIModel(name = "Podne", it.noonPrayer),
-                        PrayerUIModel(name = "Ikindija", it.afterNoonPrayer),
-                        PrayerUIModel(name = "Aksam", it.sunsetPrayer),
-                        PrayerUIModel(name = "Jacija", it.nightPrayer)
+                        PrayerUIModel(name = getString(R.string.dusk), it.morningPrayer),
+                        PrayerUIModel(name = getString(R.string.sunrise), it.sunrise),
+                        PrayerUIModel(name = getString(R.string.noonPrayer), it.noonPrayer),
+                        PrayerUIModel(
+                            name = getString(R.string.afternoonPrayer),
+                            it.afterNoonPrayer
+                        ),
+                        PrayerUIModel(name = getString(R.string.sunsetPrayer), it.sunsetPrayer),
+                        PrayerUIModel(name = getString(R.string.nightPrayer), it.nightPrayer)
                     )
                 )
                 rvAdapter.notifyDataSetChanged()
