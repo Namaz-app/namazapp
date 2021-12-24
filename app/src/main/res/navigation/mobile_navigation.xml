@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_dashboard_tab">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_prayer_tab"
         android:name="ba.aadil.namaz.ui.home.HomeFragment"
-        android:label="@string/title_vaktija"
+        android:label="@string/vaktija_tab_title"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_dashboard_tab"
         android:name="ba.aadil.namaz.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_tracking_tab"
         android:name="ba.aadil.namaz.ui.tracking.TrackingFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/tracking_tab_title"
         tools:layout="@layout/fragment_tracking" />
 </navigation>

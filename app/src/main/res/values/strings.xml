@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Namaz</string>
     <string name="title_home">Home</string>
-    <string name="title_vaktija">Vaktija</string>
+    <string name="vaktija_tab_title">Vaktija</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="dusk">Zora</string>
@@ -11,4 +11,5 @@
     <string name="sunsetPrayer">Aksam</string>
     <string name="nightPrayer">Jacija</string>
     <string name="morningPrayer">Sabah</string>
+    <string name="tracking_tab_title">Namaz</string>
 </resources>
