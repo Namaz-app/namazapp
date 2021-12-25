@@ -33,4 +33,7 @@ interface TrackingDao {
         completed: Boolean,
         completionTime: Long
     )
+
+    @Query("select * from tracking where completedDateTime>=:startMillis and completedDateTime<=:endMillis")
+    fun getAllCompletedPrayersBetweenTwoDates(startMillis: Long, endMillis: Long): List<Track>
 }
