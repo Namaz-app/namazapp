@@ -128,5 +128,12 @@ class TrackPrayerUseCaseTest {
             toggleCompleted = completed
             completedTimeLong = completedTime
         }
+
+        override fun getAllCompletedPrayersBetweenTwoDates(
+            startMillis: Long,
+            endMillis: Long
+        ): List<Track> {
+            return listOf()
+        }
     }
 }

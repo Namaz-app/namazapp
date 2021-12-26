@@ -6,12 +6,13 @@ import java.time.LocalDate
 import java.time.ZoneOffset
 
 class GetStatisticsUseCase(private val trackingDao: TrackingDao) {
-    fun getStatsForPastSevenDays(startDate: LocalDate, endDate: LocalDate): PrayerStatistics {
+    fun getStatsBetweenDays(startDate: LocalDate, endDate: LocalDate): PrayerStatistics {
         val prayed = trackingDao.getAllCompletedPrayersBetweenTwoDates(
             startDate.atStartOfDay().toEpochSecond(ZoneOffset.ofTotalSeconds(0)),
             endDate.atStartOfDay().toEpochSecond(ZoneOffset.ofTotalSeconds(0))
         )
-        val totalPrayers = Duration.between(startDate, endDate).toDays().toInt() * 5
+        val totalPrayers =
+            Duration.between(startDate.atStartOfDay(), endDate.atStartOfDay()).toDays().toInt() * 5
 
         return PrayerStatistics(prayed.size, totalPrayers)
     }
