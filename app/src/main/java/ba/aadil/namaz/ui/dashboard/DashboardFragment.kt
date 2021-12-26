@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentDashboardBinding
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.time.LocalDate
 
 class DashboardFragment : Fragment() {
-
-    private lateinit var dashboardViewModel: DashboardViewModel
+    private val dashboardViewModel: DashboardViewModel by viewModel()
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
@@ -20,17 +23,33 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
-
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+        return binding.root
+    }
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner, {
-            textView.text = it
-        })
-        return root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dashboardViewModel.getStatsBetweenDays(
+            LocalDate.now().minusDays(7),
+            LocalDate.now()
+        )
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            dashboardViewModel.dateStats.collect {
+                when (it) {
+                    is DashboardViewModel.PrayingStatisticsStats.Data -> {
+                        binding.prayedPrayersStats.text = getString(
+                            R.string.prayed_prayers_stats, it.stats.prayedCount,
+                            it.stats.totalCount
+                        )
+                    }
+                    is DashboardViewModel.PrayingStatisticsStats.Error -> TODO()
+                    DashboardViewModel.PrayingStatisticsStats.Loading -> {
+
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
