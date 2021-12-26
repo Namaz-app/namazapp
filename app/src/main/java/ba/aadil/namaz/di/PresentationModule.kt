@@ -1,5 +1,6 @@
 package ba.aadil.namaz.di
 
+import ba.aadil.namaz.ui.dashboard.DashboardViewModel
 import ba.aadil.namaz.ui.home.HomeViewModel
 import ba.aadil.namaz.ui.tracking.TrackingViewModel
 import org.koin.android.ext.koin.androidContext
@@ -11,8 +12,13 @@ val presentationModule = module {
     viewModel {
         HomeViewModel(get())
     }
+
     viewModel {
         TrackingViewModel(androidContext(), get())
+    }
+
+    viewModel {
+        DashboardViewModel(get())
     }
 }
 

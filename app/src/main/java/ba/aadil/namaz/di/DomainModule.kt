@@ -5,6 +5,7 @@ import ba.aadil.namaz.city.GetStoredCity
 import ba.aadil.namaz.prayertimes.GetPrayerTimeForDate
 import ba.aadil.namaz.prayertimes.GetPrayerTimeForDateRealz
 import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
+import ba.aadil.namaz.stats.GetStatisticsUseCase
 import ba.aadil.namaz.tracking.TrackPrayerUseCase
 import org.koin.dsl.module
 
@@ -20,5 +21,8 @@ val domainModule = module {
     }
     single {
         TrackPrayerUseCase(get(), get())
+    }
+    single {
+        GetStatisticsUseCase(get())
     }
 }
