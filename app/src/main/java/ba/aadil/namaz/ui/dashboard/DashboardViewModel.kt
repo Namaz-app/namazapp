@@ -6,6 +6,7 @@ import ba.aadil.namaz.stats.GetStatisticsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
@@ -14,11 +15,25 @@ class DashboardViewModel(private val getStatisticsUseCase: GetStatisticsUseCase)
     private val _dateStats =
         MutableStateFlow<PrayingStatisticsStats>(PrayingStatisticsStats.Loading)
     val dateStats: StateFlow<PrayingStatisticsStats> = _dateStats
+    private val _fromDate = MutableStateFlow(LocalDate.now().minusDays(7))
+    val fromDate = _fromDate.asStateFlow()
+    private val _toDate = MutableStateFlow(LocalDate.now())
+    val toDate = _toDate.asStateFlow()
 
-    fun getStatsBetweenDays(startDay: LocalDate, endDay: LocalDate) {
+    fun updateFromDate(newDate: LocalDate) {
+        _fromDate.value = newDate
+        getStatsBetweenSelectedDays()
+    }
+
+    fun updateToDate(newDate: LocalDate) {
+        _toDate.value = newDate
+        getStatsBetweenSelectedDays()
+    }
+
+    fun getStatsBetweenSelectedDays() {
         viewModelScope.launch {
             val stats = withContext(Dispatchers.IO) {
-                getStatisticsUseCase.getStatsBetweenDays(startDay, endDay)
+                getStatisticsUseCase.getStatsBetweenDays(fromDate.value, toDate.value)
             }
             _dateStats.value = PrayingStatisticsStats.Data(stats)
         }

@@ -1,5 +1,6 @@
 package ba.aadil.namaz.stats
 
+import ba.aadil.namaz.db.Track
 import ba.aadil.namaz.db.TrackingDao
 import java.time.Duration
 import java.time.LocalDate
@@ -17,11 +18,11 @@ class GetStatisticsUseCase(private val trackingDao: TrackingDao) {
             Duration.between(startDate.atStartOfDay(), endDatePlusDay.atStartOfDay()).toDays()
                 .toInt() * 5
 
-        return PrayerStatistics(prayed.size, totalPrayers)
+        return PrayerStatistics(prayed, totalPrayers)
     }
 
     data class PrayerStatistics(
-        val prayedCount: Int,
+        val prayedCount: List<Track>,
         val totalCount: Int
     )
 }
