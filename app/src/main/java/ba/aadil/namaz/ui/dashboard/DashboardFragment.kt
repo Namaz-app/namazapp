@@ -81,8 +81,6 @@ class DashboardFragment : Fragment() {
             }
         }
 
-        dashboardViewModel.getStatsBetweenSelectedDays()
-
         val yAxisFormatter = object : ValueFormatter() {
             override fun getPointLabel(entry: Entry?): String {
                 return entry?.y?.toInt()?.toString() ?: "0"
@@ -93,8 +91,9 @@ class DashboardFragment : Fragment() {
                 return entry?.x?.toInt()?.toString() ?: "0"
             }
         }
+
         viewLifecycleOwner.lifecycleScope.launch {
-            dashboardViewModel.dateStats.collect {
+            dashboardViewModel.getStatsBetweenSelectedDaysLive().collect {
                 when (it) {
                     is DashboardViewModel.PrayingStatisticsStats.Data -> {
                         val fromDate = dashboardViewModel.fromDate.value.atStartOfDay()
@@ -114,7 +113,7 @@ class DashboardFragment : Fragment() {
                             totalPrayersMap[Track.dateFormatter.format(date)] = 5
                         }
                         it.stats.prayedCount.forEach { track ->
-                            prayedPrayersMap[track.date] = prayedPrayersMap[track.date] ?: 0 + 1
+                            prayedPrayersMap[track.date] = (prayedPrayersMap[track.date] ?: 0) + 1
                         }
                         val dataSets = arrayListOf<ILineDataSet>(
                             LineDataSet(

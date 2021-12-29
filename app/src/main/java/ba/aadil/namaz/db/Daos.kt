@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import ba.aadil.namaz.prayertimes.Events
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PrayerScheduleDao {
@@ -36,4 +37,10 @@ interface TrackingDao {
 
     @Query("select * from tracking where completedDateTime>=:startMillis and completedDateTime<=:endMillis")
     fun getAllCompletedPrayersBetweenTwoDates(startMillis: Long, endMillis: Long): List<Track>
+
+    @Query("select * from tracking where completedDateTime>=:startMillis and completedDateTime<=:endMillis")
+    fun getAllCompletedPrayersBetweenTwoDatesFlow(
+        startMillis: Long,
+        endMillis: Long
+    ): Flow<List<Track>>
 }

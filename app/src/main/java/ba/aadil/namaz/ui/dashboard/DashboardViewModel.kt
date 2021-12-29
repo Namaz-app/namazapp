@@ -4,9 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.stats.GetStatisticsUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.LocalDate
@@ -37,6 +35,21 @@ class DashboardViewModel(private val getStatisticsUseCase: GetStatisticsUseCase)
             }
             _dateStats.value = PrayingStatisticsStats.Data(stats)
         }
+    }
+
+    fun getStatsBetweenSelectedDaysLive(): Flow<PrayingStatisticsStats> {
+        return combine(
+            _fromDate,
+            _toDate,
+            getStatisticsUseCase.getStatsBetweenDaysLive(
+                LocalDate.now(),
+                LocalDate.now()
+            )
+        ) { from, to, _ ->
+            getStatisticsUseCase.getStatsBetweenDays(from, to)
+        }.map {
+            PrayingStatisticsStats.Data(it)
+        }.flowOn(Dispatchers.IO)
     }
 
     sealed class PrayingStatisticsStats {
