@@ -6,12 +6,12 @@ interface GetCurrentCityUseCase {
 
 class GetStoredCity : GetCurrentCityUseCase {
     override suspend fun getId(): Int {
-        return 77
+        return 107
     }
 }
 
 class MockStoredCity : GetCurrentCityUseCase {
     override suspend fun getId(): Int {
-        return 77
+        return 107
     }
 }
