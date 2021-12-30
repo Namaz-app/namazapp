@@ -98,22 +98,20 @@ class DashboardFragment : Fragment() {
                     is DashboardViewModel.PrayingStatisticsStats.Data -> {
                         val fromDate = dashboardViewModel.fromDate.value.atStartOfDay()
                         val toDate =
-                            dashboardViewModel.toDate.value.plusDays(1).atStartOfDay()
+                            dashboardViewModel.toDate.value.atStartOfDay()
                         val days = Duration.between(
                             fromDate,
                             toDate
                         ).toDays().toInt()
                         val totalPrayersMap = HashMap<String, Int>()
                         val prayedPrayersMap = HashMap<String, Int>()
-                        val prayedEntries = it.stats.prayedCount.map {
-                            it.date
-                        }
                         IntRange(0, days).map { day ->
                             val date = fromDate.plusDays(day.toLong())
                             totalPrayersMap[Track.dateFormatter.format(date)] = 5
                         }
-                        it.stats.prayedCount.forEach { track ->
-                            prayedPrayersMap[track.date] = (prayedPrayersMap[track.date] ?: 0) + 1
+                        it.stats.trackedPrayers.forEach { track ->
+                            if (track.completed) prayedPrayersMap[track.date] =
+                                (prayedPrayersMap[track.date] ?: 0) + 1
                         }
                         val dataSets = arrayListOf<ILineDataSet>(
                             LineDataSet(
@@ -148,7 +146,7 @@ class DashboardFragment : Fragment() {
                             invalidate()
                         }
                         binding.prayedPrayersStats.text = getString(
-                            R.string.prayed_prayers_stats, it.stats.prayedCount.size,
+                            R.string.prayed_prayers_stats, it.stats.trackedPrayers.size,
                             it.stats.totalCount
                         )
                     }

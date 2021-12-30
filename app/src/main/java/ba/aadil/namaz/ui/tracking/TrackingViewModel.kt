@@ -74,7 +74,7 @@ class TrackingViewModel(
         val now = LocalDateTime.now()
         val todayDate = LocalDate.now()
         viewModelScope.launch(Dispatchers.IO) {
-            trackPrayerUseCase.markAsPrayed(
+            trackPrayerUseCase.togglePrayed(
                 prayer,
                 Track.dateFormatter.format(todayDate),
                 now,

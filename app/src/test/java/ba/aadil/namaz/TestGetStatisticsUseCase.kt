@@ -24,7 +24,7 @@ class TestGetStatisticsUseCase {
         val twoDaysAgo = today.minusDays(2)
         val stats = getStatisticsUseCase.getStatsBetweenDays(twoDaysAgo, today)
         assertEquals(10, stats.totalCount)
-        assertEquals(1, stats.prayedCount)
+        assertEquals(1, stats.trackedPrayers)
     }
 
     @Test
@@ -42,6 +42,6 @@ class TestGetStatisticsUseCase {
         val startDate = today.minusDays(days.toLong())
         val stats = getStatisticsUseCase.getStatsBetweenDays(startDate, today)
         assertEquals(days * 5, stats.totalCount)
-        assertEquals(1, stats.prayedCount)
+        assertEquals(1, stats.trackedPrayers)
     }
 }

@@ -90,7 +90,7 @@ class TrackPrayerUseCaseTest {
             assertEquals(false, track?.completed)
 
             val completedTime = LocalDateTime.now()
-            trackPrayerUseCase.markAsPrayed(
+            trackPrayerUseCase.togglePrayed(
                 Events.Prayers.MorningPrayer,
                 today.format(Track.dateFormatter),
                 completedTime

@@ -38,7 +38,7 @@ interface TrackingDao {
     @Query("select * from tracking where completedDateTime>=:startMillis and completedDateTime<=:endMillis")
     fun getAllCompletedPrayersBetweenTwoDates(startMillis: Long, endMillis: Long): List<Track>
 
-    @Query("select * from tracking where completedDateTime>=:startMillis and completedDateTime<=:endMillis")
+    @Query("select * from tracking where prayerDateTime>=:startMillis and prayerDateTime<=:endMillis")
     fun getAllCompletedPrayersBetweenTwoDatesFlow(
         startMillis: Long,
         endMillis: Long

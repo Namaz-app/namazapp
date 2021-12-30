@@ -36,7 +36,7 @@ class TrackPrayerUseCase(
         return trackingDao.getPrayerForDay(prayer, dateFormatted).firstOrNull()
     }
 
-    fun markAsPrayed(
+    fun togglePrayed(
         prayer: Events.Prayers,
         prayerDate: String,
         time: LocalDateTime,
