@@ -36,11 +36,16 @@ class TrackPrayerUseCase(
         return trackingDao.getPrayerForDay(prayer, dateFormatted).firstOrNull()
     }
 
-    fun markAsPrayed(prayer: Events.Prayers, prayerDate: String, time: LocalDateTime) {
+    fun markAsPrayed(
+        prayer: Events.Prayers,
+        prayerDate: String,
+        time: LocalDateTime,
+        completed: Boolean
+    ) {
         trackingDao.togglePrayerCompletion(
             prayer,
             prayerDate,
-            true,
+            completed,
             time.toEpochSecond(ZoneOffset.ofTotalSeconds(0))
         )
     }

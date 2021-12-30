@@ -48,7 +48,7 @@ class TrackingFragment : Fragment() {
                 finder.setText(R.id.prayer_name, model.prayerName)
                 finder.setChecked(R.id.prayer_tracking_checkbox, model.track)
                 finder.setOnCheckedChangeListener(R.id.prayer_tracking_checkbox) {
-                    trackingViewModel.markAsPrayed(model.prayer)
+                    trackingViewModel.markAsPrayed(model.prayer, it)
                 }
             })
 

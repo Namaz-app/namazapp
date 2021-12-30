@@ -70,14 +70,15 @@ class TrackingViewModel(
         }
     }
 
-    fun markAsPrayed(prayer: Events.Prayers) {
+    fun markAsPrayed(prayer: Events.Prayers, completed: Boolean) {
         val now = LocalDateTime.now()
         val todayDate = LocalDate.now()
         viewModelScope.launch(Dispatchers.IO) {
             trackPrayerUseCase.markAsPrayed(
                 prayer,
                 Track.dateFormatter.format(todayDate),
-                now
+                now,
+                completed
             )
         }
     }
