@@ -28,7 +28,7 @@ class DashboardViewModel(private val getStatisticsUseCase: GetStatisticsUseCase)
         getStatsBetweenSelectedDays()
     }
 
-    fun getStatsBetweenSelectedDays() {
+    private fun getStatsBetweenSelectedDays() {
         viewModelScope.launch {
             val stats = withContext(Dispatchers.IO) {
                 getStatisticsUseCase.getStatsBetweenDays(fromDate.value, toDate.value)

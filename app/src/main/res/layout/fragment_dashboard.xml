@@ -27,16 +27,23 @@
         app:layout_constraintTop_toTopOf="@id/date_from"
         tools:text="11.11.2012" />
 
-
-    <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/chart"
+    <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="5dp"
         app:layout_constraintBottom_toTopOf="@id/prayed_prayers_stats"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_from" />
+        app:layout_constraintTop_toBottomOf="@id/date_from">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/prayer_completion_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/prayed_prayers_stats"
@@ -51,6 +58,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/chart"
         tools:text="U izabranim datumima ste klanjali 10/10 namaza" />
 </androidx.constraintlayout.widget.ConstraintLayout>

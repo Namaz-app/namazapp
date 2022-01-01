@@ -7,18 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentDashboardBinding
 import ba.aadil.namaz.db.Track
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import ba.aadil.namaz.prayertimes.Events
+import ba.aadil.namaz.stats.GetStatisticsUseCase
+import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
+import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
+import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.time.Duration
 import java.time.LocalDate
 
 class DashboardFragment : Fragment() {
@@ -29,7 +30,7 @@ class DashboardFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -81,78 +82,45 @@ class DashboardFragment : Fragment() {
             }
         }
 
-        val yAxisFormatter = object : ValueFormatter() {
-            override fun getPointLabel(entry: Entry?): String {
-                return entry?.y?.toInt()?.toString() ?: "0"
-            }
-        }
-        val xAxisFormatter = object : ValueFormatter() {
-            override fun getPointLabel(entry: Entry?): String {
-                return entry?.x?.toInt()?.toString() ?: "0"
-            }
+        val rvAdapter = RendererRecyclerViewAdapter()
+        rvAdapter.registerRenderer(
+            ViewRenderer<GetStatisticsUseCase.SinglePrayerStats, ViewFinder>(
+                R.layout.prayer_completion_progress,
+                GetStatisticsUseCase.SinglePrayerStats::class.java
+            ) { model, finder, _ ->
+                val prayerName = when (model.type) {
+                    Events.Prayers.AfterNoonPrayer -> getString(R.string.afternoonPrayer)
+                    Events.Prayers.MorningPrayer -> getString(R.string.morningPrayer)
+                    Events.Prayers.NightPrayer -> getString(R.string.nightPrayer)
+                    Events.Prayers.NoonPrayer -> getString(R.string.noonPrayer)
+                    Events.Prayers.SunsetPrayer -> getString(R.string.sunsetPrayer)
+                }
+                finder.setText(R.id.prayer_name, prayerName)
+                finder.find<LinearProgressIndicator>(R.id.prayer_completion_progress).apply {
+                    max = model.totalCount
+                    progress = model.prayedCount
+                }
+            })
+
+        binding.prayerCompletionList.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = rvAdapter
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
             dashboardViewModel.getStatsBetweenSelectedDaysLive().collect {
                 when (it) {
                     is DashboardViewModel.PrayingStatisticsStats.Data -> {
-                        val fromDate = dashboardViewModel.fromDate.value.atStartOfDay()
-                        val toDate =
-                            dashboardViewModel.toDate.value.atStartOfDay()
-                        val days = Duration.between(
-                            fromDate,
-                            toDate
-                        ).toDays().toInt()
-                        val totalPrayersMap = HashMap<String, Int>()
-                        val prayedPrayersMap = HashMap<String, Int>()
-                        IntRange(0, days).map { day ->
-                            val date = fromDate.plusDays(day.toLong())
-                            totalPrayersMap[Track.dateFormatter.format(date)] = 5
-                        }
-                        it.stats.trackedPrayers.forEach { track ->
-                            if (track.completed) prayedPrayersMap[track.date] =
-                                (prayedPrayersMap[track.date] ?: 0) + 1
-                        }
-                        val dataSets = arrayListOf<ILineDataSet>(
-                            LineDataSet(
-                                totalPrayersMap.keys.mapIndexed { index, key ->
-                                    Entry(
-                                        index.toFloat(),
-                                        totalPrayersMap[key]?.toFloat() ?: 0f
-                                    )
-                                }, "Total"
-                            ).apply {
-                                valueFormatter = yAxisFormatter
-                            },
-                            LineDataSet(
-                                totalPrayersMap.keys.mapIndexed { index, key ->
-                                    Entry(
-                                        index.toFloat(),
-                                        prayedPrayersMap[key]?.toFloat() ?: 0f
-                                    )
-                                }, "Prayed"
-                            ).apply {
-                                valueFormatter = yAxisFormatter
-                                mode = LineDataSet.Mode.HORIZONTAL_BEZIER
-                            },
-                        )
-                        binding.chart.apply {
-                            data = LineData(dataSets)
-                            axisLeft.valueFormatter = yAxisFormatter
-                            axisLeft.setDrawGridLines(false)
-                            setDrawGridBackground(false)
-                            xAxis.valueFormatter = xAxisFormatter
-                            xAxis.setDrawGridLines(false)
-                            invalidate()
-                        }
+                        rvAdapter.setItems(it.stats.states)
+                        rvAdapter.notifyDataSetChanged()
                         binding.prayedPrayersStats.text = getString(
                             R.string.prayed_prayers_stats, it.stats.trackedPrayers.size,
                             it.stats.totalCount
                         )
                     }
-                    is DashboardViewModel.PrayingStatisticsStats.Error -> TODO()
+                    is DashboardViewModel.PrayingStatisticsStats.Error -> {
+                    }
                     DashboardViewModel.PrayingStatisticsStats.Loading -> {
-
                     }
                 }
             }
