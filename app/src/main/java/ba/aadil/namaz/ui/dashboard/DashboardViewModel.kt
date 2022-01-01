@@ -41,7 +41,7 @@ class DashboardViewModel(private val getStatisticsUseCase: GetStatisticsUseCase)
         return combine(
             _fromDate,
             _toDate,
-            getStatisticsUseCase.getStatsBetweenDaysLive(
+            getStatisticsUseCase.getTrackingBetweenDaysLive(
                 LocalDate.now(),
                 LocalDate.now()
             )

@@ -5,7 +5,6 @@ import ba.aadil.namaz.db.TrackingDao
 import ba.aadil.namaz.prayertimes.Events
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import java.time.Duration
 import java.time.LocalDate
 import java.time.ZoneOffset
@@ -32,31 +31,13 @@ class GetStatisticsUseCase(private val trackingDao: TrackingDao) {
         return PrayerStatistics(prayed, prayerStats, totalPrayers)
     }
 
-    fun getStatsBetweenDaysLive(startDate: LocalDate, endDate: LocalDate): Flow<PrayerStatistics> {
+    fun getTrackingBetweenDaysLive(startDate: LocalDate, endDate: LocalDate): Flow<List<Track>> {
         val endDatePlusDay = endDate.plusDays(1)
-        val durationDays =
-            Duration.between(startDate.atStartOfDay(), endDatePlusDay.atStartOfDay()).toDays()
-                .toInt()
-        val totalPrayers = durationDays * 5
         return trackingDao.getAllCompletedPrayersBetweenTwoDatesFlow(
             startDate.atStartOfDay().toEpochSecond(ZoneOffset.ofTotalSeconds(0)),
             endDatePlusDay.atStartOfDay().toEpochSecond(ZoneOffset.ofTotalSeconds(0))
-        ).map { tracks ->
-            val completedMap = hashMapOf<Events.Prayers, Int>()
-            tracks.filter { track -> track.completed }.forEach { track ->
-                completedMap[track.prayer] = (completedMap[track.prayer] ?: 0) + 1
-            }
-            val prayerStats = completedMap.keys.map { key ->
-                SinglePrayerStats(key, completedMap[key] ?: 0, totalPrayers)
-            }
-            PrayerStatistics(tracks, prayerStats, totalPrayers)
-        }
+        )
     }
-
-    data class TotalPrayedStats(
-        val trackedPrayers: List<Track>,
-        val totalCount: Int,
-    )
 
     data class PrayerStatistics(
         val trackedPrayers: List<Track>,
