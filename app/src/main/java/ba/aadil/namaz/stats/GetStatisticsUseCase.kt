@@ -24,8 +24,19 @@ class GetStatisticsUseCase(private val trackingDao: TrackingDao) {
         prayed.filter { track -> track.completed }.forEach { track ->
             completedMap[track.prayer] = (completedMap[track.prayer] ?: 0) + 1
         }
+
+        listOf(
+            Events.Prayers.MorningPrayer,
+            Events.Prayers.NoonPrayer,
+            Events.Prayers.AfterNoonPrayer,
+            Events.Prayers.SunsetPrayer,
+            Events.Prayers.NightPrayer,
+        ).forEach {
+            completedMap[it] = completedMap[it] ?: 0
+        }
+
         val prayerStats = completedMap.keys.map { key ->
-            SinglePrayerStats(key, completedMap[key] ?: 0, days)
+            SinglePrayerStats(key, completedMap[key] ?: 0, days, key.sortWeight)
         }
 
         return PrayerStatistics(prayed, prayerStats, totalPrayers)
@@ -49,5 +60,6 @@ class GetStatisticsUseCase(private val trackingDao: TrackingDao) {
         val type: Events.Prayers,
         val prayedCount: Int,
         val totalCount: Int,
+        val sortWeight: Int,
     ) : ViewModel
 }

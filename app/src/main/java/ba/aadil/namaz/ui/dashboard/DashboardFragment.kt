@@ -111,7 +111,7 @@ class DashboardFragment : Fragment() {
             dashboardViewModel.getStatsBetweenSelectedDaysLive().collect {
                 when (it) {
                     is DashboardViewModel.PrayingStatisticsStats.Data -> {
-                        rvAdapter.setItems(it.stats.states)
+                        rvAdapter.setItems(it.stats.states.sortedBy { prayerStats -> prayerStats.sortWeight })
                         rvAdapter.notifyDataSetChanged()
                         binding.prayedPrayersStats.text = getString(
                             R.string.prayed_prayers_stats, it.stats.trackedPrayers.size,
