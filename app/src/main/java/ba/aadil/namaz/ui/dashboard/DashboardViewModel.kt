@@ -1,12 +1,9 @@
 package ba.aadil.namaz.ui.dashboard
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.stats.GetStatisticsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.time.LocalDate
 
 class DashboardViewModel(private val getStatisticsUseCase: GetStatisticsUseCase) : ViewModel() {
@@ -20,21 +17,10 @@ class DashboardViewModel(private val getStatisticsUseCase: GetStatisticsUseCase)
 
     fun updateFromDate(newDate: LocalDate) {
         _fromDate.value = newDate
-        getStatsBetweenSelectedDays()
     }
 
     fun updateToDate(newDate: LocalDate) {
         _toDate.value = newDate
-        getStatsBetweenSelectedDays()
-    }
-
-    private fun getStatsBetweenSelectedDays() {
-        viewModelScope.launch {
-            val stats = withContext(Dispatchers.IO) {
-                getStatisticsUseCase.getStatsBetweenDays(fromDate.value, toDate.value)
-            }
-            _dateStats.value = PrayingStatisticsStats.Data(stats)
-        }
     }
 
     fun getStatsBetweenSelectedDaysLive(): Flow<PrayingStatisticsStats> {
@@ -46,15 +32,23 @@ class DashboardViewModel(private val getStatisticsUseCase: GetStatisticsUseCase)
                 LocalDate.now()
             )
         ) { from, to, _ ->
-            getStatisticsUseCase.getStatsBetweenDays(from, to)
-        }.map {
-            PrayingStatisticsStats.Data(it)
+            Pair(
+                getStatisticsUseCase.getStatsBetweenDays(from, to),
+                getStatisticsUseCase.getStatsBetweenDays(from, to),
+            )
+        }.map { (selectedDates, today) ->
+            PrayingStatisticsStats.Data(data = selectedDates,
+                prayedTodayCount = today.trackedPrayers.count { it.completed })
         }.flowOn(Dispatchers.IO)
     }
 
     sealed class PrayingStatisticsStats {
         object Loading : PrayingStatisticsStats()
-        data class Data(val stats: GetStatisticsUseCase.PrayerStatistics) : PrayingStatisticsStats()
+        data class Data(
+            val data: GetStatisticsUseCase.PrayerStatistics,
+            val prayedTodayCount: Int,
+        ) : PrayingStatisticsStats()
+
         class Error(val error: String) : PrayingStatisticsStats()
     }
 }

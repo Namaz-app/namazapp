@@ -52,7 +52,7 @@ class GetStatisticsUseCase(private val trackingDao: TrackingDao) {
 
     data class PrayerStatistics(
         val trackedPrayers: List<Track>,
-        val states: List<SinglePrayerStats>,
+        val stats: List<SinglePrayerStats>,
         val totalCount: Int,
     )
 

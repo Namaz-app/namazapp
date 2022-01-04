@@ -13,4 +13,5 @@
     <string name="morningPrayer">Sabah</string>
     <string name="tracking_tab_title">Namaz</string>
     <string name="prayed_prayers_stats">U izabranoj sedmici klanjali ste %1$d/%2$d namaza</string>
+    <string name="prayed_today_stats">%1$d / 5</string>
 </resources>
