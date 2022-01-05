@@ -12,11 +12,34 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dashboard_margins"
         android:layout_marginTop="20dp"
-        android:text="Danas"
+        android:text="@string/danas"
         android:textColor="#626363"
-        android:textSize="18sp"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.emoji2.widget.EmojiTextView
+        android:id="@+id/today_emoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dashboard_margins"
+        android:text="🤩"
+        android:textColor="#626363"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/today_title"
+        app:layout_constraintTop_toTopOf="@id/today_title" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/today_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/congrats_gods_blessings"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/today_emoji"
+        app:layout_constraintStart_toStartOf="@id/today_emoji"
+        app:layout_constraintTop_toBottomOf="@id/today_emoji" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/prayed_count_bg"
@@ -37,12 +60,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="40dp"
         android:text="5 / 5"
         android:textColor="@color/white"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@id/today_title"
-        app:layout_constraintTop_toBottomOf="@id/today_title" />
+        app:layout_constraintTop_toBottomOf="@id/today_emoji" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/date_from"

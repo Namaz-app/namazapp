@@ -14,4 +14,6 @@
     <string name="tracking_tab_title">Namaz</string>
     <string name="prayed_prayers_stats">U izabranoj sedmici klanjali ste %1$d/%2$d namaza</string>
     <string name="prayed_today_stats">%1$d / 5</string>
+    <string name="danas">Danas</string>
+    <string name="congrats_gods_blessings">MasaAllah! \n Da Allah dž.š ukabuli</string>
 </resources>
