@@ -31,14 +31,14 @@ class DashboardViewModel(private val getStatisticsUseCase: GetStatisticsUseCase)
                 LocalDate.now(),
                 LocalDate.now()
             )
-        ) { from, to, _ ->
+        ) { from, to, todayStats ->
             Pair(
                 getStatisticsUseCase.getStatsBetweenDays(from, to),
-                getStatisticsUseCase.getStatsBetweenDays(from, to),
+                todayStats
             )
         }.map { (selectedDates, today) ->
             PrayingStatisticsStats.Data(data = selectedDates,
-                prayedTodayCount = today.trackedPrayers.count { it.completed })
+                prayedTodayCount = today.count { it.completed })
         }.flowOn(Dispatchers.IO)
     }
 
