@@ -2,6 +2,7 @@ package ba.aadil.namaz.di
 
 import ba.aadil.namaz.city.GetCurrentCityUseCase
 import ba.aadil.namaz.city.GetStoredCity
+import ba.aadil.namaz.motivation.GetEmojiAndCongratsForPrayedPrayers
 import ba.aadil.namaz.prayertimes.GetPrayerTimeForDate
 import ba.aadil.namaz.prayertimes.GetPrayerTimeForDateRealz
 import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
@@ -24,5 +25,8 @@ val domainModule = module {
     }
     single {
         GetStatisticsUseCase(get())
+    }
+    single {
+        GetEmojiAndCongratsForPrayedPrayers()
     }
 }

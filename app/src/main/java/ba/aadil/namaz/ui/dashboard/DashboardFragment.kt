@@ -119,6 +119,8 @@ class DashboardFragment : Fragment() {
                         )
                         binding.prayedCount.text =
                             getString(R.string.prayed_today_stats, it.prayedTodayCount)
+                        binding.todayEmoji.text = it.emoji
+                        binding.todayMessage.text = getString(it.congratsTextId)
                     }
                     is DashboardViewModel.PrayingStatisticsStats.Error -> {
                     }
