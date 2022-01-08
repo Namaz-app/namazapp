@@ -24,7 +24,11 @@ class DashboardViewModel(
     }
 
     fun updateToDate(newDate: LocalDate) {
-        _toDate.value = newDate
+        _toDate.value = when {
+            newDate.isAfter(LocalDate.now()) -> LocalDate.now()
+            newDate.isBefore(_fromDate.value) -> LocalDate.now()
+            else -> newDate
+        }
     }
 
     fun getStatsBetweenSelectedDaysLive(): Flow<PrayingStatisticsStats> {

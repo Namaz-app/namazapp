@@ -23,12 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dashboard_margins"
-        tools:text="🤩"
         android:textColor="#626363"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/today_title"
-        app:layout_constraintTop_toTopOf="@id/today_title" />
+        app:layout_constraintTop_toTopOf="@id/today_title"
+        tools:text="🤩" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/today_message"
@@ -41,18 +41,17 @@
         app:layout_constraintStart_toStartOf="@id/today_emoji"
         app:layout_constraintTop_toBottomOf="@id/today_emoji" />
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/prayed_count_bg"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@color/teal_primary"
+        android:background="@drawable/rounded_background"
         app:layout_constraintBottom_toBottomOf="@id/prayed_count"
         app:layout_constraintCircleRadius="25dp"
         app:layout_constraintEnd_toEndOf="@id/prayed_count"
         app:layout_constraintStart_toStartOf="@id/prayed_count"
         app:layout_constraintTop_toTopOf="@id/prayed_count"
         app:shapeAppearanceOverlay="@style/shapeAppearanceRounded"
-        app:strokeColor="@color/teal_secondary"
         app:strokeWidth="10dp" />
 
     <com.google.android.material.textview.MaterialTextView
