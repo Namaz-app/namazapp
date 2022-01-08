@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="vertical_margin_prayers_row">20dp</dimen>
     <dimen name="dashboard_margins">20dp</dimen>
+    <dimen name="vaktija_prayer_horizontal_margin">20dp</dimen>
 </resources>
