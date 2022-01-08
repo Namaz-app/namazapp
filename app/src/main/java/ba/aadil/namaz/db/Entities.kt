@@ -42,10 +42,11 @@ data class Track(
     val completed: Boolean,
     val date: String,
     val prayerDateTime: Long,
-    val completedDateTime: Long
+    val completedDateTime: Long,
 ) {
     companion object {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
+        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
     }
 }
 

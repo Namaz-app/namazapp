@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
+import ba.aadil.namaz.city.GetCurrentDateTimeAndCity
 import ba.aadil.namaz.databinding.FragmentHomeBinding
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
@@ -27,7 +28,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -42,11 +43,23 @@ class HomeFragment : Fragment() {
             ViewRenderer<PrayerUIModel, ViewFinder>(
                 R.layout.prayer_layout,
                 PrayerUIModel::class.java
-            ) { model,
-                finder,
-                _ ->
+            ) {
+                    model,
+                    finder,
+                    _,
+                ->
                 finder.setText(R.id.prayer_name, model.name)
                 finder.setText(R.id.prayer_time, model.time)
+            })
+
+        rvAdapter.registerRenderer(
+            ViewRenderer<GetCurrentDateTimeAndCity.Data, ViewFinder>(
+                R.layout.date_time_city_layout,
+                GetCurrentDateTimeAndCity.Data::class.java
+            ) { model, finder, _ ->
+                finder.setText(R.id.current_city, model.city)
+                finder.setText(R.id.current_time, model.time)
+                finder.setText(R.id.current_date, model.date)
             })
 
         binding.prayersRv.apply {
@@ -55,18 +68,22 @@ class HomeFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.prayersSchedule.filterNotNull().collect {
+            homeViewModel.data.filterNotNull().collect { (vaktijaModel, dateTimeCity) ->
                 rvAdapter.setItems(
                     listOf(
-                        PrayerUIModel(name = getString(R.string.dusk), it.morningPrayer),
-                        PrayerUIModel(name = getString(R.string.sunrise), it.sunrise),
-                        PrayerUIModel(name = getString(R.string.noonPrayer), it.noonPrayer),
+                        dateTimeCity,
+                        PrayerUIModel(name = getString(R.string.dusk), vaktijaModel.morningPrayer),
+                        PrayerUIModel(name = getString(R.string.sunrise), vaktijaModel.sunrise),
+                        PrayerUIModel(name = getString(R.string.noonPrayer),
+                            vaktijaModel.noonPrayer),
                         PrayerUIModel(
                             name = getString(R.string.afternoonPrayer),
-                            it.afterNoonPrayer
+                            vaktijaModel.afterNoonPrayer
                         ),
-                        PrayerUIModel(name = getString(R.string.sunsetPrayer), it.sunsetPrayer),
-                        PrayerUIModel(name = getString(R.string.nightPrayer), it.nightPrayer)
+                        PrayerUIModel(name = getString(R.string.sunsetPrayer),
+                            vaktijaModel.sunsetPrayer),
+                        PrayerUIModel(name = getString(R.string.nightPrayer),
+                            vaktijaModel.nightPrayer)
                     )
                 )
                 rvAdapter.notifyDataSetChanged()

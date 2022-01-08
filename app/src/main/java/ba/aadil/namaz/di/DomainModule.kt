@@ -1,6 +1,7 @@
 package ba.aadil.namaz.di
 
 import ba.aadil.namaz.city.GetCurrentCityUseCase
+import ba.aadil.namaz.city.GetCurrentDateTimeAndCity
 import ba.aadil.namaz.city.GetStoredCity
 import ba.aadil.namaz.motivation.GetEmojiAndCongratsForPrayedPrayers
 import ba.aadil.namaz.prayertimes.GetPrayerTimeForDate
@@ -28,5 +29,8 @@ val domainModule = module {
     }
     single {
         GetEmojiAndCongratsForPrayedPrayers()
+    }
+    single {
+        GetCurrentDateTimeAndCity(get())
     }
 }
