@@ -46,7 +46,7 @@ data class Track(
 ) {
     companion object {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
-        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+        val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME
     }
 }
 

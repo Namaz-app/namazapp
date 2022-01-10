@@ -10,21 +10,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:textColor="@color/text_gray"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="13:03" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/location_dot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_location_dot"
+        app:layout_constraintEnd_toStartOf="@id/current_city"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_time" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/current_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:textColor="@color/text_gray"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/location_dot"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_time"
+        app:layout_constraintStart_toEndOf="@id/location_dot"
+        app:layout_constraintTop_toTopOf="@id/location_dot"
         tools:text="Sarajevo" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -32,9 +46,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:lineSpacingExtra="8sp"
+        android:textColor="@color/text_gray"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_city"
+        app:layout_constraintTop_toBottomOf="@id/location_dot"
         tools:text="pon, 22 novembar 2021 / 17. rebi'u-l-ahir 1443" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
