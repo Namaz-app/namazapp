@@ -47,6 +47,8 @@ data class Track(
     companion object {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE
         val dateTimeFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME
+        val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+        val timeFormatterNoSeconds: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     }
 }
 

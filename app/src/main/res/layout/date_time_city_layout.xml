@@ -17,17 +17,43 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="13:03" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/till_next_prayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="7dp"
+        android:textColor="@color/text_gray"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/current_time"
+        tools:text="13:03" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/till_next_prayer_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="7dp"
+        android:text="@string/till_next_prayer"
+        android:textColor="@color/text_gray"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/till_next_prayer" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/location_dot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="12dp"
         android:src="@drawable/ic_location_dot"
         app:layout_constraintEnd_toStartOf="@id/current_city"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_time" />
+        app:layout_constraintTop_toBottomOf="@id/till_next_prayer_desc" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/current_city"

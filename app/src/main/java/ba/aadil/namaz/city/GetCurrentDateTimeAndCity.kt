@@ -1,7 +1,6 @@
 package ba.aadil.namaz.city
 
 import ba.aadil.namaz.db.Track
-import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -15,5 +14,5 @@ class GetCurrentDateTimeAndCity(private val getCurrentCityUseCase: GetCurrentCit
     }
 
 
-    data class Data(val city: String, val date: String, val time: String) : ViewModel
+    data class Data(val city: String, val date: String, val time: String)
 }
