@@ -53,13 +53,14 @@ class HomeFragment : Fragment() {
             })
 
         rvAdapter.registerRenderer(
-            ViewRenderer<GetCurrentDateTimeAndCity.Data, ViewFinder>(
+            ViewRenderer<CurrentCityTimeTillNext, ViewFinder>(
                 R.layout.date_time_city_layout,
-                GetCurrentDateTimeAndCity.Data::class.java
+                CurrentCityTimeTillNext::class.java
             ) { model, finder, _ ->
-                finder.setText(R.id.current_city, model.city)
-                finder.setText(R.id.current_time, model.time)
-                finder.setText(R.id.current_date, model.date)
+                finder.setText(R.id.current_city, model.dateTimeCity.city)
+                finder.setText(R.id.current_time, model.dateTimeCity.time)
+                finder.setText(R.id.till_next_prayer, model.timeTillNextPrayer)
+                finder.setText(R.id.current_date, model.dateTimeCity.date)
             })
 
         binding.prayersRv.apply {
@@ -68,32 +69,38 @@ class HomeFragment : Fragment() {
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            homeViewModel.data.filterNotNull().collect { (vaktijaModel, dateTimeCity) ->
-                rvAdapter.setItems(
-                    listOf(
-                        dateTimeCity,
-                        PrayerUIModel(name = getString(R.string.dusk), vaktijaModel.morningPrayer),
-                        PrayerUIModel(name = getString(R.string.sunrise), vaktijaModel.sunrise),
-                        PrayerUIModel(name = getString(R.string.noonPrayer),
-                            vaktijaModel.noonPrayer),
-                        PrayerUIModel(
-                            name = getString(R.string.afternoonPrayer),
-                            vaktijaModel.afterNoonPrayer
-                        ),
-                        PrayerUIModel(name = getString(R.string.sunsetPrayer),
-                            vaktijaModel.sunsetPrayer),
-                        PrayerUIModel(name = getString(R.string.nightPrayer),
-                            vaktijaModel.nightPrayer)
+            homeViewModel.data.filterNotNull()
+                .collect { (vaktijaModel, dateTimeCity, timeTillNextPrayer) ->
+                    rvAdapter.setItems(
+                        listOf(
+                            CurrentCityTimeTillNext(dateTimeCity, timeTillNextPrayer),
+                            PrayerUIModel(name = getString(R.string.dusk),
+                                vaktijaModel.morningPrayer),
+                            PrayerUIModel(name = getString(R.string.sunrise), vaktijaModel.sunrise),
+                            PrayerUIModel(name = getString(R.string.noonPrayer),
+                                vaktijaModel.noonPrayer),
+                            PrayerUIModel(
+                                name = getString(R.string.afternoonPrayer),
+                                vaktijaModel.afterNoonPrayer
+                            ),
+                            PrayerUIModel(name = getString(R.string.sunsetPrayer),
+                                vaktijaModel.sunsetPrayer),
+                            PrayerUIModel(name = getString(R.string.nightPrayer),
+                                vaktijaModel.nightPrayer)
+                        )
                     )
-                )
-                rvAdapter.notifyDataSetChanged()
-            }
+                    rvAdapter.notifyDataSetChanged()
+                }
         }
 
         homeViewModel.getPrayersSchedule()
     }
 
-    class PrayerUIModel(val name: String, val time: String) : ViewModel
+    data class PrayerUIModel(val name: String, val time: String) : ViewModel
+    data class CurrentCityTimeTillNext(
+        val dateTimeCity: GetCurrentDateTimeAndCity.Data,
+        val timeTillNextPrayer: String,
+    ) : ViewModel
 
     override fun onDestroyView() {
         super.onDestroyView()

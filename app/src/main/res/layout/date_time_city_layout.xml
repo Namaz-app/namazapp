@@ -5,16 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/green_circle"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="@id/till_next_prayer_desc"
+        app:layout_constraintStart_toStartOf="@id/till_next_prayer_desc"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/green_circle" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/current_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
         android:textColor="@color/text_gray"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/till_next_prayer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:text="13:03" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -25,9 +36,10 @@
         android:lineSpacingExtra="7dp"
         android:textColor="@color/text_gray"
         android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/green_circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/current_time"
+        app:layout_constraintTop_toTopOf="@id/green_circle"
         tools:text="13:03" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -53,7 +65,7 @@
         app:layout_constraintEnd_toStartOf="@id/current_city"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/till_next_prayer_desc" />
+        app:layout_constraintTop_toBottomOf="@id/green_circle" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/current_city"
