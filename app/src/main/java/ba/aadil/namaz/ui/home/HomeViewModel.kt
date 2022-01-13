@@ -28,7 +28,6 @@ class HomeViewModel(
     private val _untilNextPrayer =
         MutableStateFlow<Pair<LocalDateTime, Events.Prayers>>(Pair(LocalDateTime.now(),
             Events.Prayers.MorningPrayer))
-    val dateTimeCity = _dateTimeCity.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -52,7 +51,10 @@ class HomeViewModel(
         val durationMinutes = durationBetween.minusHours(durationHours).toMinutes()
         val durationSeconds =
             durationBetween.minusHours(durationHours).minusMinutes(durationMinutes).seconds
-        return "$durationHours:$durationMinutes:$durationSeconds"
+        return "${String.format("%02d", durationHours)}:${
+            String.format("%02d",
+                durationMinutes)
+        }:${String.format("%02d", durationSeconds)}"
     }
 
     fun getPrayersSchedule() {
@@ -74,7 +76,6 @@ class HomeViewModel(
             }
         }
     }
-
 }
 
 data class VaktijaUIModel(
