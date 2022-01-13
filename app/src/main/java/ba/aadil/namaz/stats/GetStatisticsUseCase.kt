@@ -54,7 +54,7 @@ class GetStatisticsUseCase(private val trackingDao: TrackingDao) {
         val trackedPrayers: List<Track>,
         val stats: List<SinglePrayerStats>,
         val totalCount: Int,
-    )
+    ) : ViewModel
 
     data class SinglePrayerStats(
         val type: Events.Prayers,

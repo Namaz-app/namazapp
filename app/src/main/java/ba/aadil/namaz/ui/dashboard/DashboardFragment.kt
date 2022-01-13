@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.stats.GetStatisticsUseCase
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlinx.coroutines.flow.collect
@@ -39,49 +41,6 @@ class DashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.dateFrom.setOnClickListener {
-            context?.let {
-                DatePickerDialog(
-                    it,
-                    { _, year, month, day ->
-                        val fromLocalDate =
-                            LocalDate.now().withYear(year).withMonth(month + 1).withDayOfMonth(day)
-                        dashboardViewModel.updateFromDate(fromLocalDate)
-                    },
-                    dashboardViewModel.fromDate.value.year,
-                    dashboardViewModel.fromDate.value.monthValue - 1,
-                    dashboardViewModel.fromDate.value.dayOfMonth
-                ).show()
-            }
-        }
-
-        binding.dateTo.setOnClickListener {
-            context?.let {
-                DatePickerDialog(
-                    it,
-                    { _, year, month, day ->
-                        val toLocalDate =
-                            LocalDate.now().withYear(year).withMonth(month + 1).withDayOfMonth(day)
-                        dashboardViewModel.updateToDate(toLocalDate)
-                    },
-                    dashboardViewModel.toDate.value.year,
-                    dashboardViewModel.toDate.value.monthValue - 1,
-                    dashboardViewModel.toDate.value.dayOfMonth
-                ).show()
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            dashboardViewModel.fromDate.collect {
-                binding.dateFrom.text = it.format(Track.dateFormatter)
-            }
-        }
-        viewLifecycleOwner.lifecycleScope.launch {
-            dashboardViewModel.toDate.collect {
-                binding.dateTo.text = it.format(Track.dateFormatter)
-            }
-        }
-
         val rvAdapter = RendererRecyclerViewAdapter()
         rvAdapter.registerRenderer(
             ViewRenderer<GetStatisticsUseCase.SinglePrayerStats, ViewFinder>(
@@ -101,8 +60,84 @@ class DashboardFragment : Fragment() {
                     progress = model.prayedCount
                 }
             })
+        rvAdapter.registerRenderer(
+            ViewRenderer<DashboardViewModel.SelectedDaysStats, ViewFinder>(
+                R.layout.dashboard_selected_dates_stats,
+                DashboardViewModel.SelectedDaysStats::class.java
+            ) { model, finder, _ ->
+                finder.setText(R.id.prayed_prayers_stats,
+                    getString(R.string.prayed_prayers_stats, model.prayedCount, model.totalPrayers)
+                )
+            }
+        )
+        rvAdapter.registerRenderer(
+            ViewRenderer<DashboardViewModel.PrayingStatisticsStats.Data, ViewFinder>(
+                R.layout.dashboard_stats,
+                DashboardViewModel.PrayingStatisticsStats.Data::class.java
+            ) { model, finder, _ ->
 
-        binding.prayerCompletionList.apply {
+                finder.setText(R.id.prayed_count,
+                    getString(R.string.prayed_today_stats, model.prayedTodayCount))
+                finder.setText(R.id.today_emoji, model.emoji)
+                finder.setText(R.id.today_message, model.congratsTextId)
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    dashboardViewModel.fromDate.collect {
+                        finder.find<Button>(R.id.date_from).apply {
+                            text = it.format(Track.dateFormatter)
+                        }
+                    }
+                }
+
+                viewLifecycleOwner.lifecycleScope.launch {
+                    dashboardViewModel.toDate.collect {
+                        finder.find<Button>(R.id.date_to).apply {
+                            text = it.format(Track.dateFormatter)
+                        }
+                    }
+                }
+
+                finder.find<Button>(R.id.date_from).apply {
+                    setOnClickListener {
+                        context?.let {
+                            DatePickerDialog(
+                                it,
+                                { _, year, month, day ->
+                                    val fromLocalDate =
+                                        LocalDate.now().withYear(year).withMonth(month + 1)
+                                            .withDayOfMonth(day)
+                                    dashboardViewModel.updateFromDate(fromLocalDate)
+                                },
+                                dashboardViewModel.fromDate.value.year,
+                                dashboardViewModel.fromDate.value.monthValue - 1,
+                                dashboardViewModel.fromDate.value.dayOfMonth
+                            ).show()
+                        }
+                    }
+                }
+
+                finder.find<Button>(R.id.date_to).apply {
+                    setOnClickListener {
+                        context?.let {
+                            DatePickerDialog(
+                                it,
+                                { _, year, month, day ->
+                                    val toLocalDate =
+                                        LocalDate.now().withYear(year).withMonth(month + 1)
+                                            .withDayOfMonth(day)
+                                    dashboardViewModel.updateToDate(toLocalDate)
+                                },
+                                dashboardViewModel.toDate.value.year,
+                                dashboardViewModel.toDate.value.monthValue - 1,
+                                dashboardViewModel.toDate.value.dayOfMonth
+                            ).show()
+                        }
+                    }
+                }
+            }
+        )
+
+        binding.dashboardRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
         }
@@ -111,16 +146,11 @@ class DashboardFragment : Fragment() {
             dashboardViewModel.getStatsBetweenSelectedDaysLive().collect {
                 when (it) {
                     is DashboardViewModel.PrayingStatisticsStats.Data -> {
-                        rvAdapter.setItems(it.data.stats.sortedBy { prayerStats -> prayerStats.sortWeight })
+                        val items = mutableListOf<ViewModel>(it)
+                        items.addAll(it.data.stats.sortedBy { prayerStats -> prayerStats.sortWeight })
+                        items.add(it.selectedDaysStats)
+                        rvAdapter.setItems(items)
                         rvAdapter.notifyDataSetChanged()
-                        binding.prayedPrayersStats.text = getString(
-                            R.string.prayed_prayers_stats, it.data.trackedPrayers.size,
-                            it.data.totalCount
-                        )
-                        binding.prayedCount.text =
-                            getString(R.string.prayed_today_stats, it.prayedTodayCount)
-                        binding.todayEmoji.text = it.emoji
-                        binding.todayMessage.text = getString(it.congratsTextId)
                     }
                     is DashboardViewModel.PrayingStatisticsStats.Error -> {
                     }

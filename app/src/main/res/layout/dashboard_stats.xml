@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/today_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dashboard_margins"
+        android:layout_marginTop="20dp"
+        android:text="@string/danas"
+        android:textColor="#626363"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.emoji2.widget.EmojiTextView
+        android:id="@+id/today_emoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dashboard_margins"
+        android:textColor="#626363"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/today_title"
+        app:layout_constraintTop_toTopOf="@id/today_title"
+        tools:text="🤩" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/today_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/congrats_gods_blessings"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/prayed_count_bg"
+        app:layout_constraintTop_toBottomOf="@id/today_emoji" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/prayed_count_bg"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintBottom_toBottomOf="@id/prayed_count"
+        app:layout_constraintCircleRadius="25dp"
+        app:layout_constraintEnd_toEndOf="@id/prayed_count"
+        app:layout_constraintStart_toStartOf="@id/prayed_count"
+        app:layout_constraintTop_toTopOf="@id/prayed_count"
+        app:shapeAppearanceOverlay="@style/shapeAppearanceRounded"
+        app:strokeWidth="10dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/prayed_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="5 / 5"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@id/today_title"
+        app:layout_constraintTop_toBottomOf="@id/today_emoji" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/date_from"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
+        app:layout_constraintEnd_toStartOf="@id/date_to"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/today_message"
+        tools:text="11.11.2012" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/date_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/date_from"
+        app:layout_constraintTop_toTopOf="@id/date_from"
+        tools:text="11.11.2012" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

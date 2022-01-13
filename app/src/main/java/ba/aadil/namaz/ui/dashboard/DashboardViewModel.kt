@@ -1,8 +1,8 @@
 package ba.aadil.namaz.ui.dashboard
 
-import androidx.lifecycle.ViewModel
 import ba.aadil.namaz.motivation.GetEmojiAndCongratsForPrayedPrayers
 import ba.aadil.namaz.stats.GetStatisticsUseCase
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import java.time.LocalDate
@@ -10,7 +10,7 @@ import java.time.LocalDate
 class DashboardViewModel(
     private val getStatisticsUseCase: GetStatisticsUseCase,
     private val getEmojiAndCongratsForPrayedPrayers: GetEmojiAndCongratsForPrayedPrayers,
-) : ViewModel() {
+) : androidx.lifecycle.ViewModel() {
     private val _dateStats =
         MutableStateFlow<PrayingStatisticsStats>(PrayingStatisticsStats.Loading)
     val dateStats: StateFlow<PrayingStatisticsStats> = _dateStats
@@ -50,18 +50,23 @@ class DashboardViewModel(
             PrayingStatisticsStats.Data(data = selectedDates,
                 prayedTodayCount = prayedTodayCount,
                 congratsTextId = emoji.first,
-                emoji = emoji.second
+                emoji = emoji.second,
+                selectedDaysStats = SelectedDaysStats(selectedDates.trackedPrayers.size,
+                    selectedDates.totalCount)
             )
         }.flowOn(Dispatchers.IO)
     }
 
-    sealed class PrayingStatisticsStats {
+    data class SelectedDaysStats(val prayedCount: Int, val totalPrayers: Int) : ViewModel
+
+    sealed class PrayingStatisticsStats : ViewModel {
         object Loading : PrayingStatisticsStats()
         data class Data(
             val data: GetStatisticsUseCase.PrayerStatistics,
             val prayedTodayCount: Int,
             val emoji: String,
             val congratsTextId: Int,
+            val selectedDaysStats: SelectedDaysStats,
         ) : PrayingStatisticsStats()
 
         class Error(val error: String) : PrayingStatisticsStats()
