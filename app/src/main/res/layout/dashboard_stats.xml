@@ -65,6 +65,13 @@
         app:layout_constraintStart_toStartOf="@id/today_title"
         app:layout_constraintTop_toBottomOf="@id/today_emoji" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/top_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="today_message, prayed_count_bg" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/date_from"
         android:layout_width="wrap_content"
@@ -73,7 +80,7 @@
         android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
         app:layout_constraintEnd_toStartOf="@id/date_to"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today_message"
+        app:layout_constraintTop_toBottomOf="@id/top_barrier"
         tools:text="11.11.2012" />
 
     <com.google.android.material.button.MaterialButton
