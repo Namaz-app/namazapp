@@ -7,6 +7,8 @@ import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.prayertimes.GetPrayerTimeForDate
 import ba.aadil.namaz.tracking.TrackPrayerUseCase
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import java.time.LocalDate
@@ -20,7 +22,7 @@ class TrackPrayerUseCaseTest {
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: Events.Prayers
+                event: Events.Prayers,
             ): Result<LocalDateTime> {
                 return Result(null, null)
             }
@@ -44,7 +46,7 @@ class TrackPrayerUseCaseTest {
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: Events.Prayers
+                event: Events.Prayers,
             ): Result<LocalDateTime> {
                 return Result(fakeDate, null)
             }
@@ -77,7 +79,7 @@ class TrackPrayerUseCaseTest {
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: Events.Prayers
+                event: Events.Prayers,
             ): Result<LocalDateTime> {
                 return Result(fakeDate, null)
             }
@@ -93,7 +95,8 @@ class TrackPrayerUseCaseTest {
             trackPrayerUseCase.togglePrayed(
                 Events.Prayers.MorningPrayer,
                 today.format(Track.dateFormatter),
-                completedTime
+                completedTime,
+                true
             )
 
             assertEquals(
@@ -122,7 +125,7 @@ class TrackPrayerUseCaseTest {
             prayer: Events.Prayers,
             date: String,
             completed: Boolean,
-            completedTime: Long
+            completedTime: Long,
         ) {
             togglePrayerValue = prayer
             toggleCompleted = completed
@@ -131,9 +134,16 @@ class TrackPrayerUseCaseTest {
 
         override fun getAllCompletedPrayersBetweenTwoDates(
             startMillis: Long,
-            endMillis: Long
+            endMillis: Long,
         ): List<Track> {
             return listOf()
+        }
+
+        override fun getAllCompletedPrayersBetweenTwoDatesFlow(
+            startEpoch: Long,
+            endEpoch: Long,
+        ): Flow<List<Track>> {
+            return flowOf()
         }
     }
 }

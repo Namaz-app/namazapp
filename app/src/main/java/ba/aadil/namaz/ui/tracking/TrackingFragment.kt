@@ -79,6 +79,9 @@ class TrackingFragment : Fragment() {
     class TrackingUIModel(val prayerName: String, val track: Boolean, val prayer: Events.Prayers) :
         ViewModel
 
+    class TrackingHeader(val prayerName: String, val track: Boolean, val prayer: Events.Prayers) :
+        ViewModel
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

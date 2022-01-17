@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class GetNextPrayerTime(private val prayerSchedulesUseCase: PrayerSchedulesUseCase) {
-    suspend fun get(): Pair<LocalDateTime, Events.Prayers> {
+    suspend fun get(now: LocalDateTime = LocalDateTime.now()): Pair<LocalDateTime, Events.Prayers> {
         val eventsSchedule = prayerSchedulesUseCase.getPrayerSchedule(LocalDate.now())
         val eventsScheduleTomorrow =
             prayerSchedulesUseCase.getPrayerSchedule(LocalDate.now().plusDays(1))
@@ -35,9 +35,9 @@ class GetNextPrayerTime(private val prayerSchedulesUseCase: PrayerSchedulesUseCa
                 Events.Prayers.NightPrayer))
         }
 
-        return prayerTimes.filter { it.first.isAfter(LocalDateTime.now()) }.map {
-            Pair(Duration.between(it.first, LocalDateTime.now()), it)
-        }.minByOrNull { it.first }?.second ?: Pair(LocalDateTime.now(),
+        return prayerTimes.filter { it.first.isAfter(now) || it.first.isEqual(now) }.map {
+            Pair(Duration.between(now, it.first), it)
+        }.minByOrNull { it.first }?.second ?: Pair(now,
             Events.Prayers.MorningPrayer)
     }
 }
