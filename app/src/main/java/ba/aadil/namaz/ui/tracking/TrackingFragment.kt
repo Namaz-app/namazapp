@@ -28,7 +28,7 @@ class TrackingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentTrackingBinding.inflate(inflater, container, false)
         return binding.root
@@ -42,14 +42,28 @@ class TrackingFragment : Fragment() {
             ViewRenderer<TrackingUIModel, ViewFinder>(
                 R.layout.tracking_layout,
                 TrackingUIModel::class.java
-            ) { model,
-                finder,
-                _ ->
+            ) {
+                    model,
+                    finder,
+                    _,
+                ->
                 finder.setText(R.id.prayer_name, model.prayerName)
                 finder.setChecked(R.id.prayer_tracking_checkbox, model.track)
                 finder.setOnCheckedChangeListener(R.id.prayer_tracking_checkbox) {
                     trackingViewModel.markAsPrayed(model.prayer, it)
                 }
+            })
+
+        rvAdapter.registerRenderer(
+            ViewRenderer<TrackingHeader, ViewFinder>(
+                R.layout.tracking_header_layout,
+                TrackingHeader::class.java
+            ) { model, finder, _ ->
+                finder.setText(R.id.user_name,
+                    getString(R.string.welcome_user, model.userName))
+                finder.setText(R.id.date, model.date)
+                finder.setText(R.id.prayed_count,
+                    getString(R.string.prayed_today_stats, model.prayerCount))
             })
 
         binding.prayersRv.apply {
@@ -79,7 +93,7 @@ class TrackingFragment : Fragment() {
     class TrackingUIModel(val prayerName: String, val track: Boolean, val prayer: Events.Prayers) :
         ViewModel
 
-    class TrackingHeader(val prayerName: String, val track: Boolean, val prayer: Events.Prayers) :
+    class TrackingHeader(val userName: String, val prayerCount: Int, val date: String) :
         ViewModel
 
     override fun onDestroyView() {

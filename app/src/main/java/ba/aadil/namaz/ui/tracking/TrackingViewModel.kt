@@ -1,12 +1,12 @@
 package ba.aadil.namaz.ui.tracking
 
 import android.content.Context
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.R
 import ba.aadil.namaz.db.Track
 import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.tracking.TrackPrayerUseCase
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,8 +17,8 @@ import java.time.LocalDateTime
 
 class TrackingViewModel(
     private val context: Context,
-    private val trackPrayerUseCase: TrackPrayerUseCase
-) : ViewModel() {
+    private val trackPrayerUseCase: TrackPrayerUseCase,
+) : androidx.lifecycle.ViewModel() {
     private val _state = MutableStateFlow<TrackingPrayersState>(TrackingPrayersState.Loading)
     val state: StateFlow<TrackingPrayersState> = _state
 
@@ -37,34 +37,39 @@ class TrackingViewModel(
                 val nightPrayer =
                     trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.NightPrayer, now)
 
+                val trackingModels = listOf(
+                    TrackingFragment.TrackingUIModel(
+                        context.getString(R.string.morningPrayer),
+                        morningPrayer?.completed ?: false,
+                        Events.Prayers.MorningPrayer
+                    ),
+                    TrackingFragment.TrackingUIModel(
+                        context.getString(R.string.noonPrayer),
+                        noonPrayer?.completed ?: false,
+                        Events.Prayers.NoonPrayer
+                    ),
+                    TrackingFragment.TrackingUIModel(
+                        context.getString(R.string.afternoonPrayer),
+                        afternoonPrayer?.completed ?: false,
+                        Events.Prayers.AfterNoonPrayer
+                    ),
+                    TrackingFragment.TrackingUIModel(
+                        context.getString(R.string.sunsetPrayer),
+                        sunsetPrayer?.completed ?: false,
+                        Events.Prayers.SunsetPrayer
+                    ),
+                    TrackingFragment.TrackingUIModel(
+                        context.getString(R.string.nightPrayer),
+                        nightPrayer?.completed ?: false,
+                        Events.Prayers.NightPrayer
+                    ),
+                )
                 TrackingPrayersState.Data(
                     listOf(
-                        TrackingFragment.TrackingUIModel(
-                            context.getString(R.string.morningPrayer),
-                            morningPrayer?.completed ?: false,
-                            Events.Prayers.MorningPrayer
-                        ),
-                        TrackingFragment.TrackingUIModel(
-                            context.getString(R.string.noonPrayer),
-                            noonPrayer?.completed ?: false,
-                            Events.Prayers.NoonPrayer
-                        ),
-                        TrackingFragment.TrackingUIModel(
-                            context.getString(R.string.afternoonPrayer),
-                            afternoonPrayer?.completed ?: false,
-                            Events.Prayers.AfterNoonPrayer
-                        ),
-                        TrackingFragment.TrackingUIModel(
-                            context.getString(R.string.sunsetPrayer),
-                            sunsetPrayer?.completed ?: false,
-                            Events.Prayers.SunsetPrayer
-                        ),
-                        TrackingFragment.TrackingUIModel(
-                            context.getString(R.string.nightPrayer),
-                            nightPrayer?.completed ?: false,
-                            Events.Prayers.NightPrayer
-                        ),
-                    )
+                        TrackingFragment.TrackingHeader("Alija",
+                            trackingModels.count { it.track },
+                            Track.dateFormatter.format(LocalDate.now())),
+                    ) + trackingModels
                 )
             }
         }
@@ -81,11 +86,12 @@ class TrackingViewModel(
                 completed
             )
         }
+        getTracking()
     }
 
     sealed class TrackingPrayersState {
         object Loading : TrackingPrayersState()
-        data class Data(val list: List<TrackingFragment.TrackingUIModel>) : TrackingPrayersState()
+        data class Data(val list: List<ViewModel>) : TrackingPrayersState()
         class Error(val error: String) : TrackingPrayersState()
     }
 }

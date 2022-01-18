@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Dobrodosao Alija" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:drawableStart="@drawable/ic_round_calendar_month_24"
+        android:drawablePadding="10dp"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/user_name"
+        tools:text="Novembar 22, 2021" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/prayed_count_bg"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintBottom_toBottomOf="@id/prayed_count"
+        app:layout_constraintCircleRadius="25dp"
+        app:layout_constraintEnd_toEndOf="@id/prayed_count"
+        app:layout_constraintStart_toStartOf="@id/prayed_count"
+        app:layout_constraintTop_toTopOf="@id/prayed_count"
+        app:shapeAppearanceOverlay="@style/shapeAppearanceRounded"
+        app:strokeWidth="10dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/prayed_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="30dp"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="5 / 5" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tracking_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/dnevni_prikaz_aktivnosti"
+        android:textColor="@color/text_gray"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/prayed_count_bg" />
+</androidx.constraintlayout.widget.ConstraintLayout>
