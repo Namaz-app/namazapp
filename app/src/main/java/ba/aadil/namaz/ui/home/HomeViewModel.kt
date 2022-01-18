@@ -35,31 +35,17 @@ class HomeViewModel(
                 _untilNextPrayer.value = getNextPrayerTime.get()
             }
         }
-        viewModelScope.launch {
-            if (_untilNextPrayer.value.first.isAfter(LocalDateTime.now())) {
-                _untilNextPrayer.value = getNextPrayerTime.get()
-            }
-            _dateTimeCity.value = getCurrentDateTimeAndCity.get()
-            delay(TimeUnit.SECONDS.toMillis(1))
-        }
-    }
-
-    private fun getTillNextPrayer(): String {
-        val durationBetween =
-            Duration.between(LocalDateTime.now(), _untilNextPrayer.value.first)
-        val durationHours = durationBetween.toHours()
-        val durationMinutes = durationBetween.minusHours(durationHours).toMinutes()
-        val durationSeconds =
-            durationBetween.minusHours(durationHours).minusMinutes(durationMinutes).seconds
-        return "${String.format("%02d", durationHours)}:${
-            String.format("%02d",
-                durationMinutes)
-        }:${String.format("%02d", durationSeconds)}"
     }
 
     fun getPrayersSchedule() {
         viewModelScope.launch {
             while (true) {
+                withContext(Dispatchers.IO) {
+                    if (_untilNextPrayer.value.first.isAfter(LocalDateTime.now())) {
+                        _untilNextPrayer.value = getNextPrayerTime.get()
+                    }
+                    _dateTimeCity.value = getCurrentDateTimeAndCity.get()
+                }
                 _data.value = withContext(Dispatchers.IO) {
                     val prayerScheduleData =
                         prayerSchedulesUseCase.getPrayerSchedule(LocalDate.now())
@@ -75,6 +61,19 @@ class HomeViewModel(
                 delay(TimeUnit.SECONDS.toMillis(1))
             }
         }
+    }
+
+    private fun getTillNextPrayer(): String {
+        val durationBetween =
+            Duration.between(LocalDateTime.now(), _untilNextPrayer.value.first)
+        val durationHours = durationBetween.toHours()
+        val durationMinutes = durationBetween.minusHours(durationHours).toMinutes()
+        val durationSeconds =
+            durationBetween.minusHours(durationHours).minusMinutes(durationMinutes).seconds
+        return "${String.format("%02d", durationHours)}:${
+            String.format("%02d",
+                durationMinutes)
+        }:${String.format("%02d", durationSeconds)}"
     }
 }
 
