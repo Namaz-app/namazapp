@@ -3,13 +3,17 @@ package ba.aadil.namaz.city
 import ba.aadil.namaz.db.Track
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.chrono.HijrahDate
 import java.time.format.DateTimeFormatter
 
 class GetCurrentDateTimeAndCity(private val getCurrentCityUseCase: GetCurrentCityUseCase) {
     private val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
     suspend fun get(): Data {
+        HijrahDate.now()
         return Data(city = getCurrentCityUseCase.getName(),
-            date = LocalDate.now().format(Track.dateFormatter),
+            date = "${LocalDate.now().format(Track.dateFormatter)} / ${
+                HijrahDate.now().format(Track.hijraFormatter)
+            }",
             time = LocalTime.now().format(timeFormatter))
     }
 
