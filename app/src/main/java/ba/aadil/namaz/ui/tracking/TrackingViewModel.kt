@@ -6,6 +6,7 @@ import ba.aadil.namaz.R
 import ba.aadil.namaz.db.Track
 import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.tracking.TrackPrayerUseCase
+import ba.aadil.namaz.user.GetCurrentUser
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,6 +19,7 @@ import java.time.LocalDateTime
 class TrackingViewModel(
     private val context: Context,
     private val trackPrayerUseCase: TrackPrayerUseCase,
+    private val getCurrentUser: GetCurrentUser,
 ) : androidx.lifecycle.ViewModel() {
     private val _state = MutableStateFlow<TrackingPrayersState>(TrackingPrayersState.Loading)
     val state: StateFlow<TrackingPrayersState> = _state
@@ -66,9 +68,9 @@ class TrackingViewModel(
                 )
                 TrackingPrayersState.Data(
                     listOf(
-                        TrackingFragment.TrackingHeader("Alija",
+                        TrackingFragment.TrackingHeader(getCurrentUser.getName(),
                             trackingModels.count { it.track },
-                            Track.dateFormatter.format(LocalDate.now())),
+                            Track.longDateFormatter.format(LocalDate.now())),
                     ) + trackingModels
                 )
             }

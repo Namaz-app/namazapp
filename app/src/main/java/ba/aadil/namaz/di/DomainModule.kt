@@ -10,6 +10,7 @@ import ba.aadil.namaz.prayertimes.GetPrayerTimeForDateRealz
 import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
 import ba.aadil.namaz.stats.GetStatisticsUseCase
 import ba.aadil.namaz.tracking.TrackPrayerUseCase
+import ba.aadil.namaz.user.GetCurrentUser
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -36,5 +37,8 @@ val domainModule = module {
     }
     single {
         GetNextPrayerTime(get())
+    }
+    single {
+        GetCurrentUser()
     }
 }
