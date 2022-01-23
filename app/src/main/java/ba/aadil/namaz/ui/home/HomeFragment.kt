@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
-
     private val homeViewModel: HomeViewModel by inject()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
