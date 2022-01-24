@@ -28,7 +28,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.navigation_prayer_tab,
                 R.id.navigation_dashboard_tab,
-                R.id.navigation_tracking_tab
+                R.id.navigation_tracking_tab,
+                R.id.profileFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
