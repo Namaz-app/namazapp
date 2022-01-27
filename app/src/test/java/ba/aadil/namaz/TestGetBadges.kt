@@ -20,7 +20,7 @@ class TestGetBadges {
 
         val getBadges = GetBadges(mockTrackingDao)
 
-        assertEquals(1, getBadges.getAllBadges().size)
+        assertEquals(1, getBadges.checkAndStoreBadges().size)
     }
 
     fun getMockTrack(id: Int): Track {

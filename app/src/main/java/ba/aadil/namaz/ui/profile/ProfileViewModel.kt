@@ -1,26 +1,14 @@
 package ba.aadil.namaz.ui.profile
 
-import androidx.lifecycle.viewModelScope
-import ba.aadil.namaz.user.GetBadges
+import ba.aadil.namaz.db.BadgesDao
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
 
 class ProfileViewModel(
-    private val getBadges: GetBadges,
+    badgesDao: BadgesDao,
 ) : androidx.lifecycle.ViewModel() {
-    private val _badges = MutableStateFlow(listOf<Badge>())
-    val badges = _badges.asStateFlow()
-
-    fun getUserBadges() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _badges.value = getBadges.getAllBadges().map {
-                Badge(it.days)
-            }
-        }
-    }
+    private val _badges = badgesDao.getAllBadges().map { it.map { Badge(it.completedDays) } }
+    val badges = _badges
 
     data class Badge(val completedDays: Int) : ViewModel
 }

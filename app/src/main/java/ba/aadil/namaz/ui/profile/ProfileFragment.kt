@@ -58,7 +58,5 @@ class ProfileFragment : Fragment() {
                 rvAdapter.notifyDataSetChanged()
             }
         }
-
-        profileViewModel.getUserBadges()
     }
 }

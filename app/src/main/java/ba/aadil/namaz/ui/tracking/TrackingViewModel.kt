@@ -6,6 +6,7 @@ import ba.aadil.namaz.R
 import ba.aadil.namaz.db.Track
 import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.tracking.TrackPrayerUseCase
+import ba.aadil.namaz.user.GetBadges
 import ba.aadil.namaz.user.GetCurrentUser
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,7 @@ import java.time.LocalDateTime
 class TrackingViewModel(
     private val context: Context,
     private val trackPrayerUseCase: TrackPrayerUseCase,
+    private val getBadges: GetBadges,
     private val getCurrentUser: GetCurrentUser,
 ) : androidx.lifecycle.ViewModel() {
     private val _state = MutableStateFlow<TrackingPrayersState>(TrackingPrayersState.Loading)
@@ -87,6 +89,7 @@ class TrackingViewModel(
                 now,
                 completed
             )
+            getBadges.checkAndStoreBadges()
         }
         getTracking()
     }

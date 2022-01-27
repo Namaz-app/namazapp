@@ -15,7 +15,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        TrackingViewModel(androidContext(), get(), get())
+        TrackingViewModel(androidContext(), get(), get(), get())
     }
 
     viewModel {

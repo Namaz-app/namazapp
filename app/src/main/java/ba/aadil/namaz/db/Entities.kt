@@ -2,6 +2,7 @@ package ba.aadil.namaz.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import ba.aadil.namaz.prayertimes.Events
 import java.time.format.DateTimeFormatter
@@ -53,5 +54,11 @@ data class Track(
         val timeFormatterNoSeconds: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     }
 }
+
+@Entity(tableName = "badges", indices = [Index(value = ["completedDays"], unique = true)])
+data class Badge(
+    @PrimaryKey(autoGenerate = true) val id: Int,
+    val completedDays: Int,
+)
 
 

@@ -20,6 +20,15 @@ interface OffsetDao {
 }
 
 @Dao
+interface BadgesDao {
+    @Query("select * from badges")
+    fun getAllBadges(): Flow<List<Badge>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun storeBadge(badge: Badge)
+}
+
+@Dao
 interface TrackingDao {
     @Query("select * from tracking where date=:date and prayer=:prayer")
     fun getPrayerForDay(prayer: Events.Prayers, date: String): List<Track>
@@ -32,7 +41,7 @@ interface TrackingDao {
         prayer: Events.Prayers,
         date: String,
         completed: Boolean,
-        completionTime: Long
+        completionTime: Long,
     )
 
     @Query("select * from tracking where completedDateTime>=:startMillis and completedDateTime<=:endMillis")
