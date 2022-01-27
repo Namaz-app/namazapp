@@ -39,8 +39,12 @@ class ProfileFragment : Fragment() {
                 R.layout.profile_badge,
                 ProfileViewModel.Badge::class.java
             ) { model, finder, _ ->
-                finder.setText(R.id.badge_name,
-                    getString(R.string.prayer_badge_text, model.completedDays))
+                val text =
+                    if (model.completedDays == 1)
+                        getString(R.string.prayer_badge_text_one_day)
+                    else
+                        getString(R.string.prayer_badge_text, model.completedDays)
+                finder.setText(R.id.badge_name, text)
             })
 
         binding.profileRv.apply {
@@ -51,6 +55,7 @@ class ProfileFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             profileViewModel.badges.collect {
                 rvAdapter.setItems(it)
+                rvAdapter.notifyDataSetChanged()
             }
         }
 
