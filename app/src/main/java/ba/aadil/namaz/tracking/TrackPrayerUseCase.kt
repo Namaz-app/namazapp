@@ -4,14 +4,12 @@ import ba.aadil.namaz.db.Track
 import ba.aadil.namaz.db.TrackingDao
 import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.prayertimes.GetPrayerTimeForDate
-import ba.aadil.namaz.user.GetBadges
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 class TrackPrayerUseCase(
     private val trackingDao: TrackingDao,
-    private val getBadges: GetBadges,
     private val getPrayerTimeForDate: GetPrayerTimeForDate,
 ) {
     suspend fun getOrTrackPrayer(prayer: Events.Prayers, date: LocalDate): Track? {

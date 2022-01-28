@@ -25,7 +25,7 @@ val domainModule = module {
         GetPrayerTimeForDateRealz(get())
     }
     single {
-        TrackPrayerUseCase(get(), get(), get())
+        TrackPrayerUseCase(get(), get())
     }
     single {
         GetStatisticsUseCase(get())
