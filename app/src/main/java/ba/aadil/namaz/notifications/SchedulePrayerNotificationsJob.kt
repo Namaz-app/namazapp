@@ -9,7 +9,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import ba.aadil.namaz.MainActivity
 import ba.aadil.namaz.R
 import ba.aadil.namaz.prayertimes.GetNextPrayerTime
 import org.koin.core.component.KoinComponent
@@ -31,8 +30,8 @@ class SchedulePrayerNotificationsJob(val context: Context, workerParams: WorkerP
             .setContentText("${context.getString(prayer.nameStringId)} je za 15 minuta")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        val notificationIntent = Intent(context, MainActivity::class.java)
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1)
+        val notificationIntent = Intent(context, NotificationPublisher::class.java)
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 2022)
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, builder.build())
         val pendingIntent = PendingIntent.getBroadcast(context,
             2022,
