@@ -24,4 +24,6 @@
     <string name="prayer_badge_text">Redovni klanjac %1$d uzastopnih dana</string>
     <string name="prayer_badge_text_one_day">Ispunjen dnevni cilj (5 namaza)</string>
     <string name="profile">Profile</string>
+    <string name="channel_name">Prayer notifications</string>
+    <string name="channel_description">Notifications about upcoming prayers</string>
 </resources>
