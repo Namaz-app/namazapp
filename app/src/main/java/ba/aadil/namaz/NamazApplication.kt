@@ -11,7 +11,6 @@ import ba.aadil.namaz.di.domainModule
 import ba.aadil.namaz.di.presentationModule
 import ba.aadil.namaz.notifications.SchedulePrayerNotificationsJob
 import ba.aadil.namaz.notifications.ShowNotificationsForPrayers
-import ba.aadil.namaz.notifications.ShowPrayerNotificationsJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -34,14 +33,14 @@ class NamazApplication : Application() {
 
     private fun scheduleNotifications() {
         val showPrayerNotificationsJob =
-            OneTimeWorkRequestBuilder<ShowPrayerNotificationsJob>()
+            OneTimeWorkRequestBuilder<SchedulePrayerNotificationsJob>()
                 .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
                 .build()
-        WorkManager.getInstance(this).enqueueUniqueWork(ShowPrayerNotificationsJob.jobName,
+        WorkManager.getInstance(this).enqueueUniqueWork(SchedulePrayerNotificationsJob.jobName,
             ExistingWorkPolicy.KEEP, showPrayerNotificationsJob)
 
         val schedulePrayerNotifications =
-            PeriodicWorkRequestBuilder<SchedulePrayerNotificationsJob>(1, TimeUnit.HOURS)
+            PeriodicWorkRequestBuilder<SchedulePrayerNotificationsJob>(15, TimeUnit.MINUTES)
                 .build()
         WorkManager.getInstance(this)
             .enqueueUniquePeriodicWork(SchedulePrayerNotificationsJob.jobName,
