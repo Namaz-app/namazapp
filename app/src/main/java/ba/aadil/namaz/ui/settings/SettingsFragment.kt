@@ -21,8 +21,9 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    ): View {
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,12 +35,16 @@ class SettingsFragment : Fragment() {
                 R.layout.notifications_row,
                 NotificationsRow::class.java
             ) { model, finder, _ ->
+                finder.setChecked(R.id.notifications_toggle, model.notifications)
             })
 
         binding.settingsRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
         }
+
+        rvAdapter.setItems(listOf(NotificationsRow(true)))
+        rvAdapter.notifyDataSetChanged()
     }
 
     data class NotificationsRow(val notifications: Boolean) : ViewModel

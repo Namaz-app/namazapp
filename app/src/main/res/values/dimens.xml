@@ -5,4 +5,5 @@
     <dimen name="vertical_margin_prayers_row">10dp</dimen>
     <dimen name="dashboard_margins">20dp</dimen>
     <dimen name="vaktija_prayer_horizontal_margin">20dp</dimen>
+    <dimen name="settings_horizontal_margin">20dp</dimen>
 </resources>

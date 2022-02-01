@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/notifications_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/settings_horizontal_margin"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="9sp"
+        android:text="@string/title_notifications"
+        android:textColor="#626363"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/notifications_subheading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/allow_disallow_notifications"
+        android:textColor="#626363"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/notifications_heading"
+        app:layout_constraintTop_toBottomOf="@id/notifications_heading" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/notifications_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/settings_horizontal_margin"
+        app:layout_constraintBottom_toBottomOf="@id/notifications_subheading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/notifications_heading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

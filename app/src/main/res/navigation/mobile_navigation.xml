@@ -27,4 +27,9 @@
         android:id="@+id/profileFragment"
         android:name="ba.aadil.namaz.ui.profile.ProfileFragment"
         android:label="@string/profile" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ba.aadil.namaz.ui.settings.SettingsFragment"
+        android:label="@string/settings" />
 </navigation>
