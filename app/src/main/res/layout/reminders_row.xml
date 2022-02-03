@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp">
+
+    <TextView
+        android:id="@+id/reminders_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/settings_horizontal_margin"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="9sp"
+        android:text="@string/title_reminders"
+        android:textColor="@color/gunmetal"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/reminders_subheading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:lineSpacingExtra="8sp"
+        android:text="@string/reminder_before_prayers"
+        android:textColor="@color/gunmetal"
+        android:textSize="15sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="@id/reminders_heading"
+        app:layout_constraintTop_toBottomOf="@id/reminders_heading" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/reminders_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/settings_horizontal_margin"
+        android:foregroundTint="@color/teal_700"
+        app:layout_constraintBottom_toBottomOf="@id/reminders_subheading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/reminders_heading" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

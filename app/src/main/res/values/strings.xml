@@ -28,4 +28,12 @@
     <string name="channel_description">Notifications about upcoming prayers</string>
     <string name="allow_disallow_notifications">Dozvoli / zabrani notifikacije</string>
     <string name="settings">Postavke</string>
+    <string name="title_reminders">Podsjetnici</string>
+    <string name="reminder_before_prayers">Podsjetnik prije namaza</string>
+    <string-array name="reminder_times">
+        <item>10 minutes</item>
+        <item>20 minutes</item>
+        <item>30 minutes</item>
+        <item>60 minutes</item>
+    </string-array>
 </resources>
