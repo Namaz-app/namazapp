@@ -1,18 +1,11 @@
 package ba.aadil.namaz.ui.settings
 
-import android.content.SharedPreferences
-import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
+import ba.aadil.namaz.notifications.ToggleNotifications
 
-class SettingsViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
-
+class SettingsViewModel(private val toggleNotifications: ToggleNotifications) : ViewModel() {
     fun toggleNotifications(enabled: Boolean) {
-        sharedPreferences.edit {
-            putBoolean(notificationEnabledKey, enabled)
-        }
+        toggleNotifications.toggle(enabled)
     }
 
-    companion object {
-        const val notificationEnabledKey = "notifications_enabled"
-    }
 }
