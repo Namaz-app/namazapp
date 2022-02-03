@@ -34,6 +34,13 @@ class SettingsFragment : Fragment() {
 
         val rvAdapter = RendererRecyclerViewAdapter()
         rvAdapter.registerRenderer(
+            ViewRenderer<NotificationsHeader, ViewFinder>(
+                R.layout.notifications_header,
+                NotificationsHeader::class.java
+            ) { model, finder, _ ->
+            })
+
+        rvAdapter.registerRenderer(
             ViewRenderer<NotificationsRow, ViewFinder>(
                 R.layout.notifications_row,
                 NotificationsRow::class.java
@@ -74,10 +81,13 @@ class SettingsFragment : Fragment() {
             adapter = rvAdapter
         }
 
-        rvAdapter.setItems(listOf(NotificationsRow(true), RemindersRow(selectedIndex = 2)))
+        rvAdapter.setItems(listOf(NotificationsHeader,
+            NotificationsRow(true),
+            RemindersRow(selectedIndex = 2)))
         rvAdapter.notifyDataSetChanged()
     }
 
+    object NotificationsHeader : ViewModel
     data class NotificationsRow(val notifications: Boolean) : ViewModel
     data class RemindersRow(val selectedIndex: Int) : ViewModel
     object SocialsRow : ViewModel
