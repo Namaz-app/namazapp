@@ -31,6 +31,9 @@
     <string name="title_reminders">Podsjetnici</string>
     <string name="reminder_before_prayers">Podsjetnik prije namaza</string>
     <string name="news">Obavijesti</string>
+    <string name="email_sms_chat">Email, SMS, Chat</string>
+    <string name="share">Podijeli</string>
+    <string name="social">Social</string>
     <string-array name="reminder_times">
         <item>10 minutes</item>
         <item>20 minutes</item>

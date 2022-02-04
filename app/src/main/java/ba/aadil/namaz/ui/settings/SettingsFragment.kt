@@ -1,5 +1,6 @@
 package ba.aadil.namaz.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -76,6 +77,22 @@ class SettingsFragment : Fragment() {
             }
         })
 
+        rvAdapter.registerRenderer(ViewRenderer<SocialRow, ViewFinder>(
+            R.layout.social_row,
+            SocialRow::class.java
+        ) { _, finder, _ ->
+            finder.setOnClickListener(R.id.share_root) {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, "www.namazapp.ba")
+                    type = "text/html"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
+            }
+        })
+
         binding.settingsRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
@@ -83,12 +100,14 @@ class SettingsFragment : Fragment() {
 
         rvAdapter.setItems(listOf(NotificationsHeader,
             NotificationsRow(true),
-            RemindersRow(selectedIndex = 2)))
+            RemindersRow(selectedIndex = 2),
+            SocialRow
+        ))
         rvAdapter.notifyDataSetChanged()
     }
 
     object NotificationsHeader : ViewModel
     data class NotificationsRow(val notifications: Boolean) : ViewModel
     data class RemindersRow(val selectedIndex: Int) : ViewModel
-    object SocialsRow : ViewModel
+    object SocialRow : ViewModel
 }

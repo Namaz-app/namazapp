@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/share_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/settings_horizontal_margin"
+    android:layout_marginTop="@dimen/settings_items_top_margin">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/globe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_globe"
+        app:layout_constraintBottom_toBottomOf="@id/social_header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/social_header" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/social_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@string/social"
+        android:textColor="@color/gunmetal"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@id/globe"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/social_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/share"
+        android:textColor="@color/gunmetal"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/social_header" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/social_email_sms_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/email_sms_chat"
+        android:textColor="@color/gunmetal"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/social_share" />
+</androidx.constraintlayout.widget.ConstraintLayout>
