@@ -9,6 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
+import java.util.concurrent.TimeUnit
 
 class NotificationService : LifecycleService() {
     val nextPrayerTime by inject<GetNextPrayerTime>()
@@ -20,15 +21,17 @@ class NotificationService : LifecycleService() {
 
         val context = this
         lifecycleScope.launch {
-            val (time, prayer) = withContext(Dispatchers.IO) { nextPrayerTime.get() }
-            val notification = ShowNotificationsForPrayers.show(context, prayer, time)
+            do {
+                val (time, prayer) = withContext(Dispatchers.IO) { nextPrayerTime.get() }
+                val notification = ShowNotificationsForPrayers.show(context, prayer, time)
 
-            if (!isForeground) {
-                startForeground(2022, notification)
-                isForeground = true
-            }
+                if (!isForeground) {
+                    startForeground(2022, notification)
+                    isForeground = true
+                }
 
-            delay(1000)
+                delay(TimeUnit.MINUTES.toMillis(1))
+            } while (isForeground)
         }
 
         return START_NOT_STICKY
