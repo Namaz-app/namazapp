@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentSettingsBinding
@@ -16,10 +17,14 @@ import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapte
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+    private val settingsViewModel by viewModel<SettingsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +52,13 @@ class SettingsFragment : Fragment() {
                 NotificationsRow::class.java
             ) { model, finder, _ ->
                 finder.setChecked(R.id.notifications_toggle, model.notifications)
+                finder.setOnCheckedChangeListener(R.id.notifications_toggle) {
+                    finder.find<View>(R.id.notifications_toggle).apply {
+                        postDelayed({
+                            settingsViewModel.toggleNotifications(it)
+                        }, 400)
+                    }
+                }
             })
 
         val spinnerAdapter = ArrayAdapter.createFromResource(
@@ -98,12 +110,16 @@ class SettingsFragment : Fragment() {
             adapter = rvAdapter
         }
 
-        rvAdapter.setItems(listOf(NotificationsHeader,
-            NotificationsRow(true),
-            RemindersRow(selectedIndex = 2),
-            SocialRow
-        ))
-        rvAdapter.notifyDataSetChanged()
+        viewLifecycleOwner.lifecycleScope.launch {
+            settingsViewModel.notificationOn.collect { notificationsOn ->
+                rvAdapter.setItems(listOf(NotificationsHeader,
+                    NotificationsRow(notificationsOn),
+                    RemindersRow(selectedIndex = 2),
+                    SocialRow
+                ))
+                rvAdapter.notifyDataSetChanged()
+            }
+        }
     }
 
     object NotificationsHeader : ViewModel
