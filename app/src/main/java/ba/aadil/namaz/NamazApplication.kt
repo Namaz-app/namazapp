@@ -4,18 +4,19 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
+import androidx.core.content.ContextCompat
 import androidx.work.*
 import ba.aadil.namaz.di.dataModule
 import ba.aadil.namaz.di.domainModule
 import ba.aadil.namaz.di.presentationModule
-import ba.aadil.namaz.notifications.SchedulePrayerNotificationsJob
+import ba.aadil.namaz.notifications.NotificationService
 import ba.aadil.namaz.notifications.ShowNotificationsForPrayers
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
-import java.util.concurrent.TimeUnit
 
 class NamazApplication : Application() {
     override fun onCreate() {
@@ -28,24 +29,12 @@ class NamazApplication : Application() {
         }
 
         createNotificationChannel()
-        scheduleNotifications()
+        startNotificationService()
     }
 
-    private fun scheduleNotifications() {
-        val showPrayerNotificationsJob =
-            OneTimeWorkRequestBuilder<SchedulePrayerNotificationsJob>()
-                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                .build()
-        WorkManager.getInstance(this).enqueueUniqueWork(SchedulePrayerNotificationsJob.jobName,
-            ExistingWorkPolicy.KEEP, showPrayerNotificationsJob)
-
-        val schedulePrayerNotifications =
-            PeriodicWorkRequestBuilder<SchedulePrayerNotificationsJob>(15, TimeUnit.MINUTES)
-                .build()
-        WorkManager.getInstance(this)
-            .enqueueUniquePeriodicWork(SchedulePrayerNotificationsJob.jobName,
-                ExistingPeriodicWorkPolicy.KEEP,
-                schedulePrayerNotifications)
+    private fun startNotificationService() {
+        val intent = Intent(this, NotificationService::class.java)
+        ContextCompat.startForegroundService(this, intent)
     }
 
     private fun createNotificationChannel() {
