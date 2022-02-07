@@ -13,6 +13,7 @@ import ba.aadil.namaz.stats.GetStatisticsUseCase
 import ba.aadil.namaz.tracking.TrackPrayerUseCase
 import ba.aadil.namaz.user.GetBadges
 import ba.aadil.namaz.user.GetCurrentUser
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -47,6 +48,6 @@ val domainModule = module {
         GetBadges(get(), get())
     }
     single {
-        ToggleNotifications(get())
+        ToggleNotifications(androidContext(), get())
     }
 }

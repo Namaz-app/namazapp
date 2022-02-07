@@ -12,6 +12,7 @@ import java.time.LocalDateTime
 class ShowNotificationsForPrayers {
     companion object {
         const val channelId = "namaz-prayer-notifications"
+        const val notificationId = 2022
         fun show(context: Context, prayer: Events.Prayers, time: LocalDateTime): Notification {
             val duration = Duration.between(LocalDateTime.now(), time)
             val hours = duration.toHours()
@@ -24,10 +25,16 @@ class ShowNotificationsForPrayers {
             val notification = builder.build()
             with(NotificationManagerCompat.from(context)) {
                 // notificationId is a unique int for each notification that you must define
-                notify(2022, notification)
+                notify(notificationId, notification)
             }
 
             return notification
+        }
+
+        fun hide(context: Context) {
+            with(NotificationManagerCompat.from(context)) {
+                cancel(notificationId)
+            }
         }
     }
 }
