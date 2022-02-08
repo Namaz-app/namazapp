@@ -66,12 +66,16 @@ class SettingsFragment : Fragment() {
             R.array.reminder_times,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
         }
         val spinnerListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                settingsViewModel.setPrayerReminderTime(position)
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -114,7 +118,7 @@ class SettingsFragment : Fragment() {
             settingsViewModel.notificationOn.collect { notificationsOn ->
                 rvAdapter.setItems(listOf(NotificationsHeader,
                     NotificationsRow(notificationsOn),
-                    RemindersRow(selectedIndex = 2),
+                    RemindersRow(selectedIndex = settingsViewModel.getPrayerReminderTimeArrayPosition()),
                     SocialRow
                 ))
                 rvAdapter.notifyDataSetChanged()

@@ -12,8 +12,15 @@ import java.time.LocalDateTime
 class ShowNotificationsForPrayers {
     companion object {
         const val channelId = "namaz-prayer-notifications"
+        const val reminderChannelId = "namaz-prayer-notifications-reminder"
         const val notificationId = 2022
-        fun show(context: Context, prayer: Events.Prayers, time: LocalDateTime): Notification {
+        const val reminderNotificationId = 2023
+
+        fun showRemainingTimeNotification(
+            context: Context,
+            prayer: Events.Prayers,
+            time: LocalDateTime,
+        ): Notification {
             val duration = Duration.between(LocalDateTime.now(), time)
             val hours = duration.toHours()
             val minutes = duration.minusHours(hours).toMinutes()
@@ -34,6 +41,28 @@ class ShowNotificationsForPrayers {
         fun hide(context: Context) {
             with(NotificationManagerCompat.from(context)) {
                 cancel(notificationId)
+            }
+        }
+
+        fun showReminderNotification(
+            context: Context,
+            prayer: Events.Prayers,
+            prayerTime: LocalDateTime,
+            reminderMinutesBefore: Int,
+        ) {
+            val remainingMinutes = Duration.between(LocalDateTime.now(), prayerTime).toMinutes()
+            if (remainingMinutes <= reminderMinutesBefore) {
+
+                val builder = NotificationCompat.Builder(context, reminderChannelId)
+                    .setSmallIcon(R.drawable.ic_bell)
+                    .setContentTitle("Do ${context.getString(prayer.nameStringId)} je $reminderMinutesBefore minuta")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+                val notification = builder.build()
+                with(NotificationManagerCompat.from(context)) {
+                    // notificationId is a unique int for each notification that you must define
+                    notify(reminderNotificationId, notification)
+                }
             }
         }
     }

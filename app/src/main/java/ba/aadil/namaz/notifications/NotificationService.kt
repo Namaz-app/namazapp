@@ -52,7 +52,12 @@ class NotificationService : LifecycleService() {
     private suspend fun startForeground(context: NotificationService) {
         if (toggleNotifications.isActive()) {
             val (time, prayer) = withContext(Dispatchers.IO) { nextPrayerTime.get() }
-            val notification = ShowNotificationsForPrayers.show(context, prayer, time)
+            val notification =
+                ShowNotificationsForPrayers.showRemainingTimeNotification(context, prayer, time)
+            ShowNotificationsForPrayers.showReminderNotification(context,
+                prayer,
+                time,
+                toggleNotifications.getReminderTime())
 
             if (!isForeground) {
                 startForeground(ShowNotificationsForPrayers.notificationId, notification)

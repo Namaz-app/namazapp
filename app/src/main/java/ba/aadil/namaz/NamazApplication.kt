@@ -28,7 +28,8 @@ class NamazApplication : Application() {
             modules(dataModule, domainModule, presentationModule)
         }
 
-        createNotificationChannel()
+        createNotificationChannelForNotificationService()
+        createReminderNotificationChannel()
         startNotificationService()
     }
 
@@ -37,7 +38,24 @@ class NamazApplication : Application() {
         ContextCompat.startForegroundService(this, intent)
     }
 
-    private fun createNotificationChannel() {
+    private fun createReminderNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = getString(R.string.channel_name_reminders)
+            val descriptionText = getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel =
+                NotificationChannel(ShowNotificationsForPrayers.reminderChannelId,
+                    name,
+                    importance).apply {
+                    description = descriptionText
+                }
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun createNotificationChannelForNotificationService() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

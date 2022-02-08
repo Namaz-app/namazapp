@@ -13,6 +13,8 @@ class ToggleNotifications(
     private val sharedPreferences: SharedPreferences,
 ) {
     private val notificationEnabledKey = "notifications_enabled"
+    private val notificationReminderTimeKey = "notifications_reminder_time"
+
     private val _notificationOn = MutableStateFlow(isActive())
     val notificationOn = _notificationOn.asStateFlow()
 
@@ -29,5 +31,26 @@ class ToggleNotifications(
 
     fun isActive(): Boolean {
         return sharedPreferences.getBoolean(notificationEnabledKey, true)
+    }
+
+    fun setReminderTime(minutesBefore: Int) {
+        sharedPreferences.edit {
+            putInt(notificationReminderTimeKey, minutesBefore)
+        }
+    }
+
+    fun getReminderTime(): Int {
+        return sharedPreferences.getInt(notificationReminderTimeKey, 15)
+    }
+
+
+    // value to index conversion for reminder time string array reminder_times
+    fun getPrayerReminderTimeArrayPosition(): Int {
+        return when (getReminderTime()) {
+            10 -> 0
+            20 -> 1
+            30 -> 2
+            else -> 3
+        }
     }
 }
