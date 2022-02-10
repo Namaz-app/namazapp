@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.content.ContextCompat
-import androidx.work.*
 import ba.aadil.namaz.di.dataModule
 import ba.aadil.namaz.di.domainModule
 import ba.aadil.namaz.di.presentationModule
@@ -42,7 +41,7 @@ class NamazApplication : Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = getString(R.string.channel_name_reminders)
             val descriptionText = getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val importance = NotificationManager.IMPORTANCE_HIGH
             val channel =
                 NotificationChannel(ShowNotificationsForPrayers.reminderChannelId,
                     name,

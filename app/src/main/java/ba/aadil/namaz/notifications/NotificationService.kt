@@ -3,6 +3,7 @@ package ba.aadil.namaz.notifications
 import android.content.Intent
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
+import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.prayertimes.GetNextPrayerTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -11,9 +12,15 @@ import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
+/*
+Notification service, responsible for showing an up to date notification for remaining time
+till next prayer (silent because its updating every minute), also a reminder notification
+which is not silent to notify the user of upcoming prayer
+ */
 class NotificationService : LifecycleService() {
     private val nextPrayerTime by inject<GetNextPrayerTime>()
     private val toggleNotifications by inject<ToggleNotifications>()
+    private val shownReminders = hashMapOf<Events.Prayers, Boolean>()
     private var isForeground = false
 
     override fun onCreate() {
@@ -21,17 +28,21 @@ class NotificationService : LifecycleService() {
 
         val context = this
         lifecycleScope.launch {
-            startForeground(context)
+            startForegroundAndShowNotifications(context)
         }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         super.onStartCommand(intent, flags, startId)
 
+        /*
+        Two jobs, one for canceling foreground service, it runs every 2 seconds.
+        The other jobs is for showing remaining time till next prayer
+         */
         val context = this
         lifecycleScope.launch {
             do {
-                startForeground(context)
+                startForegroundAndShowNotifications(context)
                 delay(TimeUnit.MINUTES.toMillis(1))
             } while (isForeground)
         }
@@ -46,18 +57,27 @@ class NotificationService : LifecycleService() {
             } while (isForeground)
         }
 
-        return START_NOT_STICKY
+        return START_STICKY
     }
 
-    private suspend fun startForeground(context: NotificationService) {
+    /*
+    this shows two sets of notifications, one for remaining time till next prayer.
+    Other one for reminders just before the prayer, but we don't want to show multiple
+    reminder notifications.
+     */
+    private suspend fun startForegroundAndShowNotifications(context: NotificationService) {
         if (toggleNotifications.isActive()) {
             val (time, prayer) = withContext(Dispatchers.IO) { nextPrayerTime.get() }
             val notification =
                 ShowNotificationsForPrayers.showRemainingTimeNotification(context, prayer, time)
-            ShowNotificationsForPrayers.showReminderNotification(context,
-                prayer,
-                time,
-                toggleNotifications.getReminderTime())
+
+            if (shownReminders[prayer] == false) {
+                val didShow = ShowNotificationsForPrayers.showReminderNotification(context,
+                    prayer,
+                    time,
+                    toggleNotifications.getReminderTime())
+                shownReminders[prayer] = didShow
+            }
 
             if (!isForeground) {
                 startForeground(ShowNotificationsForPrayers.notificationId, notification)
