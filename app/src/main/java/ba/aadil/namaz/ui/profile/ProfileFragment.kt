@@ -11,6 +11,7 @@ import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentProfileBinding
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
+import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -46,15 +47,30 @@ class ProfileFragment : Fragment() {
                         getString(R.string.prayer_badge_text, model.completedDays)
                 finder.setText(R.id.badge_name, text)
             })
+        rvAdapter.registerRenderer(
+            ViewRenderer<ProfileViewModel.UnlockBadge, ViewFinder>(
+                R.layout.profile_badge_unlock,
+                ProfileViewModel.UnlockBadge::class.java
+            ) { model, finder, _ ->
+                val text = getString(R.string.prayer_unlock_badge_text, model.completedDays)
+                finder.setText(R.id.badge_name, text)
+            })
 
         binding.profileRv.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = rvAdapter
         }
 
+        val allBadgesList = listOf(1, 7, 14, 21, 28, 35, 42)
         viewLifecycleOwner.lifecycleScope.launch {
-            profileViewModel.badges.collect {
-                rvAdapter.setItems(it)
+            profileViewModel.badges.collect { collectedBadges ->
+                val finalItems = mutableListOf<ViewModel>().apply { addAll(collectedBadges) }
+                allBadgesList.forEach { days ->
+                    if (collectedBadges.indexOfFirst { badge -> badge.completedDays == days } == -1) {
+                        finalItems.add(ProfileViewModel.UnlockBadge(days))
+                    }
+                }
+                rvAdapter.setItems(finalItems)
                 rvAdapter.notifyDataSetChanged()
             }
         }

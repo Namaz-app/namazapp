@@ -11,4 +11,5 @@ class ProfileViewModel(
     val badges = _badges
 
     data class Badge(val completedDays: Int) : ViewModel
+    data class UnlockBadge(val completedDays: Int) : ViewModel
 }
