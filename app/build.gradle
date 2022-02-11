@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 kapt {
@@ -80,8 +82,10 @@ dependencies {
     // lists
     implementation 'com.github.vivchar:RendererRecyclerViewAdapter:3.0.1'
 
-    //charts
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:29.0.4')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics'
 
     //charts
     implementation "androidx.emoji2:emoji2:$emoji2_version"

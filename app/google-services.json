@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "172711416679",
+    "project_id": "namaz-app-9ce34",
+    "storage_bucket": "namaz-app-9ce34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172711416679:android:72b8e7947938f0cf2e95c2",
+        "android_client_info": {
+          "package_name": "ba.aadil.namaz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172711416679-fk6ngcdbr7j1utrqd6du7c9rma83lhu7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ba.aadil.namaz",
+            "certificate_hash": "d9a319a4bed2a0116f902b739f924eed23968f05"
+          }
+        },
+        {
+          "client_id": "172711416679-av3mcle2ibt110otth9drinqharrecgr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1n1J9TjpLNLwhoTt7I0Pk3z7W_zT5xhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172711416679-av3mcle2ibt110otth9drinqharrecgr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
