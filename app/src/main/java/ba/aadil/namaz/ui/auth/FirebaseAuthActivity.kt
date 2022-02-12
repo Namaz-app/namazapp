@@ -1,7 +1,6 @@
 package ba.aadil.namaz.ui.auth
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import ba.aadil.namaz.R
 import com.firebase.ui.auth.AuthUI
@@ -18,9 +17,8 @@ class FirebaseAuthActivity : AppCompatActivity() {
         this.onSignInResult(res)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        setContentView(R.layout.activity_firebase_ui)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         createSignInIntent()
     }
 
