@@ -3,11 +3,13 @@ package ba.aadil.namaz.ui.auth
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ba.aadil.namaz.R
+import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
+
 
 class FirebaseAuthActivity : AppCompatActivity() {
 
@@ -27,9 +29,16 @@ class FirebaseAuthActivity : AppCompatActivity() {
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build())
 
+        //set custom auth layout
+        val customLayout = AuthMethodPickerLayout.Builder(R.layout.fragment_auth)
+            .setGoogleButtonId(R.id.auth_google_button)
+            .setEmailButtonId(R.id.auth_form_login)
+            .build()
+
         // Create and launch sign-in intent
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
+            .setAuthMethodPickerLayout(customLayout)
             .setLogo(R.drawable.ic_location_dot)
             .setTheme(R.style.Theme_Namaz)
             .setAvailableProviders(providers)

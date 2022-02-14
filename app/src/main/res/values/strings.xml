@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Namaz</string>
+    <string name="app_name">Namaz app</string>
     <string name="title_home">Home</string>
     <string name="vaktija_tab_title">Vaktija</string>
     <string name="title_dashboard">Dashboard</string>
@@ -37,6 +37,8 @@
     <string name="share">Podijeli</string>
     <string name="social">Social</string>
     <string name="login">Prijava</string>
+    <string name="google">Google</string>
+    <string name="email">Email</string>
     <string-array name="reminder_times">
         <item>10 minutes</item>
         <item>20 minutes</item>
