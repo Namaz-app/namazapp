@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import ba.aadil.namaz.databinding.ActivityMainBinding
 import ba.aadil.namaz.ui.auth.FirebaseAuthActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (true) {
+        if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(this, FirebaseAuthActivity::class.java))
             finish()
         } else {
