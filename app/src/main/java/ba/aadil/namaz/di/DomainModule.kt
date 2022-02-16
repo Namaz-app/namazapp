@@ -42,7 +42,7 @@ val domainModule = module {
         GetNextPrayerTime(get())
     }
     single {
-        GetCurrentUser()
+        GetCurrentUser(get())
     }
     single {
         GetBadges(get(), get())

@@ -1,6 +1,7 @@
 package ba.aadil.namaz.ui.auth
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ba.aadil.namaz.R
 import com.firebase.ui.auth.AuthMethodPickerLayout
@@ -51,11 +52,11 @@ class FirebaseAuthActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
+            // do onboarding?
         } else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
+            Toast.makeText(this,
+                response?.error?.localizedMessage ?: "Error signing out",
+                Toast.LENGTH_SHORT).show()
         }
     }
 

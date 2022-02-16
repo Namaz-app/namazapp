@@ -1,8 +1,9 @@
 package ba.aadil.namaz.user
 
+import android.content.SharedPreferences
 import com.google.firebase.auth.FirebaseAuth
 
-class GetCurrentUser {
+class GetCurrentUser(val sharedPreferences: SharedPreferences) {
     fun getName(): String {
         return FirebaseAuth
             .getInstance()
@@ -12,4 +13,9 @@ class GetCurrentUser {
             ?.firstOrNull()
             ?: ""
     }
+
+    fun completedOnboarding(): Boolean {
+        return sharedPreferences.getBoolean("onboarding_completed", true)
+    }
+
 }
