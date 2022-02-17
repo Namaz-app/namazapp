@@ -34,6 +34,7 @@ data class City(
     @PrimaryKey val _id: Int?,
     @ColumnInfo(name = "location") val name: String,
     @ColumnInfo(name = "weight") val generalPrayerOffset: Int,
+    @ColumnInfo(name = "region") val region: String?,
 )
 
 @Entity(tableName = "tracking")

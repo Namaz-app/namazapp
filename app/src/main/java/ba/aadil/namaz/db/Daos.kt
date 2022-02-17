@@ -53,3 +53,9 @@ interface TrackingDao {
         endEpoch: Long,
     ): Flow<List<Track>>
 }
+
+@Dao
+interface CityDao {
+    @Query("select * from locations")
+    fun getAllCities(): List<City>
+}

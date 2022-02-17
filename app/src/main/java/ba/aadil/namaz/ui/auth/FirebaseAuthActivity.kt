@@ -1,8 +1,10 @@
 package ba.aadil.namaz.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import ba.aadil.namaz.MainActivity
 import ba.aadil.namaz.R
 import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
@@ -52,6 +54,8 @@ class FirebaseAuthActivity : AppCompatActivity() {
         if (result.resultCode == RESULT_OK) {
             // Successfully signed in
             val user = FirebaseAuth.getInstance().currentUser
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
             // do onboarding?
         } else {
             Toast.makeText(this,

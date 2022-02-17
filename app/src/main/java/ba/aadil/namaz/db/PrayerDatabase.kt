@@ -7,8 +7,8 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [PrayerSchedule::class, CityOffset::class, Track::class, Badge::class],
-    version = 4,
+    entities = [PrayerSchedule::class, CityOffset::class, Track::class, Badge::class, City::class],
+    version = 5,
     exportSchema = true
 )
 @TypeConverters(Converters::class)
@@ -17,6 +17,7 @@ abstract class PrayerDatabase : RoomDatabase() {
     abstract fun offsetDao(): OffsetDao
     abstract fun trackingDao(): TrackingDao
     abstract fun badgesDao(): BadgesDao
+    abstract fun cityDao(): CityDao
 
     companion object {
         val MIGRATION_1_2 = object : Migration(1, 2) {
@@ -34,6 +35,11 @@ abstract class PrayerDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `badges` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `completedDays` INTEGER NOT NULL)")
                 database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_badges_completedDays` ON `badges` (`completedDays`)")
+            }
+        }
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `locations` (`_id` INTEGER, `location` TEXT NOT NULL, `weight` TEXT, PRIMARY KEY(`_id`))")
             }
         }
     }

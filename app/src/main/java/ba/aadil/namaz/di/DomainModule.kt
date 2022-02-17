@@ -1,8 +1,8 @@
 package ba.aadil.namaz.di
 
+import ba.aadil.namaz.city.CurrentAndAllCities
 import ba.aadil.namaz.city.GetCurrentCityUseCase
 import ba.aadil.namaz.city.GetCurrentDateTimeAndCity
-import ba.aadil.namaz.city.GetStoredCity
 import ba.aadil.namaz.motivation.GetEmojiAndCongratsForPrayedPrayers
 import ba.aadil.namaz.notifications.ToggleNotifications
 import ba.aadil.namaz.prayertimes.GetNextPrayerTime
@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 val domainModule = module {
     single<GetCurrentCityUseCase> {
-        GetStoredCity()
+        CurrentAndAllCities(get())
     }
     single {
         PrayerSchedulesUseCase(get(), get(), get())
