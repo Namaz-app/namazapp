@@ -58,4 +58,7 @@ interface TrackingDao {
 interface CityDao {
     @Query("select * from locations")
     fun getAllCities(): List<City>
+
+    @Query("select * from locations where _id == :id")
+    fun getCity(id: Int): List<City>
 }

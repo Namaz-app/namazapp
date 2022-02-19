@@ -35,7 +35,12 @@ data class City(
     @ColumnInfo(name = "location") val name: String,
     @ColumnInfo(name = "weight") val generalPrayerOffset: Int,
     @ColumnInfo(name = "region") val region: String?,
-)
+) {
+    companion object {
+        // Sarajevo Id
+        const val defaultCityId = 107
+    }
+}
 
 @Entity(tableName = "tracking")
 data class Track(

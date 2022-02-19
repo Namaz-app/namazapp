@@ -18,7 +18,7 @@ import org.koin.dsl.module
 
 val domainModule = module {
     single<GetCurrentCityUseCase> {
-        CurrentAndAllCities(get())
+        CurrentAndAllCities(get(), get())
     }
     single {
         PrayerSchedulesUseCase(get(), get(), get())

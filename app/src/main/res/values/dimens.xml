@@ -7,4 +7,5 @@
     <dimen name="vaktija_prayer_horizontal_margin">20dp</dimen>
     <dimen name="settings_horizontal_margin">20dp</dimen>
     <dimen name="settings_items_top_margin">30dp</dimen>
+    <dimen name="city_picker_text_size">22sp</dimen>
 </resources>

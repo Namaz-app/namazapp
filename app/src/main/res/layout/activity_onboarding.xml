@@ -24,13 +24,13 @@
         android:layout_marginBottom="20dp"
         android:text="@string/choose_city"
         android:textColor="@color/gunmetal"
-        android:textSize="18sp"
+        android:textSize="@dimen/city_picker_text_size"
         app:layout_constraintBottom_toTopOf="@id/finish"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/city_picker"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:foregroundTint="@color/teal_700"
