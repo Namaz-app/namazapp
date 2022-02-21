@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ba.aadil.namaz.MainActivity
 import ba.aadil.namaz.R
+import ba.aadil.namaz.databinding.ActivityAuthBinding
 import com.firebase.ui.auth.AuthMethodPickerLayout
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
@@ -16,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class FirebaseAuthActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityAuthBinding
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
     ) { res ->
@@ -24,7 +26,8 @@ class FirebaseAuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createSignInIntent()
+        binding = ActivityAuthBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
     fun createSignInIntent() {

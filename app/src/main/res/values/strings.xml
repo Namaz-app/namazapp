@@ -43,6 +43,9 @@
     <string name="registration">Registracija</string>
     <string name="choose_city">Izaberi grad</string>
     <string name="finish">Završi</string>
+    <string name="next">Dalje</string>
+    <string name="password">Šifra</string>
+    <string name="name">Ime</string>
     <string-array name="reminder_times">
         <item>10 minutes</item>
         <item>20 minutes</item>
