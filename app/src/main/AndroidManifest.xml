@@ -21,12 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.auth.FirebaseAuthActivity"
-            android:theme="@style/AuthTheme" />
-
+        <activity android:name=".ui.auth.FirebaseAuthActivity" />
         <activity android:name=".ui.onboarding.OnboardingActivity" />
-
         <service android:name=".notifications.NotificationService" />
     </application>
 

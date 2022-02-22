@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="ba.aadil.namaz.auth.RegistrationFragment"
+        android:name="ba.aadil.namaz.ui.auth.RegistrationFragment"
         android:label="RegistrationFragment" />
 </navigation>
