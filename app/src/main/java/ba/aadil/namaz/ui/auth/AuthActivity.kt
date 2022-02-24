@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import ba.aadil.namaz.MainActivity
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.ActivityAuthBinding
@@ -13,10 +15,13 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 
-class FirebaseAuthActivity : AppCompatActivity() {
-
+class AuthActivity : AppCompatActivity() {
+    private val registrationViewModel by inject<RegistrationViewModel>()
     private lateinit var binding: ActivityAuthBinding
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
@@ -28,6 +33,19 @@ class FirebaseAuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        lifecycleScope.launch {
+            registrationViewModel.transitionToStep.collect {
+                when (it) {
+                    RegistrationViewModel.RegistrationSteps.StepOne ->
+                        findNavController(R.id.nav_host_fragment_activity_auth)
+                            .navigate(R.id.registrationFragment)
+                    RegistrationViewModel.RegistrationSteps.StepTwo ->
+                        findNavController(R.id.nav_host_fragment_activity_auth)
+                            .navigate(R.id.action_registrationFragment_to_onBoardingFragment)
+                }
+            }
+        }
     }
 
     fun createSignInIntent() {
