@@ -17,11 +17,11 @@ import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class AuthActivity : AppCompatActivity() {
-    private val registrationViewModel by inject<RegistrationViewModel>()
+    private val registrationViewModel by viewModel<RegistrationViewModel>()
     private lateinit var binding: ActivityAuthBinding
     private val signInLauncher = registerForActivityResult(
         FirebaseAuthUIActivityResultContract()
@@ -43,6 +43,10 @@ class AuthActivity : AppCompatActivity() {
                     RegistrationViewModel.RegistrationSteps.StepTwo ->
                         findNavController(R.id.nav_host_fragment_activity_auth)
                             .navigate(R.id.action_registrationFragment_to_onBoardingFragment)
+                    RegistrationViewModel.RegistrationSteps.RedirectToMain -> {
+                        startActivity(Intent(this@AuthActivity, MainActivity::class.java))
+                        finish()
+                    }
                 }
             }
         }
