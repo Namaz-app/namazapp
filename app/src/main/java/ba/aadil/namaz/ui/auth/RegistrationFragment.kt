@@ -6,12 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentRegistrationBinding
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class RegistrationFragment : Fragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
+    private val registrationViewModel by sharedViewModel<RegistrationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +33,16 @@ class RegistrationFragment : Fragment() {
 
         binding.next.setOnClickListener {
             if (fieldsValid()) {
-                // go forward
+                registrationViewModel.completeStepOne(binding.emailEdittext.text.toString(),
+                    binding.passwordEdittext.toString())
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            registrationViewModel.errors.collect {
+                Snackbar.make(binding.next,
+                    getString(R.string.error_creating_user, it),
+                    Snackbar.LENGTH_LONG).show()
             }
         }
     }

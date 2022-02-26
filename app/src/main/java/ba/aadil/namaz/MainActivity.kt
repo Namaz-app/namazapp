@@ -8,8 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import ba.aadil.namaz.databinding.ActivityMainBinding
-import ba.aadil.namaz.ui.auth.FirebaseAuthActivity
-import ba.aadil.namaz.ui.onboarding.OnboardingActivity
+import ba.aadil.namaz.ui.auth.AuthActivity
 import ba.aadil.namaz.user.GetCurrentUser
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -24,10 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         if (FirebaseAuth.getInstance().currentUser == null) {
-            startActivity(Intent(this, FirebaseAuthActivity::class.java))
-            finish()
-        } else if (!getCurrentUser.completedOnboarding()) {
-            startActivity(Intent(this, OnboardingActivity::class.java))
+            startActivity(Intent(this, AuthActivity::class.java))
             finish()
         } else {
             binding = ActivityMainBinding.inflate(layoutInflater)

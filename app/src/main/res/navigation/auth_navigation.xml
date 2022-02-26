@@ -7,5 +7,13 @@
     <fragment
         android:id="@+id/registrationFragment"
         android:name="ba.aadil.namaz.ui.auth.RegistrationFragment"
-        android:label="RegistrationFragment" />
+        android:label="RegistrationFragment">
+        <action
+            android:id="@+id/action_registrationFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="ba.aadil.namaz.ui.auth.OnBoardingFragment"
+        android:label="OnBoardingFragment" />
 </navigation>

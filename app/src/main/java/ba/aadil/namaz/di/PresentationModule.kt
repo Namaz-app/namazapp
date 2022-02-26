@@ -1,5 +1,6 @@
 package ba.aadil.namaz.di
 
+import ba.aadil.namaz.ui.auth.RegistrationViewModel
 import ba.aadil.namaz.ui.dashboard.DashboardViewModel
 import ba.aadil.namaz.ui.home.HomeViewModel
 import ba.aadil.namaz.ui.profile.ProfileViewModel
@@ -29,6 +30,10 @@ val presentationModule = module {
 
     viewModel {
         SettingsViewModel(get())
+    }
+
+    viewModel {
+        RegistrationViewModel(get())
     }
 }
 
