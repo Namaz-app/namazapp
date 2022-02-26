@@ -40,7 +40,7 @@ class RegistrationFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             registrationViewModel.errors.collect {
-                Snackbar.make(binding.root,
+                Snackbar.make(binding.next,
                     getString(R.string.error_creating_user, it),
                     Snackbar.LENGTH_LONG).show()
             }

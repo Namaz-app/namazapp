@@ -2,6 +2,7 @@ package ba.aadil.namaz.ui.auth
 
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.auth.User
 import ba.aadil.namaz.city.GetCurrentCityUseCase
 import com.google.firebase.auth.FirebaseAuth
@@ -9,6 +10,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class RegistrationViewModel(private val getCurrentCityUseCase: GetCurrentCityUseCase) :
     ViewModel() {
@@ -34,7 +36,9 @@ class RegistrationViewModel(private val getCurrentCityUseCase: GetCurrentCityUse
                     if (it.isSuccessful) {
                         _transitionToStep.value = RegistrationSteps.StepTwo
                     } else {
-                        _errors.tryEmit("Error creating user ${it.exception}")
+                        viewModelScope.launch {
+                            _errors.emit("Error creating user ${it.exception}")
+                        }
                     }
                 }
         }
