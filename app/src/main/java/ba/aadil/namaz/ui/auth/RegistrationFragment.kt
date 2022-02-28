@@ -33,7 +33,9 @@ class RegistrationFragment : Fragment() {
 
         binding.next.setOnClickListener {
             if (fieldsValid()) {
-                registrationViewModel.completeStepOne(binding.emailEdittext.text.toString(),
+                registrationViewModel.completeStepOne(
+                    binding.nameEdittext.text.toString(),
+                    binding.emailEdittext.text.toString(),
                     binding.passwordEdittext.toString())
             }
         }
