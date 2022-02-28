@@ -33,7 +33,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        RegistrationViewModel(get())
+        RegistrationViewModel(get(), get())
     }
 }
 
