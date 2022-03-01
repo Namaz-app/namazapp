@@ -25,8 +25,10 @@
         android:text="@string/choose_city"
         android:textColor="@color/gunmetal"
         android:textSize="@dimen/city_picker_text_size"
-        app:layout_constraintBottom_toTopOf="@id/finish"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/pick_birthdate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/city_picker"
@@ -39,6 +41,29 @@
         app:layout_constraintStart_toEndOf="@id/pick_city"
         app:layout_constraintTop_toTopOf="@id/pick_city" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/pick_birthdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Godina rođenja"
+        android:textColor="@color/gunmetal"
+        android:textSize="@dimen/city_picker_text_size"
+        app:layout_constraintBottom_toTopOf="@id/finish"
+        app:layout_constraintStart_toStartOf="@id/pick_city"
+        app:layout_constraintTop_toBottomOf="@id/pick_city" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/pick_birthdate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="..."
+        app:layout_constraintBottom_toBottomOf="@id/pick_birthdate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pick_birthdate" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/finish"
         android:layout_width="0dp"
@@ -49,6 +74,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/pick_birthdate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
