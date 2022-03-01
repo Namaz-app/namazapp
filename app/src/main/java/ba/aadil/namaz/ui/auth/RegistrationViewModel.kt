@@ -7,6 +7,7 @@ import ba.aadil.namaz.auth.User
 import ba.aadil.namaz.city.GetCurrentCityUseCase
 import ba.aadil.namaz.user.GetCurrentUser
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -38,6 +39,9 @@ class RegistrationViewModel(
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         getCurrentUser.storeName(name)
+                        FirebaseAuth.getInstance().currentUser?.updateProfile(
+                            UserProfileChangeRequest.Builder()
+                                .setDisplayName(name).build())
                         _transitionToStep.value = RegistrationSteps.StepTwo
                     } else {
                         viewModelScope.launch {
