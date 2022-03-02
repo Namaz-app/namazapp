@@ -52,8 +52,9 @@ class RegistrationViewModel(
         }
     }
 
-    fun completeStepTwo(currentCityId: Int) {
+    fun completeStepTwo(currentCityId: Int, birthdayYear: Int) {
         getCurrentCityUseCase.setCurrentCity(currentCityId)
+        getCurrentUser.storeBirthday(birthdayYear)
         _transitionToStep.value = RegistrationSteps.RedirectToMain
     }
 

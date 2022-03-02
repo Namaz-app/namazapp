@@ -6,6 +6,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class GetCurrentUser(val sharedPreferences: SharedPreferences) {
     private val userNameKey = "user_name"
+    private val userBirthdayKey = "user_birthday"
+
     fun getName(): String {
         return sharedPreferences.getString(userNameKey, FirebaseAuth
             .getInstance()
@@ -18,6 +20,12 @@ class GetCurrentUser(val sharedPreferences: SharedPreferences) {
     fun storeName(name: String) {
         sharedPreferences.edit {
             putString(userNameKey, name)
+        }
+    }
+
+    fun storeBirthday(year: Int) {
+        sharedPreferences.edit {
+            putInt(userBirthdayKey, year)
         }
     }
 
