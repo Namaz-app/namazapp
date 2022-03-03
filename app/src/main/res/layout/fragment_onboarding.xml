@@ -68,7 +68,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/finish"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/registration_button_height"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="30dp"
         android:text="@string/finish"
