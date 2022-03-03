@@ -21,8 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.auth.AuthActivity" />
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:label="@string/registration" />
         <activity android:name=".ui.onboarding.OnboardingActivity" />
+
         <service android:name=".notifications.NotificationService" />
     </application>
 
