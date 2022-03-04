@@ -52,7 +52,6 @@ class ShowNotificationsForPrayers {
         ): Boolean {
             val remainingMinutes = Duration.between(LocalDateTime.now(), prayerTime).toMinutes()
             if (remainingMinutes <= reminderMinutesBefore) {
-
                 val builder = NotificationCompat.Builder(context, reminderChannelId)
                     .setSmallIcon(R.drawable.ic_bell)
                     .setContentTitle("Do ${context.getString(prayer.nameStringId)} je $reminderMinutesBefore minuta")
@@ -60,7 +59,6 @@ class ShowNotificationsForPrayers {
 
                 val notification = builder.build()
                 with(NotificationManagerCompat.from(context)) {
-                    // notificationId is a unique int for each notification that you must define
                     notify(reminderNotificationId, notification)
                     return true
                 }

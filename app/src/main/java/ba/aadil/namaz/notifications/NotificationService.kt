@@ -43,7 +43,7 @@ class NotificationService : LifecycleService() {
         lifecycleScope.launch {
             do {
                 startForegroundAndShowNotifications(context)
-                delay(TimeUnit.MINUTES.toMillis(1))
+                delay(TimeUnit.SECONDS.toMillis(10))
             } while (isForeground)
         }
 
@@ -71,7 +71,7 @@ class NotificationService : LifecycleService() {
             val notification =
                 ShowNotificationsForPrayers.showRemainingTimeNotification(context, prayer, time)
 
-            if (shownReminders[prayer] == false) {
+            if (shownReminders[prayer] == false || !shownReminders.containsKey(prayer)) {
                 val didShow = ShowNotificationsForPrayers.showReminderNotification(context,
                     prayer,
                     time,
