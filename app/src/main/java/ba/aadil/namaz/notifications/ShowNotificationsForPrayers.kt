@@ -47,24 +47,21 @@ class ShowNotificationsForPrayers {
         fun showReminderNotification(
             context: Context,
             prayer: Events.Prayers,
-            prayerTime: LocalDateTime,
             reminderMinutesBefore: Int,
-        ): Boolean {
-            val remainingMinutes = Duration.between(LocalDateTime.now(), prayerTime).toMinutes()
-            if (remainingMinutes <= reminderMinutesBefore) {
-                val builder = NotificationCompat.Builder(context, reminderChannelId)
-                    .setSmallIcon(R.drawable.ic_bell)
-                    .setContentTitle("Do ${context.getString(prayer.nameStringId)} je $reminderMinutesBefore minuta")
-                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+        ) {
+            val builder = NotificationCompat.Builder(context, reminderChannelId)
+                .setSmallIcon(R.drawable.ic_bell)
+                .addAction(0, context.getString(R.string.yes), null)
+                .addAction(0, context.getString(R.string.now), null)
+                .setContentTitle(context.getString(R.string.reminder_notification_text,
+                    context.getString(prayer.nameStringId),
+                    reminderMinutesBefore))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
 
-                val notification = builder.build()
-                with(NotificationManagerCompat.from(context)) {
-                    notify(reminderNotificationId, notification)
-                    return true
-                }
+            val notification = builder.build()
+            with(NotificationManagerCompat.from(context)) {
+                notify(reminderNotificationId, notification)
             }
-
-            return false
         }
     }
 }

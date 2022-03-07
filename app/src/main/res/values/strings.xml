@@ -57,4 +57,7 @@
         <item>30 minutes</item>
         <item>60 minutes</item>
     </string-array>
+    <string name="reminder_notification_text">Do %1$s je %2$d minuta. Jeste li obavili trenutni?</string>
+    <string name="yes">Da</string>
+    <string name="now">Sad ću</string>
 </resources>

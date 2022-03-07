@@ -10,6 +10,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
+import java.time.Duration
+import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
 /*
@@ -72,11 +74,15 @@ class NotificationService : LifecycleService() {
                 ShowNotificationsForPrayers.showRemainingTimeNotification(context, prayer, time)
 
             if (shownReminders[prayer] == false || !shownReminders.containsKey(prayer)) {
-                val didShow = ShowNotificationsForPrayers.showReminderNotification(context,
-                    prayer,
-                    time,
-                    toggleNotifications.getReminderTime())
-                shownReminders[prayer] = didShow
+                val remainingMinutes = Duration.between(LocalDateTime.now(), time).toMinutes()
+                val reminderMinutesBefore = toggleNotifications.getReminderTime()
+                if (remainingMinutes <= reminderMinutesBefore) {
+                    ShowNotificationsForPrayers.showReminderNotification(context,
+                        prayer,
+                        reminderMinutesBefore)
+                    shownReminders[prayer] = true
+                }
+                shownReminders[prayer] = false
             }
 
             if (!isForeground) {
