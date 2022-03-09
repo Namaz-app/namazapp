@@ -1,0 +1,30 @@
+{
+  "name": "vaktijasdk",
+  "version": "1.1",
+  "homepage": "https://github.com/touchlab/KaMPKit",
+  "source": {
+    "git": "Not Published",
+    "tag": "Cocoapods/vaktijasdk/1.1"
+  },
+  "authors": "",
+  "license": "",
+  "summary": "Common library for the KaMP starter kit",
+  "vendored_frameworks": "build/cocoapods/framework/vaktijasdk.framework",
+  "libraries": "c++",
+  "module_name": "vaktijasdk_umbrella",
+  "platforms": {
+    "ios": "12.4"
+  },
+  "pod_target_xcconfig": {
+    "KOTLIN_PROJECT_PATH": ":vaktijasdk",
+    "PRODUCT_MODULE_NAME": "vaktijasdk"
+  },
+  "script_phases": [
+    {
+      "name": "Build vaktijasdk",
+      "execution_position": "before_compile",
+      "shell_path": "/bin/sh",
+      "script": "                if [ \"YES\" = \"$COCOAPODS_SKIP_KOTLIN_BUILD\" ]; then\n                  echo \"Skipping Gradle build task invocation due to COCOAPODS_SKIP_KOTLIN_BUILD environment variable set to \"YES\"\"\n                  exit 0\n                fi\n                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" $KOTLIN_PROJECT_PATH:syncFramework                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME                     -Pkotlin.native.cocoapods.archs=\"$ARCHS\"                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION\n"
+    }
+  ]
+}
