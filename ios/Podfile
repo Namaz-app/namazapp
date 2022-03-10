@@ -8,4 +8,4 @@ target 'KaMPKitiOS' do
     pod 'vaktijasdk', :path => '../vaktijasdk/'
     pod 'SwiftLint'
 end
-s
+
