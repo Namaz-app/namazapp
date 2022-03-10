@@ -12,3 +12,6 @@
 *.xcbkptlist
 !/.idea/codeStyles/*
 !/.idea/inspectionProfiles/*
+ios/Pods
+*.lock
+*.podspec
