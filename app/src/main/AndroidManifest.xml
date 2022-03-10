@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Namaz">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.auth.AuthActivity"
+            android:name=".ui.landing.LandingActivity"
             android:label="@string/registration" />
         <activity android:name=".ui.onboarding.OnboardingActivity" />
 

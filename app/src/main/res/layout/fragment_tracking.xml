@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tracking.TrackingFragment">
+    tools:context=".ui.main.tracking.TrackingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/prayers_rv"

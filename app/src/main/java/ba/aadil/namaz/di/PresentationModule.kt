@@ -1,11 +1,12 @@
 package ba.aadil.namaz.di
 
-import ba.aadil.namaz.ui.auth.RegistrationViewModel
-import ba.aadil.namaz.ui.dashboard.DashboardViewModel
-import ba.aadil.namaz.ui.home.HomeViewModel
-import ba.aadil.namaz.ui.profile.ProfileViewModel
-import ba.aadil.namaz.ui.settings.SettingsViewModel
-import ba.aadil.namaz.ui.tracking.TrackingViewModel
+import ba.aadil.namaz.ui.landing.login.LoginViewModel
+import ba.aadil.namaz.ui.landing.registration.RegistrationViewModel
+import ba.aadil.namaz.ui.main.dashboard.DashboardViewModel
+import ba.aadil.namaz.ui.main.vaktija.HomeViewModel
+import ba.aadil.namaz.ui.main.profile.ProfileViewModel
+import ba.aadil.namaz.ui.main.settings.SettingsViewModel
+import ba.aadil.namaz.ui.main.tracking.TrackingViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -30,6 +31,10 @@ val presentationModule = module {
 
     viewModel {
         SettingsViewModel(get())
+    }
+
+    viewModel {
+        LoginViewModel(get())
     }
 
     viewModel {
