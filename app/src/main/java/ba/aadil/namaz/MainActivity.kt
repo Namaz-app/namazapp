@@ -14,7 +14,9 @@ import ba.aadil.namaz.ui.auth.AuthActivity
 import ba.aadil.namaz.ui.tracking.TrackingViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         lifecycleScope.launch {
-            val (_, prayer) = getNextOrCurrentPrayerTime.getCurrent()
+            val (_, prayer) = withContext(Dispatchers.IO) { getNextOrCurrentPrayerTime.getCurrent() }
             trackingViewModel.markAsPrayed(prayer, true)
         }
     }
