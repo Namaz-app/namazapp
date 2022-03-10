@@ -3,7 +3,6 @@ package ba.aadil.namaz.notifications
 import android.content.Intent
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import ba.aadil.namaz.prayertimes.Events
 import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -11,6 +10,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
@@ -22,7 +22,6 @@ which is not silent to notify the user of upcoming prayer
 class NotificationService : LifecycleService() {
     private val nextPrayerTime by inject<GetNextOrCurrentPrayerTime>()
     private val toggleNotifications by inject<ToggleNotifications>()
-    private val shownReminders = hashMapOf<Events.Prayers, Boolean>()
     private var isForeground = false
 
     override fun onCreate() {
@@ -73,16 +72,15 @@ class NotificationService : LifecycleService() {
             val notification =
                 ShowNotificationsForPrayers.showRemainingTimeNotification(context, prayer, time)
 
-            if (shownReminders[prayer] == false || !shownReminders.containsKey(prayer)) {
+            if (ShowNotificationsForPrayers.shouldShowRemainderNotification(prayer)) {
                 val remainingMinutes = Duration.between(LocalDateTime.now(), time).toMinutes()
                 val reminderMinutesBefore = toggleNotifications.getReminderTime()
                 if (remainingMinutes <= reminderMinutesBefore) {
                     ShowNotificationsForPrayers.showReminderNotification(context,
                         prayer,
                         reminderMinutesBefore)
-                    shownReminders[prayer] = true
                 }
-                shownReminders[prayer] = false
+                ShowNotificationsForPrayers.markAsShown(prayer, LocalDate.now())
             }
 
             if (!isForeground) {

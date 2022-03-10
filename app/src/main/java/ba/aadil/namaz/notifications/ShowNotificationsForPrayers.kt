@@ -11,7 +11,9 @@ import ba.aadil.namaz.MainActivity
 import ba.aadil.namaz.R
 import ba.aadil.namaz.prayertimes.Events
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.util.*
 
 
 class ShowNotificationsForPrayers {
@@ -21,6 +23,13 @@ class ShowNotificationsForPrayers {
         const val notificationId = 2022
         const val reminderNotificationId = 2023
         const val markCurrentPrayerAsPrayedKey = "mark-current-prayer-as-prayed"
+        private val shownReminders =
+            Collections.synchronizedMap(object :
+                LinkedHashMap<Pair<Events.Prayers, LocalDate>, Boolean>() {
+                override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Pair<Events.Prayers, LocalDate>, Boolean>?): Boolean {
+                    return size >= 10
+                }
+            })
 
         fun showRemainingTimeNotification(
             context: Context,
@@ -80,6 +89,21 @@ class ShowNotificationsForPrayers {
             with(NotificationManagerCompat.from(context)) {
                 notify(reminderNotificationId, notification)
             }
+            shownReminders[Pair(prayer, LocalDate.now())] = true
+        }
+
+        fun markAsShown(prayer: Events.Prayers, localDate: LocalDate) {
+            val key = Pair(prayer, localDate)
+            shownReminders[key] = true
+        }
+
+        fun shouldShowRemainderNotification(prayer: Events.Prayers): Boolean {
+            val key = Pair(prayer, LocalDate.now())
+            return shownReminders[key] == false || !shownReminders.containsKey(key)
+        }
+
+        fun shownRemindersSize(): Int {
+            return shownReminders.size
         }
     }
 }
