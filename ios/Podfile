@@ -1,0 +1,11 @@
+use_frameworks!
+
+platform :ios, '12.4'
+
+install! 'cocoapods', :deterministic_uuids => false
+
+target 'KaMPKitiOS' do
+    pod 'vaktijasdk', :path => '../vaktijasdk/'
+    pod 'SwiftLint'
+end
+s
