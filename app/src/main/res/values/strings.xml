@@ -4,7 +4,7 @@
     <string name="vaktija_tab_title">Vaktija</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifikacije</string>
-    <string name="dusk">Zora</string>
+    <string name="dawn">Zora</string>
     <string name="sunrise">Izlaz sunca</string>
     <string name="noonPrayer">Podne</string>
     <string name="afternoonPrayer">Ikindija</string>
