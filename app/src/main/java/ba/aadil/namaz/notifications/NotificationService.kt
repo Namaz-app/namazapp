@@ -3,13 +3,15 @@ package ba.aadil.namaz.notifications
 import android.content.Intent
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.prayertimes.GetNextPrayerTime
+import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
 /*
@@ -18,9 +20,8 @@ till next prayer (silent because its updating every minute), also a reminder not
 which is not silent to notify the user of upcoming prayer
  */
 class NotificationService : LifecycleService() {
-    private val nextPrayerTime by inject<GetNextPrayerTime>()
+    private val nextPrayerTime by inject<GetNextOrCurrentPrayerTime>()
     private val toggleNotifications by inject<ToggleNotifications>()
-    private val shownReminders = hashMapOf<Events.Prayers, Boolean>()
     private var isForeground = false
 
     override fun onCreate() {
@@ -43,7 +44,7 @@ class NotificationService : LifecycleService() {
         lifecycleScope.launch {
             do {
                 startForegroundAndShowNotifications(context)
-                delay(TimeUnit.MINUTES.toMillis(1))
+                delay(TimeUnit.SECONDS.toMillis(10))
             } while (isForeground)
         }
 
@@ -67,16 +68,21 @@ class NotificationService : LifecycleService() {
      */
     private suspend fun startForegroundAndShowNotifications(context: NotificationService) {
         if (toggleNotifications.isActive()) {
-            val (time, prayer) = withContext(Dispatchers.IO) { nextPrayerTime.get() }
+            val (time, nextPrayer) = withContext(Dispatchers.IO) { nextPrayerTime.getNext() }
             val notification =
-                ShowNotificationsForPrayers.showRemainingTimeNotification(context, prayer, time)
+                ShowNotificationsForPrayers.showRemainingTimeNotification(context, nextPrayer, time)
 
-            if (shownReminders[prayer] == false) {
-                val didShow = ShowNotificationsForPrayers.showReminderNotification(context,
-                    prayer,
-                    time,
-                    toggleNotifications.getReminderTime())
-                shownReminders[prayer] = didShow
+            if (ShowNotificationsForPrayers.shouldShowRemainderNotification(nextPrayer)) {
+                val remainingMinutes = Duration.between(LocalDateTime.now(), time).toMinutes()
+                val reminderMinutesBefore = toggleNotifications.getReminderTime()
+                if (remainingMinutes <= reminderMinutesBefore) {
+                    val (_, currentPrayer) = withContext(Dispatchers.IO) { nextPrayerTime.getCurrent() }
+                    ShowNotificationsForPrayers.showReminderNotification(context,
+                        nextPrayer,
+                        currentPrayer,
+                        reminderMinutesBefore)
+                }
+                ShowNotificationsForPrayers.markAsShown(nextPrayer, LocalDate.now())
             }
 
             if (!isForeground) {

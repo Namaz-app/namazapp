@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.time.LocalDate
 
 class OnBoardingFragment : Fragment() {
     private var _binding: FragmentOnboardingBinding? = null
@@ -63,8 +64,14 @@ class OnBoardingFragment : Fragment() {
             binding.cityPicker.setSelection(cityNamesList.indexOfFirst { it == "Sarajevo" })
         }
 
+        binding.pickBirthdateButton.apply {
+            minValue = 1900
+            maxValue = LocalDate.now().year
+            value = 1989
+        }
+
         binding.finish.setOnClickListener {
-            registrationViewModel.completeStepTwo(pickedCityId)
+            registrationViewModel.completeStepTwo(pickedCityId, binding.pickBirthdateButton.value)
         }
     }
 }

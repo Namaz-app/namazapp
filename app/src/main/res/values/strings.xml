@@ -4,7 +4,7 @@
     <string name="vaktija_tab_title">Vaktija</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifikacije</string>
-    <string name="dusk">Zora</string>
+    <string name="dawn">Zora</string>
     <string name="sunrise">Izlaz sunca</string>
     <string name="noonPrayer">Podne</string>
     <string name="afternoonPrayer">Ikindija</string>
@@ -20,7 +20,7 @@
     <string name="congrats_gods_blessings3">"Doista je između čovjeka,  mnogoboštva i nevjerovanja ostavljanje namaza." (Muslim)</string>
     <string name="till_next_prayer">Do narednog namaza</string>
     <string name="dnevni_prikaz_aktivnosti">Dnevni prikaz aktivnosti</string>
-    <string name="welcome_user">Dobrodosao %1$s</string>
+    <string name="welcome_user">Dobro dosao %1$s</string>
     <string name="prayer_badge_text">Redovni klanjac %1$d uzastopnih dana</string>
     <string name="prayer_unlock_badge_text">Klanjaj %1$d uzastopni(h) dan(a) da otkljucas</string>
     <string name="prayer_badge_text_one_day">Ispunjen dnevni cilj (5 namaza)</string>
@@ -50,10 +50,14 @@
     <string name="empty_field">Prazno polje</string>
     <string name="minimum_three_characters">Minimalno tri slova</string>
     <string name="error_creating_user">Problem prilikom kreiranja racuna %1$s</string>
+    <string name="birthday_year">Godina rođenja</string>
     <string-array name="reminder_times">
         <item>10 minutes</item>
         <item>20 minutes</item>
         <item>30 minutes</item>
         <item>60 minutes</item>
     </string-array>
+    <string name="reminder_notification_text">Do %1$s je %2$d minuta. Jeste li obavili trenutni?</string>
+    <string name="yes">Da</string>
+    <string name="now">Sad ću</string>
 </resources>

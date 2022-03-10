@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
                     rvAdapter.setItems(
                         listOf(
                             CurrentCityTimeTillNext(dateTimeCity, timeTillNextPrayer),
-                            PrayerUIModel(name = getString(R.string.dusk),
+                            PrayerUIModel(name = getString(R.string.dawn),
                                 vaktijaModel.morningPrayer),
                             PrayerUIModel(name = getString(R.string.sunrise), vaktijaModel.sunrise),
                             PrayerUIModel(name = getString(R.string.noonPrayer),

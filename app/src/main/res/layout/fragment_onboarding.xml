@@ -13,6 +13,7 @@
         android:text="@string/registration"
         android:textColor="@color/gunmetal"
         android:textSize="30sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,8 +26,10 @@
         android:text="@string/choose_city"
         android:textColor="@color/gunmetal"
         android:textSize="@dimen/city_picker_text_size"
-        app:layout_constraintBottom_toTopOf="@id/finish"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/pick_birthdate_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/city_picker"
@@ -39,16 +42,39 @@
         app:layout_constraintStart_toEndOf="@id/pick_city"
         app:layout_constraintTop_toTopOf="@id/pick_city" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/pick_birthdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/birthday_year"
+        android:textColor="@color/gunmetal"
+        android:textSize="@dimen/city_picker_text_size"
+        app:layout_constraintBottom_toBottomOf="@id/pick_birthdate_button"
+        app:layout_constraintBottom_toTopOf="@id/finish"
+        app:layout_constraintStart_toStartOf="@id/pick_city"
+        app:layout_constraintTop_toTopOf="@id/pick_birthdate_button" />
+
+    <NumberPicker
+        android:id="@+id/pick_birthdate_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@id/finish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pick_city" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/finish"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/registration_button_height"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="30dp"
         android:text="@string/finish"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/pick_birthdate_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

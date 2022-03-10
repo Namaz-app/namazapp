@@ -8,9 +8,9 @@
     <application
         android:name=".NamazApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_location_dot"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_location_dot"
         android:supportsRtl="true"
         android:theme="@style/Theme.Namaz">
         <activity
@@ -21,8 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.auth.AuthActivity" />
+        <activity
+            android:name=".ui.auth.AuthActivity"
+            android:label="@string/registration" />
         <activity android:name=".ui.onboarding.OnboardingActivity" />
+
         <service android:name=".notifications.NotificationService" />
     </application>
 
