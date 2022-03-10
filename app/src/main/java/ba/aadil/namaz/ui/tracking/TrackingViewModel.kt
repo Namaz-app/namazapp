@@ -3,11 +3,11 @@ package ba.aadil.namaz.ui.tracking
 import android.content.Context
 import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.R
-import ba.aadil.namaz.db.Track
-import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.tracking.TrackPrayerUseCase
-import ba.aadil.namaz.user.GetBadges
-import ba.aadil.namaz.user.GetCurrentUser
+import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.domain.usecase.TrackPrayerUseCase
+import ba.aadil.namaz.domain.usecase.GetBadges
+import ba.aadil.namaz.domain.usecase.GetCurrentUser
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

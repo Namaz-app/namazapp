@@ -1,6 +1,6 @@
-package ba.aadil.namaz.city
+package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.db.Track
+import ba.aadil.namaz.data.db.Track
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.chrono.HijrahDate

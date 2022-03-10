@@ -1,18 +1,18 @@
 package ba.aadil.namaz.di
 
-import ba.aadil.namaz.city.CurrentAndAllCities
-import ba.aadil.namaz.city.GetCurrentCityUseCase
-import ba.aadil.namaz.city.GetCurrentDateTimeAndCity
-import ba.aadil.namaz.motivation.GetEmojiAndCongratsForPrayedPrayers
+import ba.aadil.namaz.domain.usecase.CurrentAndAllCities
+import ba.aadil.namaz.domain.usecase.GetCurrentCityUseCase
+import ba.aadil.namaz.domain.usecase.GetCurrentDateTimeAndCity
+import ba.aadil.namaz.domain.usecase.GetEmojiAndCongratsForPrayedPrayers
 import ba.aadil.namaz.notifications.ToggleNotifications
-import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
-import ba.aadil.namaz.prayertimes.GetPrayerTimeForDate
-import ba.aadil.namaz.prayertimes.GetPrayerTimeForDateRealz
-import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
-import ba.aadil.namaz.stats.GetStatisticsUseCase
-import ba.aadil.namaz.tracking.TrackPrayerUseCase
-import ba.aadil.namaz.user.GetBadges
-import ba.aadil.namaz.user.GetCurrentUser
+import ba.aadil.namaz.domain.usecase.GetNextOrCurrentPrayerTime
+import ba.aadil.namaz.domain.usecase.GetPrayerTimeForDate
+import ba.aadil.namaz.domain.usecase.GetPrayerTimeForDateRealz
+import ba.aadil.namaz.domain.usecase.PrayerSchedulesUseCase
+import ba.aadil.namaz.domain.usecase.GetStatisticsUseCase
+import ba.aadil.namaz.domain.usecase.TrackPrayerUseCase
+import ba.aadil.namaz.domain.usecase.GetBadges
+import ba.aadil.namaz.domain.usecase.GetCurrentUser
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

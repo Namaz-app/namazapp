@@ -1,9 +1,8 @@
-package ba.aadil.namaz.tracking
+package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.db.Track
-import ba.aadil.namaz.db.TrackingDao
-import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.prayertimes.GetPrayerTimeForDate
+import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.data.db.TrackingDao
+import ba.aadil.namaz.domain.Events
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -17,7 +16,7 @@ class TrackPrayerUseCase(
         val currentData =
             trackingDao.getPrayerForDay(prayer, dateFormatted)
         val prayerDateTime =
-            getPrayerTimeForDate.get(date, prayer).data?.toEpochSecond(ZoneOffset.ofTotalSeconds(0))
+            getPrayerTimeForDate.get(date, prayer).getOrNull()?.toEpochSecond(ZoneOffset.ofTotalSeconds(0))
                 ?: 0
 
         if (currentData.isEmpty()) {

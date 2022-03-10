@@ -1,10 +1,10 @@
-package ba.aadil.namaz.db
+package ba.aadil.namaz.data.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import ba.aadil.namaz.prayertimes.Events
+import ba.aadil.namaz.domain.Events
 import java.time.format.DateTimeFormatter
 
 @Entity(tableName = "schedule")

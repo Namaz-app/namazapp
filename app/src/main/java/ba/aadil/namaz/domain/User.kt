@@ -1,4 +1,4 @@
-package ba.aadil.namaz.auth
+package ba.aadil.namaz.domain
 
 sealed class User(val name: String, val email: String, val password: String) {
     data class AuthedUser(

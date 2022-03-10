@@ -1,4 +1,4 @@
-package ba.aadil.namaz.motivation
+package ba.aadil.namaz.domain.usecase
 
 import ba.aadil.namaz.R
 

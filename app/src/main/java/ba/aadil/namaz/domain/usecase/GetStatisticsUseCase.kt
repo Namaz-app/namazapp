@@ -1,8 +1,8 @@
-package ba.aadil.namaz.stats
+package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.db.Track
-import ba.aadil.namaz.db.TrackingDao
-import ba.aadil.namaz.prayertimes.Events
+import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.data.db.TrackingDao
+import ba.aadil.namaz.domain.Events
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.flow.Flow
 import java.time.Duration

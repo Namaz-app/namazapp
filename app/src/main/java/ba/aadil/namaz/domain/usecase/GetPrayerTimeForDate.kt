@@ -1,6 +1,6 @@
-package ba.aadil.namaz.prayertimes
+package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.core.Result
+import ba.aadil.namaz.domain.Events
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -12,16 +12,13 @@ class GetPrayerTimeForDateRealz(private val prayerSchedulesUseCase: PrayerSchedu
     GetPrayerTimeForDate {
     override suspend fun get(date: LocalDate, event: Events.Prayers): Result<LocalDateTime> {
         val result = prayerSchedulesUseCase.getPrayerScheduleMap(date)
-
-        result.data?.let {
+        return result.mapCatching {
             val time = it.map.getOrDefault(event, "00:00")
             val hourMinute = time.split(":")
             val hour = Integer.parseInt(hourMinute.first())
             val minute = Integer.parseInt(hourMinute.last())
             val prayerDateTime = date.atTime(hour, minute)
-            return Result(prayerDateTime, null)
+            return Result.success(prayerDateTime)
         }
-
-        return Result(null, Pair(null, "Events map empty"))
     }
 }

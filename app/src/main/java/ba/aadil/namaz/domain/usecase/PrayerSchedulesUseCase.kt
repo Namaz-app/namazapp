@@ -1,11 +1,10 @@
-package ba.aadil.namaz.prayertimes
+package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.city.GetCurrentCityUseCase
-import ba.aadil.namaz.core.Result
-import ba.aadil.namaz.db.CityOffset
-import ba.aadil.namaz.db.OffsetDao
-import ba.aadil.namaz.db.PrayerSchedule
-import ba.aadil.namaz.db.PrayerScheduleDao
+import ba.aadil.namaz.data.db.CityOffset
+import ba.aadil.namaz.data.db.OffsetDao
+import ba.aadil.namaz.data.db.PrayerSchedule
+import ba.aadil.namaz.data.db.PrayerScheduleDao
+import ba.aadil.namaz.domain.Events
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -110,11 +109,10 @@ class PrayerSchedulesUseCase(
                     dailyPrayer,
                     offset
                 )
-                return Result(EventsMap(eventsMap), null)
+                return Result.success(EventsMap(eventsMap))
             }
         }
-
-        return Result(null, Pair(null, "Data can not be read from db"))
+        return Result.failure(Exception("Data can not be read from db"))
     }
 
     private fun getFormattedTimeForEvents(

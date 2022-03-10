@@ -3,7 +3,7 @@ package ba.aadil.namaz.notifications
 import android.content.Intent
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
-import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
+import ba.aadil.namaz.domain.usecase.GetNextOrCurrentPrayerTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

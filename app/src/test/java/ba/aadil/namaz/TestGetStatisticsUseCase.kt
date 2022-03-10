@@ -1,8 +1,8 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.db.Track
-import ba.aadil.namaz.db.TrackingDao
-import ba.aadil.namaz.stats.GetStatisticsUseCase
+import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.data.db.TrackingDao
+import ba.aadil.namaz.domain.usecase.GetStatisticsUseCase
 import io.mockk.every
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals

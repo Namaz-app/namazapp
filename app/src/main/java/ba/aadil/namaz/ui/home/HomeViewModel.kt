@@ -1,10 +1,10 @@
 package ba.aadil.namaz.ui.home
 
 import androidx.lifecycle.viewModelScope
-import ba.aadil.namaz.city.GetCurrentDateTimeAndCity
-import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
-import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
+import ba.aadil.namaz.domain.usecase.GetCurrentDateTimeAndCity
+import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.domain.usecase.GetNextOrCurrentPrayerTime
+import ba.aadil.namaz.domain.usecase.PrayerSchedulesUseCase
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

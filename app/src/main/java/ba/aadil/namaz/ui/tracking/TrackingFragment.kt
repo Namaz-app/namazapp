@@ -9,12 +9,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentTrackingBinding
-import ba.aadil.namaz.prayertimes.Events
+import ba.aadil.namaz.domain.Events
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 

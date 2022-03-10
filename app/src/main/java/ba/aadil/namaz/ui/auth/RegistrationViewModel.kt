@@ -3,9 +3,9 @@ package ba.aadil.namaz.ui.auth
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import ba.aadil.namaz.auth.User
-import ba.aadil.namaz.city.GetCurrentCityUseCase
-import ba.aadil.namaz.user.GetCurrentUser
+import ba.aadil.namaz.domain.User
+import ba.aadil.namaz.domain.usecase.GetCurrentCityUseCase
+import ba.aadil.namaz.domain.usecase.GetCurrentUser
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.flow.MutableSharedFlow

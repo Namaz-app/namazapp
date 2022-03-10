@@ -1,7 +1,7 @@
 package ba.aadil.namaz
 
 import ba.aadil.namaz.notifications.ShowNotificationsForPrayers
-import ba.aadil.namaz.prayertimes.Events
+import ba.aadil.namaz.domain.Events
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 import java.time.LocalDate

@@ -1,9 +1,9 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.db.Track
-import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
-import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
+import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.domain.usecase.GetNextOrCurrentPrayerTime
+import ba.aadil.namaz.domain.usecase.PrayerSchedulesUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals

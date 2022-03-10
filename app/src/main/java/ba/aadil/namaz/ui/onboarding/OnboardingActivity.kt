@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
 import ba.aadil.namaz.MainActivity
 import ba.aadil.namaz.R
-import ba.aadil.namaz.city.GetCurrentCityUseCase
+import ba.aadil.namaz.domain.usecase.GetCurrentCityUseCase
 import ba.aadil.namaz.databinding.ActivityOnboardingBinding
-import ba.aadil.namaz.db.City
+import ba.aadil.namaz.data.db.City
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject

@@ -1,7 +1,7 @@
 package ba.aadil.namaz.ui.dashboard
 
-import ba.aadil.namaz.motivation.GetEmojiAndCongratsForPrayedPrayers
-import ba.aadil.namaz.stats.GetStatisticsUseCase
+import ba.aadil.namaz.domain.usecase.GetEmojiAndCongratsForPrayedPrayers
+import ba.aadil.namaz.domain.usecase.GetStatisticsUseCase
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*

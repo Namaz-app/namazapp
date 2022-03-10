@@ -9,7 +9,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import ba.aadil.namaz.MainActivity
 import ba.aadil.namaz.R
-import ba.aadil.namaz.prayertimes.Events
+import ba.aadil.namaz.domain.Events
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime

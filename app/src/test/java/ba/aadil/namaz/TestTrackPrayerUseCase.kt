@@ -1,11 +1,11 @@
 package ba.aadil.namaz
 
 import ba.aadil.namaz.core.Result
-import ba.aadil.namaz.db.Track
-import ba.aadil.namaz.db.TrackingDao
-import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.prayertimes.GetPrayerTimeForDate
-import ba.aadil.namaz.tracking.TrackPrayerUseCase
+import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.data.db.TrackingDao
+import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.domain.usecase.GetPrayerTimeForDate
+import ba.aadil.namaz.domain.usecase.TrackPrayerUseCase
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf

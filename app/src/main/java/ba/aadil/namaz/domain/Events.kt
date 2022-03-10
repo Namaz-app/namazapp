@@ -1,4 +1,4 @@
-package ba.aadil.namaz.prayertimes
+package ba.aadil.namaz.domain
 
 import ba.aadil.namaz.R
 

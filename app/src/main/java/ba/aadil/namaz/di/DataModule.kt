@@ -3,11 +3,11 @@ package ba.aadil.namaz.di
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import ba.aadil.namaz.db.PrayerDatabase
-import ba.aadil.namaz.db.PrayerDatabase.Companion.MIGRATION_1_2
-import ba.aadil.namaz.db.PrayerDatabase.Companion.MIGRATION_2_3
-import ba.aadil.namaz.db.PrayerDatabase.Companion.MIGRATION_3_4
-import ba.aadil.namaz.db.PrayerDatabase.Companion.MIGRATION_4_5
+import ba.aadil.namaz.data.db.PrayerDatabase
+import ba.aadil.namaz.data.db.PrayerDatabase.Companion.MIGRATION_1_2
+import ba.aadil.namaz.data.db.PrayerDatabase.Companion.MIGRATION_2_3
+import ba.aadil.namaz.data.db.PrayerDatabase.Companion.MIGRATION_3_4
+import ba.aadil.namaz.data.db.PrayerDatabase.Companion.MIGRATION_4_5
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

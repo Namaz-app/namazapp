@@ -1,8 +1,8 @@
-package ba.aadil.namaz.user
+package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.db.Badge
-import ba.aadil.namaz.db.BadgesDao
-import ba.aadil.namaz.db.TrackingDao
+import ba.aadil.namaz.data.db.Badge
+import ba.aadil.namaz.data.db.BadgesDao
+import ba.aadil.namaz.data.db.TrackingDao
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset

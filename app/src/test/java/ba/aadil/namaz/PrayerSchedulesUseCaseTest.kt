@@ -1,11 +1,11 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.city.MockStoredCity
-import ba.aadil.namaz.db.CityOffset
-import ba.aadil.namaz.db.OffsetDao
-import ba.aadil.namaz.db.PrayerSchedule
-import ba.aadil.namaz.db.PrayerScheduleDao
-import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
+import ba.aadil.namaz.domain.usecase.MockStoredCity
+import ba.aadil.namaz.data.db.CityOffset
+import ba.aadil.namaz.data.db.OffsetDao
+import ba.aadil.namaz.data.db.PrayerSchedule
+import ba.aadil.namaz.data.db.PrayerScheduleDao
+import ba.aadil.namaz.domain.usecase.PrayerSchedulesUseCase
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test

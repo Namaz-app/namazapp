@@ -8,13 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
-import ba.aadil.namaz.city.GetCurrentDateTimeAndCity
+import ba.aadil.namaz.domain.usecase.GetCurrentDateTimeAndCity
 import ba.aadil.namaz.databinding.FragmentHomeBinding
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject

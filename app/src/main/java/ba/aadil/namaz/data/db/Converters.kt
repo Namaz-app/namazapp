@@ -1,7 +1,7 @@
-package ba.aadil.namaz.db
+package ba.aadil.namaz.data.db
 
 import androidx.room.TypeConverter
-import ba.aadil.namaz.prayertimes.Events
+import ba.aadil.namaz.domain.Events
 
 class Converters {
     @TypeConverter

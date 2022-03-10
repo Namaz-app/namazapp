@@ -1,4 +1,4 @@
-package ba.aadil.namaz.db
+package ba.aadil.namaz.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

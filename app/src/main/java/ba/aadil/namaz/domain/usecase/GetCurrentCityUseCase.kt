@@ -1,9 +1,9 @@
-package ba.aadil.namaz.city
+package ba.aadil.namaz.domain.usecase
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import ba.aadil.namaz.db.City
-import ba.aadil.namaz.db.CityDao
+import ba.aadil.namaz.data.db.City
+import ba.aadil.namaz.data.db.CityDao
 
 interface GetCurrentCityUseCase {
     suspend fun getId(): Int

@@ -1,11 +1,11 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.db.Badge
-import ba.aadil.namaz.db.BadgesDao
-import ba.aadil.namaz.db.Track
-import ba.aadil.namaz.db.TrackingDao
-import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.user.GetBadges
+import ba.aadil.namaz.data.db.Badge
+import ba.aadil.namaz.data.db.BadgesDao
+import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.data.db.TrackingDao
+import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.domain.usecase.GetBadges
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Test

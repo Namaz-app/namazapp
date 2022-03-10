@@ -1,6 +1,6 @@
 package ba.aadil.namaz.ui.profile
 
-import ba.aadil.namaz.db.BadgesDao
+import ba.aadil.namaz.data.db.BadgesDao
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.flow.map
 

@@ -1,6 +1,7 @@
-package ba.aadil.namaz.prayertimes
+package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.db.Track.Companion.timeFormatterNoSeconds
+import ba.aadil.namaz.data.db.Track.Companion.timeFormatterNoSeconds
+import ba.aadil.namaz.domain.Events
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -13,7 +14,8 @@ class GetNextOrCurrentPrayerTime(private val prayerSchedulesUseCase: PrayerSched
         return prayerTimes.filter { it.first.isAfter(now) || it.first.isEqual(now) }.map {
             Pair(Duration.between(now, it.first), it)
         }.minByOrNull { it.first }?.second ?: Pair(now,
-            Events.Prayers.MorningPrayer)
+            Events.Prayers.MorningPrayer
+        )
     }
 
     suspend fun getCurrent(now: LocalDateTime = LocalDateTime.now()): Pair<LocalDateTime, Events.Prayers> {
@@ -21,7 +23,8 @@ class GetNextOrCurrentPrayerTime(private val prayerSchedulesUseCase: PrayerSched
         return prayerTimes.filter { it.first.isBefore(now) || it.first.isEqual(now) }.map {
             Pair(Duration.between(it.first, now), it)
         }.minByOrNull { it.first }?.second ?: Pair(now,
-            Events.Prayers.MorningPrayer)
+            Events.Prayers.MorningPrayer
+        )
     }
 
     private suspend fun getPrayerList(): MutableList<Pair<LocalDateTime, Events.Prayers>> {
@@ -34,29 +37,36 @@ class GetNextOrCurrentPrayerTime(private val prayerSchedulesUseCase: PrayerSched
         eventsScheduleTomorrow?.let {
             prayerTimes.add(Pair(LocalTime.parse(it.morningPrayer,
                 timeFormatterNoSeconds).atDate(LocalDate.now().plusDays(1)),
-                Events.Prayers.MorningPrayer))
+                Events.Prayers.MorningPrayer
+            ))
         }
         eventsScheduleYesterday?.let {
             prayerTimes.add(Pair(LocalTime.parse(it.nightPrayer,
                 timeFormatterNoSeconds).atDate(LocalDate.now().minusDays(1)),
-                Events.Prayers.NightPrayer))
+                Events.Prayers.NightPrayer
+            ))
         }
         eventsSchedule?.let {
             prayerTimes.add(Pair(LocalTime.parse(eventsSchedule.morningPrayer,
                 timeFormatterNoSeconds).atDate(LocalDate.now()),
-                Events.Prayers.MorningPrayer))
+                Events.Prayers.MorningPrayer
+            ))
             prayerTimes.add(Pair(LocalTime.parse(eventsSchedule.noonPrayer, timeFormatterNoSeconds)
                 .atDate(LocalDate.now()),
-                Events.Prayers.NoonPrayer))
+                Events.Prayers.NoonPrayer
+            ))
             prayerTimes.add(Pair(LocalTime.parse(eventsSchedule.afterNoonPrayer,
                 timeFormatterNoSeconds).atDate(LocalDate.now()),
-                Events.Prayers.AfterNoonPrayer))
+                Events.Prayers.AfterNoonPrayer
+            ))
             prayerTimes.add(Pair(LocalTime.parse(eventsSchedule.sunsetPrayer,
                 timeFormatterNoSeconds).atDate(LocalDate.now()),
-                Events.Prayers.SunsetPrayer))
+                Events.Prayers.SunsetPrayer
+            ))
             prayerTimes.add(Pair(LocalTime.parse(eventsSchedule.nightPrayer,
                 timeFormatterNoSeconds).atDate(LocalDate.now()),
-                Events.Prayers.NightPrayer))
+                Events.Prayers.NightPrayer
+            ))
         }
 
         return prayerTimes
