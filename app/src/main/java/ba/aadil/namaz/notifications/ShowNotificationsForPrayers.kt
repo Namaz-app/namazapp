@@ -64,7 +64,9 @@ class ShowNotificationsForPrayers {
             prayer: Events.Prayers,
             reminderMinutesBefore: Int,
         ) {
-            val mainActivityPendingIntent = Intent(context, MainActivity::class.java)
+            val mainActivityPendingIntent = Intent(context, MainActivity::class.java).apply {
+                putExtra("prayer", prayer.sortWeight)
+            }
             mainActivityPendingIntent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             mainActivityPendingIntent.putExtra(markCurrentPrayerAsPrayedKey, true)
