@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.prayertimes.GetNextPrayerTime
+import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ till next prayer (silent because its updating every minute), also a reminder not
 which is not silent to notify the user of upcoming prayer
  */
 class NotificationService : LifecycleService() {
-    private val nextPrayerTime by inject<GetNextPrayerTime>()
+    private val nextPrayerTime by inject<GetNextOrCurrentPrayerTime>()
     private val toggleNotifications by inject<ToggleNotifications>()
     private val shownReminders = hashMapOf<Events.Prayers, Boolean>()
     private var isForeground = false
@@ -69,7 +69,7 @@ class NotificationService : LifecycleService() {
      */
     private suspend fun startForegroundAndShowNotifications(context: NotificationService) {
         if (toggleNotifications.isActive()) {
-            val (time, prayer) = withContext(Dispatchers.IO) { nextPrayerTime.get() }
+            val (time, prayer) = withContext(Dispatchers.IO) { nextPrayerTime.getNext() }
             val notification =
                 ShowNotificationsForPrayers.showRemainingTimeNotification(context, prayer, time)
 

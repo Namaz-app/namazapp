@@ -2,7 +2,7 @@ package ba.aadil.namaz
 
 import ba.aadil.namaz.db.Track
 import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.prayertimes.GetNextPrayerTime
+import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
 import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -17,7 +17,7 @@ class TestRemainingTimeTillNextPrayer {
     @Test
     fun testNextPrayerTime() {
         val prayerSchedules: PrayerSchedulesUseCase = mockk()
-        val nextPrayerTime = GetNextPrayerTime(prayerSchedules)
+        val nextPrayerTime = GetNextOrCurrentPrayerTime(prayerSchedules)
         val today = LocalDate.now()
         val tomorrow = LocalDate.now().plusDays(1)
         coEvery { prayerSchedules.getPrayerSchedule(today) } returns
@@ -39,7 +39,7 @@ class TestRemainingTimeTillNextPrayer {
 
         val now = LocalDateTime.now().withHour(10)
         runBlocking {
-            val (time, nextPrayer) = nextPrayerTime.get(now)
+            val (time, nextPrayer) = nextPrayerTime.getNext(now)
             assertEquals("12:00:00", time.format(Track.timeFormatter))
             assertEquals(Events.Prayers.NoonPrayer, nextPrayer)
         }

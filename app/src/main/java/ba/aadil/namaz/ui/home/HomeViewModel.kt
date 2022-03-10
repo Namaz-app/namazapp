@@ -3,7 +3,7 @@ package ba.aadil.namaz.ui.home
 import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.city.GetCurrentDateTimeAndCity
 import ba.aadil.namaz.prayertimes.Events
-import ba.aadil.namaz.prayertimes.GetNextPrayerTime
+import ba.aadil.namaz.prayertimes.GetNextOrCurrentPrayerTime
 import ba.aadil.namaz.prayertimes.PrayerSchedulesUseCase
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 class HomeViewModel(
     private val prayerSchedulesUseCase: PrayerSchedulesUseCase,
     private val getCurrentDateTimeAndCity: GetCurrentDateTimeAndCity,
-    private val getNextPrayerTime: GetNextPrayerTime,
+    private val getNextOrCurrentPrayerTime: GetNextOrCurrentPrayerTime,
 ) : androidx.lifecycle.ViewModel() {
     private val _data = MutableStateFlow<VaktijaUIModel?>(null)
     val data = _data.asStateFlow()
@@ -32,7 +32,7 @@ class HomeViewModel(
     init {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                _untilNextPrayer.value = getNextPrayerTime.get()
+                _untilNextPrayer.value = getNextOrCurrentPrayerTime.getNext()
             }
         }
     }
@@ -42,7 +42,7 @@ class HomeViewModel(
             while (true) {
                 withContext(Dispatchers.IO) {
                     if (_untilNextPrayer.value.first.isAfter(LocalDateTime.now())) {
-                        _untilNextPrayer.value = getNextPrayerTime.get()
+                        _untilNextPrayer.value = getNextOrCurrentPrayerTime.getNext()
                     }
                     _dateTimeCity.value = getCurrentDateTimeAndCity.get()
                 }

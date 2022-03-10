@@ -6,16 +6,40 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class GetNextPrayerTime(private val prayerSchedulesUseCase: PrayerSchedulesUseCase) {
-    suspend fun get(now: LocalDateTime = LocalDateTime.now()): Pair<LocalDateTime, Events.Prayers> {
+class GetNextOrCurrentPrayerTime(private val prayerSchedulesUseCase: PrayerSchedulesUseCase) {
+    suspend fun getNext(now: LocalDateTime = LocalDateTime.now()): Pair<LocalDateTime, Events.Prayers> {
+        val prayerTimes = getPrayerList()
+
+        return prayerTimes.filter { it.first.isAfter(now) || it.first.isEqual(now) }.map {
+            Pair(Duration.between(now, it.first), it)
+        }.minByOrNull { it.first }?.second ?: Pair(now,
+            Events.Prayers.MorningPrayer)
+    }
+
+    suspend fun getCurrent(now: LocalDateTime = LocalDateTime.now()): Pair<LocalDateTime, Events.Prayers> {
+        val prayerTimes = getPrayerList()
+        return prayerTimes.filter { it.first.isBefore(now) || it.first.isEqual(now) }.map {
+            Pair(Duration.between(it.first, now), it)
+        }.minByOrNull { it.first }?.second ?: Pair(now,
+            Events.Prayers.MorningPrayer)
+    }
+
+    private suspend fun getPrayerList(): MutableList<Pair<LocalDateTime, Events.Prayers>> {
+        val prayerTimes = mutableListOf<Pair<LocalDateTime, Events.Prayers>>()
         val eventsSchedule = prayerSchedulesUseCase.getPrayerSchedule(LocalDate.now())
         val eventsScheduleTomorrow =
             prayerSchedulesUseCase.getPrayerSchedule(LocalDate.now().plusDays(1))
-        val prayerTimes = mutableListOf<Pair<LocalDateTime, Events.Prayers>>()
+        val eventsScheduleYesterday =
+            prayerSchedulesUseCase.getPrayerSchedule(LocalDate.now().minusDays(1))
         eventsScheduleTomorrow?.let {
             prayerTimes.add(Pair(LocalTime.parse(it.morningPrayer,
                 timeFormatterNoSeconds).atDate(LocalDate.now().plusDays(1)),
                 Events.Prayers.MorningPrayer))
+        }
+        eventsScheduleYesterday?.let {
+            prayerTimes.add(Pair(LocalTime.parse(it.nightPrayer,
+                timeFormatterNoSeconds).atDate(LocalDate.now().minusDays(1)),
+                Events.Prayers.NightPrayer))
         }
         eventsSchedule?.let {
             prayerTimes.add(Pair(LocalTime.parse(eventsSchedule.morningPrayer,
@@ -35,9 +59,6 @@ class GetNextPrayerTime(private val prayerSchedulesUseCase: PrayerSchedulesUseCa
                 Events.Prayers.NightPrayer))
         }
 
-        return prayerTimes.filter { it.first.isAfter(now) || it.first.isEqual(now) }.map {
-            Pair(Duration.between(now, it.first), it)
-        }.minByOrNull { it.first }?.second ?: Pair(now,
-            Events.Prayers.MorningPrayer)
+        return prayerTimes
     }
 }
