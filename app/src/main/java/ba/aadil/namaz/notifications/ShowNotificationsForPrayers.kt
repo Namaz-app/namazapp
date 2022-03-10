@@ -1,13 +1,18 @@
 package ba.aadil.namaz.notifications
 
 import android.app.Notification
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import ba.aadil.namaz.MainActivity
 import ba.aadil.namaz.R
 import ba.aadil.namaz.prayertimes.Events
 import java.time.Duration
 import java.time.LocalDateTime
+
 
 class ShowNotificationsForPrayers {
     companion object {
@@ -15,6 +20,7 @@ class ShowNotificationsForPrayers {
         const val reminderChannelId = "namaz-prayer-notifications-reminder"
         const val notificationId = 2022
         const val reminderNotificationId = 2023
+        const val markCurrentPrayerAsPrayedKey = "mark-current-prayer-as-prayed"
 
         fun showRemainingTimeNotification(
             context: Context,
@@ -49,10 +55,22 @@ class ShowNotificationsForPrayers {
             prayer: Events.Prayers,
             reminderMinutesBefore: Int,
         ) {
+            val mainActivityPendingIntent = Intent(context, MainActivity::class.java)
+            mainActivityPendingIntent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            mainActivityPendingIntent.putExtra(markCurrentPrayerAsPrayedKey, true)
+
+            val pendingIntent = PendingIntent.getActivity(context,
+                2024,
+                mainActivityPendingIntent,
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                else PendingIntent.FLAG_UPDATE_CURRENT)
+
             val builder = NotificationCompat.Builder(context, reminderChannelId)
                 .setSmallIcon(R.drawable.ic_bell)
-                .addAction(0, context.getString(R.string.yes), null)
-                .addAction(0, context.getString(R.string.now), null)
+                .addAction(0, context.getString(R.string.yes), pendingIntent)
+                .addAction(0, context.getString(R.string.now), pendingIntent)
                 .setContentTitle(context.getString(R.string.reminder_notification_text,
                     context.getString(prayer.nameStringId),
                     reminderMinutesBefore))
