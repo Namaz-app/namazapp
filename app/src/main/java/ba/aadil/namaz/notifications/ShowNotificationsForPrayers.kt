@@ -61,11 +61,12 @@ class ShowNotificationsForPrayers {
 
         fun showReminderNotification(
             context: Context,
-            prayer: Events.Prayers,
+            nextPrayer: Events.Prayers,
+            currentPrayer: Events.Prayers,
             reminderMinutesBefore: Int,
         ) {
             val mainActivityPendingIntent = Intent(context, MainActivity::class.java).apply {
-                putExtra("prayer", prayer.sortWeight)
+                putExtra("prayer", currentPrayer.sortWeight)
             }
             mainActivityPendingIntent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
@@ -83,7 +84,7 @@ class ShowNotificationsForPrayers {
                 .addAction(0, context.getString(R.string.yes), pendingIntent)
                 .addAction(0, context.getString(R.string.now), pendingIntent)
                 .setContentTitle(context.getString(R.string.reminder_notification_text,
-                    context.getString(prayer.nameStringId),
+                    context.getString(nextPrayer.nameStringId),
                     reminderMinutesBefore))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
 
@@ -91,7 +92,7 @@ class ShowNotificationsForPrayers {
             with(NotificationManagerCompat.from(context)) {
                 notify(reminderNotificationId, notification)
             }
-            shownReminders[Pair(prayer, LocalDate.now())] = true
+            shownReminders[Pair(nextPrayer, LocalDate.now())] = true
         }
 
         fun markAsShown(prayer: Events.Prayers, localDate: LocalDate) {

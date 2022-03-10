@@ -68,19 +68,21 @@ class NotificationService : LifecycleService() {
      */
     private suspend fun startForegroundAndShowNotifications(context: NotificationService) {
         if (toggleNotifications.isActive()) {
-            val (time, prayer) = withContext(Dispatchers.IO) { nextPrayerTime.getNext() }
+            val (time, nextPrayer) = withContext(Dispatchers.IO) { nextPrayerTime.getNext() }
             val notification =
-                ShowNotificationsForPrayers.showRemainingTimeNotification(context, prayer, time)
+                ShowNotificationsForPrayers.showRemainingTimeNotification(context, nextPrayer, time)
 
-            if (ShowNotificationsForPrayers.shouldShowRemainderNotification(prayer)) {
+            if (ShowNotificationsForPrayers.shouldShowRemainderNotification(nextPrayer)) {
                 val remainingMinutes = Duration.between(LocalDateTime.now(), time).toMinutes()
                 val reminderMinutesBefore = toggleNotifications.getReminderTime()
                 if (remainingMinutes <= reminderMinutesBefore) {
+                    val (_, currentPrayer) = withContext(Dispatchers.IO) { nextPrayerTime.getCurrent() }
                     ShowNotificationsForPrayers.showReminderNotification(context,
-                        prayer,
+                        nextPrayer,
+                        currentPrayer,
                         reminderMinutesBefore)
                 }
-                ShowNotificationsForPrayers.markAsShown(prayer, LocalDate.now())
+                ShowNotificationsForPrayers.markAsShown(nextPrayer, LocalDate.now())
             }
 
             if (!isForeground) {
