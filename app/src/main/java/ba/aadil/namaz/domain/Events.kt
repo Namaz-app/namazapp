@@ -14,9 +14,9 @@ sealed class Events {
             fun fromSortWeight(weight: Int): Prayers {
                 return when (weight) {
                     MorningPrayer.sortWeight -> MorningPrayer
-                    NoonPrayer.sortWeight -> MorningPrayer
-                    AfterNoonPrayer.sortWeight -> MorningPrayer
-                    SunsetPrayer.sortWeight -> MorningPrayer
+                    NoonPrayer.sortWeight -> NoonPrayer
+                    AfterNoonPrayer.sortWeight -> AfterNoonPrayer
+                    SunsetPrayer.sortWeight -> SunsetPrayer
                     else -> NightPrayer
                 }
             }

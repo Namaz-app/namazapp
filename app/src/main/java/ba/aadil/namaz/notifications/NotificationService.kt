@@ -20,7 +20,7 @@ till next prayer (silent because its updating every minute), also a reminder not
 which is not silent to notify the user of upcoming prayer
  */
 class NotificationService : LifecycleService() {
-    private val nextPrayerTime by inject<GetNextOrCurrentPrayerTime>()
+    private val currentAndNextPrayerTime by inject<GetNextOrCurrentPrayerTime>()
     private val toggleNotifications by inject<ToggleNotifications>()
     private var isForeground = false
 
@@ -68,7 +68,7 @@ class NotificationService : LifecycleService() {
      */
     private suspend fun startForegroundAndShowNotifications(context: NotificationService) {
         if (toggleNotifications.isActive()) {
-            val (time, nextPrayer) = withContext(Dispatchers.IO) { nextPrayerTime.getNext() }
+            val (time, nextPrayer) = withContext(Dispatchers.IO) { currentAndNextPrayerTime.getNext() }
             val notification =
                 ShowNotificationsForPrayers.showRemainingTimeNotification(context, nextPrayer, time)
 
@@ -76,11 +76,13 @@ class NotificationService : LifecycleService() {
                 val remainingMinutes = Duration.between(LocalDateTime.now(), time).toMinutes()
                 val reminderMinutesBefore = toggleNotifications.getReminderTime()
                 if (remainingMinutes <= reminderMinutesBefore) {
-                    val (_, currentPrayer) = withContext(Dispatchers.IO) { nextPrayerTime.getCurrent() }
-                    ShowNotificationsForPrayers.showReminderNotification(context,
-                        nextPrayer,
-                        currentPrayer,
-                        reminderMinutesBefore)
+                    val (_, currentPrayer) = withContext(Dispatchers.IO) { currentAndNextPrayerTime.getCurrent() }
+                    ShowNotificationsForPrayers.showReminderNotification(
+                        context,
+                        nextPrayer = nextPrayer,
+                        currentPrayer = currentPrayer,
+                        reminderMinutesBefore
+                    )
                 }
                 ShowNotificationsForPrayers.markAsShown(nextPrayer, LocalDate.now())
             }
