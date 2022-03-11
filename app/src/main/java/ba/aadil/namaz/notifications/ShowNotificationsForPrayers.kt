@@ -7,7 +7,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import ba.aadil.namaz.MainActivity
+import ba.aadil.namaz.ui.main.MainActivity
 import ba.aadil.namaz.R
 import ba.aadil.namaz.domain.Events
 import java.time.Duration

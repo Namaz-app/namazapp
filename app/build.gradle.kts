@@ -94,8 +94,7 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:29.1.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics")
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.firebaseui:firebase-ui-auth:8.0.0")
+    implementation("com.google.firebase:firebase-auth-ktx")
 
     //charts
     implementation("androidx.emoji2:emoji2:$emoji2_version")
