@@ -62,4 +62,5 @@
     <string name="now">Sad ću</string>
     <string name="register">Registracija</string>
     <string name="text_welcome">AAA je aplikacija koja Vam omogućava da pratite I organizujete Vaš vjerski život.</string>
+    <string name="logout">Odjava</string>
 </resources>

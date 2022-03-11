@@ -3,13 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Korisnik/Documents/namazapp/app/src/main/res/layout/activity_auth.xml" value="0.425" />
-        <entry key="..\:/Users/Korisnik/Documents/namazapp/app/src/main/res/layout/activity_landing.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Korisnik/Documents/namazapp/app/src/main/res/layout/activity_main.xml" value="0.425" />
-        <entry key="..\:/Users/Korisnik/Documents/namazapp/app/src/main/res/layout/fragment_login.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Korisnik/Documents/namazapp/app/src/main/res/layout/fragment_registration.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Korisnik/Documents/namazapp/app/src/main/res/layout/fragment_welcome.xml" value="0.425" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1503623188405797" />
+        <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.21510416666666668" />
+        <entry key="app/src/main/res/layout/fragment_registration.xml" value="0.13796296296296295" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.2117948717948718" />
+        <entry key="app/src/main/res/layout/notifications_header.xml" value="0.2117948717948718" />
+        <entry key="app/src/main/res/layout/social_row.xml" value="0.2117948717948718" />
       </map>
     </option>
   </component>

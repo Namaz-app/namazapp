@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentSettingsBinding
+import ba.aadil.namaz.ui.landing.LandingActivity
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
@@ -43,6 +45,15 @@ class SettingsFragment : Fragment() {
                 R.layout.notifications_header,
                 NotificationsHeader::class.java
             ) { model, finder, _ ->
+                finder.find<TextView>(R.id.logout).apply {
+                    setOnClickListener {
+                        settingsViewModel.logout()
+                        activity?.let {
+                            startActivity(Intent(it, LandingActivity::class.java))
+                            it.finish()
+                        }
+                    }
+                }
             })
 
         rvAdapter.registerRenderer(

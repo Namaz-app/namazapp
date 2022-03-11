@@ -1,9 +1,14 @@
 package ba.aadil.namaz.ui.main.settings
 
 import androidx.lifecycle.ViewModel
+import ba.aadil.namaz.domain.usecase.LoginUser
+import ba.aadil.namaz.domain.usecase.LogoutUser
 import ba.aadil.namaz.notifications.ToggleNotifications
 
-class SettingsViewModel(private val toggleNotifications: ToggleNotifications) : ViewModel() {
+class SettingsViewModel(
+    private val toggleNotifications: ToggleNotifications,
+    private val logoutUser: LogoutUser
+    ) : ViewModel() {
     val notificationOn = toggleNotifications.notificationOn
 
     fun toggleNotifications(enabled: Boolean) {
@@ -24,6 +29,10 @@ class SettingsViewModel(private val toggleNotifications: ToggleNotifications) : 
 
     fun getPrayerReminderTime(): Int {
         return toggleNotifications.getReminderTime()
+    }
+
+    fun logout() {
+        logoutUser()
     }
 
     fun getPrayerReminderTimeArrayPosition(): Int {

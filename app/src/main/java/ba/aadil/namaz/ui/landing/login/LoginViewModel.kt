@@ -14,7 +14,9 @@ class LoginViewModel(
 
     fun login(email: String, password: String) {
         viewModelScope.launch {
-            loginUser(email, password).fold(
+            kotlin.runCatching {
+                loginUser(email, password)
+            }.fold(
                 onSuccess = {
                     events.emit(Event.NavigateToHome)
                 },

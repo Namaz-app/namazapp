@@ -26,4 +26,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:textAllCaps="true" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:textSize="20sp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:textAllCaps="true" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

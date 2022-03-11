@@ -14,6 +14,7 @@ import ba.aadil.namaz.domain.usecase.TrackPrayerUseCase
 import ba.aadil.namaz.domain.usecase.GetBadges
 import ba.aadil.namaz.domain.usecase.GetCurrentUser
 import ba.aadil.namaz.domain.usecase.LoginUser
+import ba.aadil.namaz.domain.usecase.LogoutUser
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -50,6 +51,9 @@ val domainModule = module {
     }
     single {
         LoginUser()
+    }
+    single {
+        LogoutUser()
     }
     single {
         ToggleNotifications(androidContext(), get())

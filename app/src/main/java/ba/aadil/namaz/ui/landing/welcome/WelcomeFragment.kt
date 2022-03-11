@@ -13,7 +13,6 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class WelcomeFragment: Fragment() {
     private var _binding: FragmentWelcomeBinding? = null
     private val binding get() = _binding!!
-    private val welcomeViewModel by sharedViewModel<WelcomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

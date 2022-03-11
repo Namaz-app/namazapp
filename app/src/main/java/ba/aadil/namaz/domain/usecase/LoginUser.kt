@@ -1,20 +1,30 @@
 package ba.aadil.namaz.domain.usecase
 
+import ba.aadil.namaz.domain.User
+import com.google.firebase.FirebaseException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class LoginUser {
-    suspend operator fun invoke(email: String, password: String): Result<Unit> =
+    suspend operator fun invoke(email: String, password: String): Unit =
         suspendCoroutine { continuation ->
-            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    val user = it.result.user
-                    if (user != null) continuation.resume(Result.success(Unit)) else continuation.resume(
-                        Result.failure(it.exception ?: Exception())
-                    )
+            Firebase.auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+
+                        // Sign in success, update UI with the signed-in user's information
+                        continuation.resume(Unit)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        continuation.resumeWithException(
+                            task.exception ?: FirebaseException("Unknown error")
+                        )
+                    }
                 }
         }
 }

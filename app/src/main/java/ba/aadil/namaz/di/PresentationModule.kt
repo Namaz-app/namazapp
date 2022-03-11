@@ -30,7 +30,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        SettingsViewModel(get())
+        SettingsViewModel(get(), get())
     }
 
     viewModel {
