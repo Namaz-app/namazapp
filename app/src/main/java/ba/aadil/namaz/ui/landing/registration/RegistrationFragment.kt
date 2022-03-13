@@ -1,5 +1,6 @@
 package ba.aadil.namaz.ui.landing.registration
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -7,16 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentRegistrationBinding
+import ba.aadil.namaz.ui.landing.login.LoginViewModel
+import ba.aadil.namaz.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegistrationFragment : Fragment() {
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = _binding!!
-    private val registrationViewModel by sharedViewModel<RegistrationViewModel>()
+    private val registrationViewModel by viewModel<RegistrationViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,12 +43,17 @@ class RegistrationFragment : Fragment() {
                     binding.passwordEdittext.toString())
             }
         }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            registrationViewModel.errors.collect {
-                Snackbar.make(binding.next,
-                    getString(R.string.error_creating_user, it),
-                    Snackbar.LENGTH_LONG).show()
+        lifecycleScope.launchWhenStarted {
+            registrationViewModel.events.collect {
+                when (it) {
+                    RegistrationViewModel.Event.NavigateToOnboarding -> {
+                        findNavController().navigate(R.id.onBoardingFragment)
+                    }
+                    is RegistrationViewModel.Event.ShowError -> Snackbar.make(
+                        binding.email,
+                        it.message,
+                        Snackbar.LENGTH_LONG).show()
+                }
             }
         }
     }

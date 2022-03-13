@@ -1,5 +1,6 @@
 package ba.aadil.namaz.ui.landing
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,22 +9,28 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.coroutineScope
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import ba.aadil.namaz.R
 import ba.aadil.namaz.domain.usecase.GetCurrentCityUseCase
 import ba.aadil.namaz.databinding.FragmentOnboardingBinding
 import ba.aadil.namaz.data.db.City
+import ba.aadil.namaz.ui.landing.onboarding.OnboardingViewModel
 import ba.aadil.namaz.ui.landing.registration.RegistrationViewModel
+import ba.aadil.namaz.ui.main.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 
 class OnBoardingFragment : Fragment() {
     private var _binding: FragmentOnboardingBinding? = null
     val binding get() = _binding!!
-    private val getCurrentCityUseCase by inject<GetCurrentCityUseCase>()
-    private val registrationViewModel by sharedViewModel<RegistrationViewModel>()
+    private val viewModel by viewModel<OnboardingViewModel>()
     private var pickedCityId = City.defaultCityId
 
     override fun onCreateView(
@@ -56,15 +63,26 @@ class OnBoardingFragment : Fragment() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
+        lifecycleScope.launchWhenStarted {
 
-        viewLifecycleOwner.lifecycle.coroutineScope.launchWhenCreated {
-            val cities = withContext(Dispatchers.IO) { getCurrentCityUseCase.getAllCities() }
-            cityNamesList.addAll(cities.map { it.name })
-            cityList.addAll(cities)
-            adapter.notifyDataSetChanged()
-            binding.cityPicker.setSelection(cityNamesList.indexOfFirst { it == "Sarajevo" })
+            viewModel.cities.collect {
+                cityNamesList.addAll(it.map { it.name })
+                cityList.addAll(it)
+                adapter.notifyDataSetChanged()
+                binding.cityPicker.setSelection(cityNamesList.indexOfFirst { it == "Sarajevo" })
+            }
+
         }
-
+        lifecycleScope.launchWhenStarted {
+            viewModel.events.collect {
+                when (it) {
+                    OnboardingViewModel.Event.NavigateToHome -> {
+                        startActivity(Intent(activity, MainActivity::class.java))
+                        activity?.finish()
+                    }
+                }
+            }
+        }
         binding.pickBirthdateButton.apply {
             minValue = 1900
             maxValue = LocalDate.now().year
@@ -72,7 +90,7 @@ class OnBoardingFragment : Fragment() {
         }
 
         binding.finish.setOnClickListener {
-            registrationViewModel.completeStepTwo(pickedCityId, binding.pickBirthdateButton.value)
+            viewModel.updateUserInfo(pickedCityId, binding.pickBirthdateButton.value)
         }
     }
 }

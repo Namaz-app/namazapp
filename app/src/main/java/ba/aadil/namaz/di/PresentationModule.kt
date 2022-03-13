@@ -1,6 +1,7 @@
 package ba.aadil.namaz.di
 
 import ba.aadil.namaz.ui.landing.login.LoginViewModel
+import ba.aadil.namaz.ui.landing.onboarding.OnboardingViewModel
 import ba.aadil.namaz.ui.landing.registration.RegistrationViewModel
 import ba.aadil.namaz.ui.main.dashboard.DashboardViewModel
 import ba.aadil.namaz.ui.main.vaktija.HomeViewModel
@@ -23,6 +24,10 @@ val presentationModule = module {
 
     viewModel {
         DashboardViewModel(get(), get())
+    }
+
+    viewModel {
+        OnboardingViewModel(get(), get())
     }
 
     viewModel {
