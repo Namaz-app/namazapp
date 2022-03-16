@@ -40,7 +40,7 @@ class RegistrationFragment : Fragment() {
                 registrationViewModel.completeStepOne(
                     binding.nameEdittext.text.toString(),
                     binding.emailEdittext.text.toString(),
-                    binding.passwordEdittext.toString())
+                    binding.passwordEdittext.text.toString())
             }
         }
         lifecycleScope.launchWhenStarted {
