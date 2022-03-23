@@ -63,4 +63,10 @@
     <string name="register">Registracija</string>
     <string name="text_welcome">AAA je aplikacija koja Vam omogućava da pratite I organizujete Vaš vjerski život.</string>
     <string name="logout">Odjava</string>
+    <string name="O_broj">O</string>
+    <string name="fab_des">fab</string>
+    <string name="_od0_do5">0/5</string>
+    <string name="sedmi_ni_prikaz_aktivnosti">Sedmični prikaz aktivnosti</string>
+    <string name="mjese_ni_prikaz_aktivnosti">Mjesečni prikaz aktivnosti</string>
+    <string name="_0_7_dana">0/7</string>
 </resources>

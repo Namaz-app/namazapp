@@ -1,17 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.dashboard.DashboardFragment">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dashboard_rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+<androidx.recyclerview.widget.RecyclerView
+    android:visibility="gone"
+    android:id="@+id/dashboard_rv"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:indeterminate="false"
+            android:progress="50"
+            app:indicatorColor="@color/text_gray"
+            app:indicatorSize="200dp"
+            app:trackColor="@color/teal_200">
+
+        </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+        <TextView
+            android:id="@+id/text_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/O_broj"
+            android:textSize="50sp" />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/_od0_do5"
+            android:textSize="20sp"
+            android:layout_marginTop="@android:dimen/app_icon_size"/>
+
+    </FrameLayout>
+
+<com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/floating_action_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end|bottom"
+    android:layout_margin="30dp"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:src="@drawable/ic_baseline_add_24"
+    android:contentDescription="@string/fab_des"
+    />
+
+
+    <androidx.emoji2.widget.EmojiTextView
+        android:id="@+id/today_emoji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#626363"
+        android:textSize="60sp"
+        app:layout_constraintTop_toBottomOf="@id/frameLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="20dp"
+        tools:text="🤩" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/today_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/congrats_gods_blessings"
+        android:textSize="20sp"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@id/today_emoji"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="360dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@id/card_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/today_message"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/sedmicni_prikaz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/sedmi_ni_prikaz_aktivnosti"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/dani_u_sedmici"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="5dp"
+                android:text="@string/_0_7_dana"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+            <TextView
+                android:id="@+id/pon_dan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="1dp"
+                android:text="P"
+                android:layout_marginStart="70dp"
+                android:layout_marginTop="30dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/dani_u_sedmici"
+                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+            <TextView
+                android:id="@+id/uto_dan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="1dp"
+                android:text="U"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/pon_dan"
+                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+            <TextView
+                android:id="@+id/sri_dan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="1dp"
+                android:text="S"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/uto_dan"
+                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+            <TextView
+                android:id="@+id/cet_dan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="1dp"
+                android:text="Č"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/sri_dan"
+                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+            <TextView
+                android:id="@+id/Pet_dan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="1dp"
+                android:text="P"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/cet_dan"
+                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+            <TextView
+                android:id="@+id/sub_dan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="1dp"
+                android:text="S"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/Pet_dan"
+                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+            <TextView
+                android:id="@+id/ned_dan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:padding="1dp"
+                android:text="N"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/sub_dan"
+                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card_1"
+        android:layout_width="360dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="386dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mjesecni_prikaz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/mjese_ni_prikaz_aktivnosti"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
