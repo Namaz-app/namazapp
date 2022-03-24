@@ -67,13 +67,14 @@
     <string name="fab_des">fab</string>
     <string name="_od0_do5">0/5</string>
     <string name="sedmi_ni_prikaz_aktivnosti">Sedmični prikaz aktivnosti</string>
-    <string name="mjese_ni_prikaz_aktivnosti">Mjesečni prikaz aktivnosti</string>
     <string name="_0_7_dana">0/7</string>
     <string name="P_dan">P</string>
     <string name="u_dan">U</string>
-    <string name="s_dan">S</string>
+    <string name="sr_dan">S</string>
     <string name="c_dan">Č</string>
     <string name="p_dan">P</string>
     <string name="s_dan">S</string>
     <string name="n_Dan">N</string>
+    <string name="mjese_ni_prikaz_obavljenih_namaza">Mjesečni prikaz obavljenih namaza</string>
+    <string name="_150_namaza_mjesec">0/150</string>
 </resources>
