@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/gray_light"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray_light">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dashboard_rv"
@@ -21,80 +21,68 @@
         android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/today_message">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:indeterminate="false"
             android:progress="50"
             app:indicatorColor="@color/text_gray"
-            app:indicatorSize="150dp"
+            app:indicatorSize="120dp"
             app:trackColor="@color/teal_200">
-
         </com.google.android.material.progressindicator.CircularProgressIndicator>
 
         <TextView
-            android:id="@+id/text_0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/O_broj"
-            android:textSize="50sp" />
-
-        <TextView
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@android:dimen/app_icon_size"
-            android:text="@string/_od0_do5"
-            android:textSize="20sp" />
-
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            tools:text="0/5" />
     </FrameLayout>
 
     <androidx.emoji2.widget.EmojiTextView
         android:id="@+id/today_emoji"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
         android:padding="10dp"
         android:textColor="#626363"
         android:textSize="60sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frameLayout"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="🤩" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/today_message"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="32dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:gravity="center_horizontal"
-        android:padding="10dp"
         android:text="@string/congrats_gods_blessings"
-        android:textSize="20sp"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today_emoji" />
+        app:layout_constraintTop_toBottomOf="@+id/today_emoji" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="360dp"
         android:layout_height="100dp"
         android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@id/card_1"
-        app:cardElevation="10dp"
         app:cardCornerRadius="10dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@id/card_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today_message">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -105,9 +93,10 @@
                 android:id="@+id/sedmicni_prikaz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                 android:text="@string/sedmi_ni_prikaz_aktivnosti"
-                android:textSize="17sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -116,10 +105,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:padding="5dp"
                 android:text="@string/_0_7_dana"
-                android:textSize="30sp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
 
