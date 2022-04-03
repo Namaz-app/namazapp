@@ -15,3 +15,5 @@
 ios/Pods
 *.lock
 *.podspec
+vaktijasdk/vaktijasdk.podspec
+.idea/misc.xml
