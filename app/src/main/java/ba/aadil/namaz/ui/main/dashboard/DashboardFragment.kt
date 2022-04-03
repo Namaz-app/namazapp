@@ -136,11 +136,6 @@ class DashboardFragment : Fragment() {
             }
         )
 
-        binding.dashboardRv.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = rvAdapter
-        }
-
         viewLifecycleOwner.lifecycleScope.launch {
             dashboardViewModel.getStatsBetweenSelectedDaysLive().collect {
                 when (it) {
@@ -149,7 +144,6 @@ class DashboardFragment : Fragment() {
                         items.addAll(it.data.stats.sortedBy { prayerStats -> prayerStats.sortWeight })
                         items.add(it.selectedDaysStats)
                         rvAdapter.setItems(items)
-                        rvAdapter.notifyDataSetChanged()
                     }
                     is DashboardViewModel.PrayingStatisticsStats.Error -> {
                     }

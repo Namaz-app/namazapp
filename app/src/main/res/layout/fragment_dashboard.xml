@@ -1,388 +1,374 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/gray_light">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dashboard_rv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/today_message">
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:indeterminate="false"
-            android:progress="50"
-            app:indicatorColor="@color/text_gray"
-            app:indicatorSize="120dp"
-            app:trackColor="@color/teal_200">
-        </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-        <TextView
+        android:background="@color/gray_light">
+        <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            tools:text="0/5" />
-    </FrameLayout>
-
-    <androidx.emoji2.widget.EmojiTextView
-        android:id="@+id/today_emoji"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:padding="10dp"
-        android:textColor="#626363"
-        android:textSize="60sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="🤩" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/today_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:gravity="center_horizontal"
-        android:text="@string/congrats_gods_blessings"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/today_emoji" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="360dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="5dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        app:layout_constraintBottom_toTopOf="@id/card_1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/sedmicni_prikaz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:text="@string/sedmi_ni_prikaz_aktivnosti"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/dani_u_sedmici"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:text="@string/_0_7_dana"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
-
-            <TextView
-                android:id="@+id/pon_dan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="30dp"
-                android:padding="1dp"
-                android:text="@string/P_dan"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/dani_u_sedmici"
-                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
-
-            <TextView
-                android:id="@+id/uto_dan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:padding="1dp"
-                android:text="@string/u_dan"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/pon_dan"
-                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
-
-            <TextView
-                android:id="@+id/sri_dan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:padding="1dp"
-                android:text="@string/s_dan"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/uto_dan"
-                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
-
-            <TextView
-                android:id="@+id/cet_dan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:padding="1dp"
-                android:text="@string/c_dan"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/sri_dan"
-                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
-
-            <TextView
-                android:id="@+id/Pet_dan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:padding="1dp"
-                android:text="@string/p_dan"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/cet_dan"
-                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
-
-            <TextView
-                android:id="@+id/sub_dan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:padding="1dp"
-                android:text="@string/s_dan"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/Pet_dan"
-                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
-
-            <TextView
-                android:id="@+id/ned_dan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:padding="1dp"
-                android:text="@string/n_Dan"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/sub_dan"
-                app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/today_message">
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/pon_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:indeterminate="false"
                 android:progress="50"
                 app:indicatorColor="@color/text_gray"
-                app:indicatorSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/pon_dan"
-                app:layout_constraintLeft_toRightOf="@id/dani_u_sedmici"
-                app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
-                app:trackColor="@color/teal_200">
-
-            </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/uto_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:indeterminate="false"
-                android:progress="50"
-                app:indicatorColor="@color/text_gray"
-                app:indicatorSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/uto_dan"
-                app:layout_constraintLeft_toRightOf="@id/pon_indicator"
-                app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
-                app:trackColor="@color/teal_200">
-
-            </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/sri_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:indeterminate="false"
-                android:progress="50"
-                app:indicatorColor="@color/text_gray"
-                app:indicatorSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/sri_dan"
-                app:layout_constraintLeft_toRightOf="@id/uto_indicator"
-                app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
-                app:trackColor="@color/teal_200">
-
-            </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/cet_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:indeterminate="false"
-                android:progress="50"
-                app:indicatorColor="@color/text_gray"
-                app:indicatorSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/cet_dan"
-                app:layout_constraintLeft_toRightOf="@id/sri_indicator"
-                app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
-                app:trackColor="@color/teal_200">
-
-            </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/pet_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:indeterminate="false"
-                android:progress="50"
-                app:indicatorColor="@color/text_gray"
-                app:indicatorSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/Pet_dan"
-                app:layout_constraintLeft_toRightOf="@id/cet_indicator"
-                app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
-                app:trackColor="@color/teal_200">
-
-            </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/sub_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:indeterminate="false"
-                android:progress="50"
-                app:indicatorColor="@color/text_gray"
-                app:indicatorSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/sub_dan"
-                app:layout_constraintLeft_toRightOf="@id/pet_indicator"
-                app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
-                app:trackColor="@color/teal_200">
-
-            </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/ned_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="3dp"
-                android:indeterminate="false"
-                android:progress="50"
-                app:indicatorColor="@color/text_gray"
-                app:indicatorSize="20dp"
-                app:layout_constraintBottom_toTopOf="@id/ned_dan"
-                app:layout_constraintLeft_toRightOf="@id/sub_indicator"
-                app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
-                app:trackColor="@color/teal_200">
-
-            </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_1"
-        android:layout_width="360dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="10dp"
-        >
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+                app:indicatorSize="120dp"
+                app:trackColor="@color/teal_200" />
 
             <TextView
-                android:id="@+id/mjesecni_prikaz"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/mjese_ni_prikaz_obavljenih_namaza"
-                android:textSize="17sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="0/5"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                tools:text="0/5" />
+        </FrameLayout>
 
-            <TextView
-                android:id="@+id/mjesecno_namaza"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="@string/_150_namaza_mjesec"
-                android:textSize="30sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mjesecni_prikaz" />
+        <androidx.emoji2.widget.EmojiTextView
+            android:id="@+id/today_emoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:padding="10dp"
+            android:textColor="#626363"
+            android:textSize="60sp"
+            android:text="🤩"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+             />
 
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:layout_width="250dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/mjesecno_namaza"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/mjesecni_prikaz" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/today_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center_horizontal"
+            android:text="@string/congrats_gods_blessings"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/today_emoji" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="360dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/sedmicni_prikaz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/sedmi_ni_prikaz_aktivnosti"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dani_u_sedmici"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/_0_7_dana"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+                <TextView
+                    android:id="@+id/pon_dan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="30dp"
+                    android:padding="1dp"
+                    android:text="@string/P_dan"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/dani_u_sedmici"
+                    app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+                <TextView
+                    android:id="@+id/uto_dan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:padding="1dp"
+                    android:text="@string/u_dan"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/pon_dan"
+                    app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+                <TextView
+                    android:id="@+id/sri_dan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:padding="1dp"
+                    android:text="@string/s_dan"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/uto_dan"
+                    app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+                <TextView
+                    android:id="@+id/cet_dan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:padding="1dp"
+                    android:text="@string/c_dan"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/sri_dan"
+                    app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+                <TextView
+                    android:id="@+id/Pet_dan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:padding="1dp"
+                    android:text="@string/p_dan"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/cet_dan"
+                    app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+                <TextView
+                    android:id="@+id/sub_dan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:padding="1dp"
+                    android:text="@string/s_dan"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/Pet_dan"
+                    app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+                <TextView
+                    android:id="@+id/ned_dan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:padding="1dp"
+                    android:text="@string/n_Dan"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/sub_dan"
+                    app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/pon_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="60dp"
+                    android:indeterminate="false"
+                    android:progress="50"
+                    app:indicatorColor="@color/text_gray"
+                    app:indicatorSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/pon_dan"
+                    app:layout_constraintLeft_toRightOf="@id/dani_u_sedmici"
+                    app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
+                    app:trackColor="@color/teal_200">
+
+                </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/uto_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:indeterminate="false"
+                    android:progress="50"
+                    app:indicatorColor="@color/text_gray"
+                    app:indicatorSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/uto_dan"
+                    app:layout_constraintLeft_toRightOf="@id/pon_indicator"
+                    app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
+                    app:trackColor="@color/teal_200">
+
+                </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/sri_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:indeterminate="false"
+                    android:progress="50"
+                    app:indicatorColor="@color/text_gray"
+                    app:indicatorSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/sri_dan"
+                    app:layout_constraintLeft_toRightOf="@id/uto_indicator"
+                    app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
+                    app:trackColor="@color/teal_200">
+
+                </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/cet_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:indeterminate="false"
+                    android:progress="50"
+                    app:indicatorColor="@color/text_gray"
+                    app:indicatorSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/cet_dan"
+                    app:layout_constraintLeft_toRightOf="@id/sri_indicator"
+                    app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
+                    app:trackColor="@color/teal_200">
+
+                </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/pet_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:indeterminate="false"
+                    android:progress="50"
+                    app:indicatorColor="@color/text_gray"
+                    app:indicatorSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/Pet_dan"
+                    app:layout_constraintLeft_toRightOf="@id/cet_indicator"
+                    app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
+                    app:trackColor="@color/teal_200">
+
+                </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/sub_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:indeterminate="false"
+                    android:progress="50"
+                    app:indicatorColor="@color/text_gray"
+                    app:indicatorSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/sub_dan"
+                    app:layout_constraintLeft_toRightOf="@id/pet_indicator"
+                    app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
+                    app:trackColor="@color/teal_200">
+
+                </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/ned_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:indeterminate="false"
+                    android:progress="50"
+                    app:indicatorColor="@color/text_gray"
+                    app:indicatorSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@id/ned_dan"
+                    app:layout_constraintLeft_toRightOf="@id/sub_indicator"
+                    app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz"
+                    app:trackColor="@color/teal_200">
+
+                </com.google.android.material.progressindicator.CircularProgressIndicator>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_1"
+            android:layout_width="360dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/mjesecni_prikaz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/mjese_ni_prikaz_obavljenih_namaza"
+                    android:textSize="17sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/mjesecno_namaza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/_150_namaza_mjesec"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mjesecni_prikaz" />
 
-    </com.google.android.material.card.MaterialCardView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:layout_width="250dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/mjesecno_namaza"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/mjesecni_prikaz" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
