@@ -111,9 +111,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="70dp"
                     android:layout_marginTop="30dp"
-                    android:padding="1dp"
                     android:text="@string/P_dan"
-                    android:textSize="15sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/dani_u_sedmici"
                     app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
@@ -125,9 +124,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
-                    android:padding="1dp"
                     android:text="@string/u_dan"
-                    android:textSize="15sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/pon_dan"
                     app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
@@ -139,9 +137,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
-                    android:padding="1dp"
                     android:text="@string/s_dan"
-                    android:textSize="15sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/uto_dan"
                     app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
@@ -153,9 +150,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
-                    android:padding="1dp"
                     android:text="@string/c_dan"
-                    android:textSize="15sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/sri_dan"
                     app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
@@ -167,9 +163,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
-                    android:padding="1dp"
                     android:text="@string/p_dan"
-                    android:textSize="15sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/cet_dan"
                     app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
@@ -181,9 +176,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
-                    android:padding="1dp"
                     android:text="@string/s_dan"
-                    android:textSize="15sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/Pet_dan"
                     app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
@@ -195,9 +189,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="30dp"
-                    android:padding="1dp"
                     android:text="@string/n_Dan"
-                    android:textSize="15sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/sub_dan"
                     app:layout_constraintTop_toBottomOf="@+id/sedmicni_prikaz" />
@@ -341,9 +334,8 @@
                     android:id="@+id/mjesecni_prikaz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
                     android:text="@string/mjese_ni_prikaz_obavljenih_namaza"
-                    android:textSize="17sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -351,9 +343,8 @@
                     android:id="@+id/mjesecno_namaza"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
                     android:text="@string/_150_namaza_mjesec"
-                    android:textSize="30sp"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/mjesecni_prikaz" />
