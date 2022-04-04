@@ -8,19 +8,18 @@
     android:layout_height="match_parent"
     android:background="@color/teal_200">
 
-
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:textColor="@color/white"
         android:text="Dobro dosao Mustafa"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="600dp"
@@ -40,6 +39,26 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white">
 
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/date_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
+                    android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
+                    app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+                    tools:text="11.11.2012" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/date_to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
+                    app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+                    android:layout_marginBottom="100dp"
+                    tools:layout_editor_absoluteX="239dp"
+                    tools:text="11.11.2012" />
+
                 <androidx.emoji2.widget.EmojiTextView
                     android:id="@+id/today_emoji"
                     android:layout_width="wrap_content"
@@ -52,7 +71,6 @@
                     android:textSize="40sp"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/today_message2"
@@ -81,9 +99,11 @@
                     android:id="@+id/materialCardView"
                     android:layout_width="360dp"
                     android:layout_height="100dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="200dp"
+                    android:layout_marginBottom="32dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/frameLayout">
@@ -281,61 +301,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card_1"
-                    android:layout_width="360dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginBottom="50dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-                    app:layout_constraintStart_toStartOf="@+id/materialCardView"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:id="@+id/mjesecni_prikaz"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/mjese_ni_prikaz_obavljenih_namaza"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <TextView
-                            android:id="@+id/mjesecno_namaza"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/_150_namaza_mjesec"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                            app:layout_constraintStart_toStartOf="@+id/mjesecni_prikaz"
-                            app:layout_constraintTop_toBottomOf="@id/mjesecni_prikaz" />
-
-                        <com.google.android.material.progressindicator.LinearProgressIndicator
-                            android:layout_width="0dp"
-                            android:layout_height="100dp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="16dp"
-                            android:indeterminate="false"
-                            android:progress="70"
-                            app:layout_constraintLeft_toRightOf="@id/mjesecno_namaza"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/mjesecni_prikaz"
-                            app:trackColor="@color/teal_200"
-                            app:trackThickness="15dp" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
 
                 <FrameLayout
                     android:id="@+id/frameLayout"
@@ -371,12 +337,13 @@
                     android:layout_marginTop="8dp"
                     android:drawableStart="@drawable/ic_round_calendar_month_24"
                     android:drawablePadding="10dp"
-                    android:textSize="15sp"
                     android:text="Novembar 22, 2021"
+                    android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="@+id/today_message2"
                     app:layout_constraintTop_toBottomOf="@+id/today_message2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
