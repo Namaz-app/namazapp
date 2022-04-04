@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Namaz" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Namaz" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/teal_primary</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -11,6 +11,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -28,4 +30,11 @@
     </style>
 
     <style name="AuthTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+
+    <style name="IndicatorStyle" parent="Widget.MaterialComponents.CircularProgressIndicator">
+        <item name="indicatorSize">25dp</item>
+        <item name="android:progress">70</item>
+        <item name="trackColor">@color/teal_200</item>
+        <item name="android:indeterminate">false</item>
+    </style>
 </resources>

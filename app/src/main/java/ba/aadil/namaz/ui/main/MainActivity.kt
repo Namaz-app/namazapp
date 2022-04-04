@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         if (FirebaseAuth.getInstance().currentUser == null) {
             startActivity(Intent(this, LandingActivity::class.java))
             finish()
@@ -50,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                     R.id.settingsFragment
                 )
             )
-            setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
         }
     }
