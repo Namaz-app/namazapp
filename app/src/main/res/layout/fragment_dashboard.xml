@@ -40,24 +40,46 @@
                 android:background="@color/white">
 
 
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Do"
+                    android:textSize="20sp"
+                    tools:layout_editor_absoluteX="208dp"
+                    tools:layout_editor_absoluteY="277dp" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Od"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toStartOf="@+id/date_from"
+                    app:layout_constraintHorizontal_bias="0.47"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="277dp" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/date_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="100dp"
+                    android:layout_marginBottom="92dp"
                     android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
                     app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+                    tools:layout_editor_absoluteX="59dp"
                     tools:text="11.11.2012" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/date_to"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="92dp"
                     android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
                     app:layout_constraintBottom_toTopOf="@+id/materialCardView"
-                    android:layout_marginBottom="100dp"
-                    tools:layout_editor_absoluteX="239dp"
+                    tools:layout_editor_absoluteX="237dp"
                     tools:text="11.11.2012" />
+
 
                 <androidx.emoji2.widget.EmojiTextView
                     android:id="@+id/today_emoji"
@@ -302,7 +324,6 @@
                 </com.google.android.material.card.MaterialCardView>
 
 
-
                 <FrameLayout
                     android:id="@+id/frameLayout"
                     android:layout_width="wrap_content"
@@ -341,6 +362,10 @@
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="@+id/today_message2"
                     app:layout_constraintTop_toBottomOf="@+id/today_message2" />
+
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
