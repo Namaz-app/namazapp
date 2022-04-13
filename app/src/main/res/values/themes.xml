@@ -32,7 +32,7 @@
     <style name="AuthTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 
     <style name="IndicatorStyle" parent="Widget.MaterialComponents.CircularProgressIndicator">
-        <item name="indicatorSize">25dp</item>
+        <item name="indicatorSize">35dp</item>
         <item name="android:progress">70</item>
         <item name="trackColor">@color/teal_200</item>
         <item name="android:indeterminate">false</item>

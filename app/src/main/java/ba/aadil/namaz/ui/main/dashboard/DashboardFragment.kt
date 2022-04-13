@@ -14,6 +14,7 @@ import ba.aadil.namaz.databinding.FragmentDashboardBinding
 import ba.aadil.namaz.data.db.Track
 import ba.aadil.namaz.domain.Events
 import ba.aadil.namaz.domain.usecase.GetStatisticsUseCase
+import ba.aadil.namaz.ui.collectLatestLifecycleFlow
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
@@ -24,7 +25,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 
 class DashboardFragment : Fragment() {
-    private val dashboardViewModel: DashboardViewModel by viewModel()
+    private val viewModel: DashboardViewModel by viewModel()
     private var _binding: FragmentDashboardBinding? = null
     private val binding get() = _binding!!
 
@@ -39,6 +40,30 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        collectLatestLifecycleFlow(viewModel.userName) {
+            binding.userName.text = getString(R.string.welcome_user, it)
+        }
+        collectLatestLifecycleFlow(viewModel.todayDate) {
+            binding.dateToday.text = it
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         val rvAdapter = RendererRecyclerViewAdapter()
         rvAdapter.registerRenderer(
@@ -59,6 +84,7 @@ class DashboardFragment : Fragment() {
                     progress = model.prayedCount
                 }
             })
+
         rvAdapter.registerRenderer(
             ViewRenderer<DashboardViewModel.SelectedDaysStats, ViewFinder>(
                 R.layout.dashboard_selected_dates_stats,
@@ -69,6 +95,7 @@ class DashboardFragment : Fragment() {
                 )
             }
         )
+
         rvAdapter.registerRenderer(
             ViewRenderer<DashboardViewModel.PrayingStatisticsStats.Data, ViewFinder>(
                 R.layout.dashboard_stats,
@@ -81,7 +108,7 @@ class DashboardFragment : Fragment() {
                 finder.setText(R.id.today_message, model.congratsTextId)
 
                 viewLifecycleOwner.lifecycleScope.launch {
-                    dashboardViewModel.fromDate.collect {
+                    viewModel.fromDate.collect {
                         finder.find<Button>(R.id.date_from).apply {
                             text = it.format(Track.dateFormatter)
                         }
@@ -89,7 +116,7 @@ class DashboardFragment : Fragment() {
                 }
 
                 viewLifecycleOwner.lifecycleScope.launch {
-                    dashboardViewModel.toDate.collect {
+                    viewModel.toDate.collect {
                         finder.find<Button>(R.id.date_to).apply {
                             text = it.format(Track.dateFormatter)
                         }
@@ -105,11 +132,11 @@ class DashboardFragment : Fragment() {
                                     val fromLocalDate =
                                         LocalDate.now().withYear(year).withMonth(month + 1)
                                             .withDayOfMonth(day)
-                                    dashboardViewModel.updateFromDate(fromLocalDate)
+                                    viewModel.updateFromDate(fromLocalDate)
                                 },
-                                dashboardViewModel.fromDate.value.year,
-                                dashboardViewModel.fromDate.value.monthValue - 1,
-                                dashboardViewModel.fromDate.value.dayOfMonth
+                                viewModel.fromDate.value.year,
+                                viewModel.fromDate.value.monthValue - 1,
+                                viewModel.fromDate.value.dayOfMonth
                             ).show()
                         }
                     }
@@ -124,11 +151,11 @@ class DashboardFragment : Fragment() {
                                     val toLocalDate =
                                         LocalDate.now().withYear(year).withMonth(month + 1)
                                             .withDayOfMonth(day)
-                                    dashboardViewModel.updateToDate(toLocalDate)
+                                    viewModel.updateToDate(toLocalDate)
                                 },
-                                dashboardViewModel.toDate.value.year,
-                                dashboardViewModel.toDate.value.monthValue - 1,
-                                dashboardViewModel.toDate.value.dayOfMonth
+                                viewModel.toDate.value.year,
+                                viewModel.toDate.value.monthValue - 1,
+                                viewModel.toDate.value.dayOfMonth
                             ).show()
                         }
                     }
@@ -137,7 +164,8 @@ class DashboardFragment : Fragment() {
         )
 
         viewLifecycleOwner.lifecycleScope.launch {
-            dashboardViewModel.getStatsBetweenSelectedDaysLive().collect {
+
+            viewModel.getStatsBetweenSelectedDaysLive().collect {
                 when (it) {
                     is DashboardViewModel.PrayingStatisticsStats.Data -> {
                         val items = mutableListOf<ViewModel>(it)

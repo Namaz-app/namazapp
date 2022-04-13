@@ -1,5 +1,6 @@
 package ba.aadil.namaz.ui.main.dashboard
 
+import ba.aadil.namaz.domain.usecase.GetCurrentUser
 import ba.aadil.namaz.domain.usecase.GetEmojiAndCongratsForPrayedPrayers
 import ba.aadil.namaz.domain.usecase.GetStatisticsUseCase
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
@@ -8,9 +9,35 @@ import kotlinx.coroutines.flow.*
 import java.time.LocalDate
 
 class DashboardViewModel(
+    private val getCurrentUser: GetCurrentUser,
     private val getStatisticsUseCase: GetStatisticsUseCase,
     private val getEmojiAndCongratsForPrayedPrayers: GetEmojiAndCongratsForPrayedPrayers,
 ) : androidx.lifecycle.ViewModel() {
+
+
+    var userName = MutableStateFlow("")
+        private set
+
+    var todayDate = MutableStateFlow(LocalDate.now())
+        private set
+
+    init {
+        userName.value = getCurrentUser.getName()
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private val _dateStats =
         MutableStateFlow<PrayingStatisticsStats>(PrayingStatisticsStats.Loading)
     val dateStats: StateFlow<PrayingStatisticsStats> = _dateStats
@@ -18,7 +45,6 @@ class DashboardViewModel(
     val fromDate = _fromDate.asStateFlow()
     private val _toDate = MutableStateFlow(LocalDate.now())
     val toDate = _toDate.asStateFlow()
-
     fun updateFromDate(newDate: LocalDate) {
         _fromDate.value = newDate
     }

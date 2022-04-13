@@ -23,7 +23,7 @@ val presentationModule = module {
     }
 
     viewModel {
-        DashboardViewModel(get(), get())
+        DashboardViewModel(get(), get(),get())
     }
 
     viewModel {
