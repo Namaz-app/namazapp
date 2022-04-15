@@ -50,6 +50,14 @@ class GetStatisticsUseCase(private val trackingDao: TrackingDao) {
         )
     }
 
+    fun getTrackingForTodayFlow(): Flow<List<Track>> {
+        val endDatePlusDay = LocalDate.now().plusDays(1)
+        return trackingDao.getAllCompletedPrayersBetweenTwoDatesFlow(
+            LocalDate.now().atStartOfDay().toEpochSecond(ZoneOffset.ofTotalSeconds(0)),
+            endDatePlusDay.atStartOfDay().toEpochSecond(ZoneOffset.ofTotalSeconds(0))
+        )
+    }
+
     data class PrayerStatistics(
         val trackedPrayers: List<Track>,
         val stats: List<SinglePrayerStats>,

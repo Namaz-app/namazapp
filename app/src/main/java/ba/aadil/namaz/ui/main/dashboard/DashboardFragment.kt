@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
-import ba.aadil.namaz.databinding.FragmentDashboardBinding
 import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.databinding.FragmentDashboardBinding
 import ba.aadil.namaz.domain.Events
 import ba.aadil.namaz.domain.usecase.GetStatisticsUseCase
 import ba.aadil.namaz.ui.collectLatestLifecycleFlow
@@ -22,7 +21,14 @@ import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.Instant
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+import java.util.Date
+import java.util.Locale
 
 class DashboardFragment : Fragment() {
     private val viewModel: DashboardViewModel by viewModel()
@@ -45,23 +51,19 @@ class DashboardFragment : Fragment() {
             binding.userName.text = getString(R.string.welcome_user, it)
         }
         collectLatestLifecycleFlow(viewModel.todayDate) {
-            binding.dateToday.text = it
+            binding.dateToday.text =
+                it.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL))
+        }
+        collectLatestLifecycleFlow(viewModel.prayedCount) {
+            binding.prayerCount.text = getString(R.string.prayed_today_stats, it)
+
         }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+        binding.userName.setOnClickListener {
+            print(10)
+        }
 
 
 
@@ -90,8 +92,13 @@ class DashboardFragment : Fragment() {
                 R.layout.dashboard_selected_dates_stats,
                 DashboardViewModel.SelectedDaysStats::class.java
             ) { model, finder, _ ->
-                finder.setText(R.id.prayed_prayers_stats,
-                    getString(R.string.prayed_prayers_stats, model.prayedCount, model.totalPrayers)
+                finder.setText(
+                    R.id.prayed_prayers_stats,
+                    getString(
+                        R.string.prayed_prayers_stats,
+                        model.prayedCount,
+                        model.totalPrayers
+                    )
                 )
             }
         )
@@ -102,8 +109,10 @@ class DashboardFragment : Fragment() {
                 DashboardViewModel.PrayingStatisticsStats.Data::class.java
             ) { model, finder, _ ->
 
-                finder.setText(R.id.prayed_count,
-                    getString(R.string.prayed_today_stats, model.prayedTodayCount))
+                finder.setText(
+                    R.id.prayed_count,
+                    getString(R.string.prayed_today_stats, model.prayedTodayCount)
+                )
                 finder.setText(R.id.today_emoji, model.emoji)
                 finder.setText(R.id.today_message, model.congratsTextId)
 

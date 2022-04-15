@@ -20,376 +20,381 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Dobro dosao Mustafa" />
 
-
-    <com.google.android.material.card.MaterialCardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="match_parent"
         android:layout_marginTop="200dp"
-        app:cardCornerRadius="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="wrap_content">
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white">
+                >
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/today_message2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="32dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/text_today"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/today_emoji" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/date_today"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:drawableStart="@drawable/ic_round_calendar_month_24"
-                    android:drawablePadding="10dp"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="@+id/today_message2"
-                    app:layout_constraintTop_toBottomOf="@+id/today_message2"
-                    tools:text="Novembar 22, 2021"/>
-
-                <FrameLayout
-                    android:id="@+id/frameLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@+id/today_message"
-                    app:layout_constraintStart_toStartOf="@+id/materialCardView"
-                    app:layout_constraintTop_toTopOf="@+id/today_message">
-
-                    <com.google.android.material.progressindicator.CircularProgressIndicator
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/green_inner_circle"
-                        android:indeterminate="false"
-                        android:progress="75"
-                        app:indicatorSize="80dp"
-                        app:trackColor="@color/teal_200" />
-
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/today_message2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="0/5"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                        android:textColor="@color/white"
-                        tools:text="0/5" />
-                </FrameLayout>
+                        android:layout_marginStart="32dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/text_today"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/today_emoji" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/date_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:drawableStart="@drawable/ic_round_calendar_month_24"
+                        android:drawablePadding="10dp"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="@+id/today_message2"
+                        app:layout_constraintTop_toBottomOf="@+id/today_message2"
+                        tools:text="Novembar 22, 2021" />
 
-                <androidx.emoji2.widget.EmojiTextView
-                    android:id="@+id/today_emoji"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginEnd="100dp"
-                    android:padding="10dp"
-                    android:text="🤩"
-                    android:textColor="#626363"
-                    android:textSize="40sp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <FrameLayout
+                        android:id="@+id/frameLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="@+id/today_message"
+                        app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                        app:layout_constraintTop_toTopOf="@+id/today_message">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/today_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:gravity="center_horizontal"
-                    android:text="@string/congrats_gods_blessings"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    app:layout_constraintEnd_toEndOf="@+id/today_emoji"
-                    app:layout_constraintHorizontal_bias="0.484"
-                    app:layout_constraintStart_toStartOf="@+id/today_emoji"
-                    app:layout_constraintTop_toBottomOf="@+id/today_emoji" />
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Do"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    app:layout_constraintBottom_toBottomOf="@+id/date_to"
-                    app:layout_constraintEnd_toStartOf="@+id/date_to"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/date_from"
-                    app:layout_constraintTop_toTopOf="@+id/date_to" />
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Od"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    app:layout_constraintBottom_toBottomOf="@+id/date_from"
-                    app:layout_constraintEnd_toStartOf="@+id/date_from"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/date_from" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/date_from"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
-                    app:layout_constraintEnd_toStartOf="@+id/textView6"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textView5"
-                    app:layout_constraintTop_toBottomOf="@+id/frameLayout"
-                    tools:text="11.11.2012" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/date_to"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/textView6"
-                    app:layout_constraintTop_toTopOf="@+id/date_from"
-                    tools:text="11.11.2012" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView"
-                    android:layout_width="360dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="70dp"
-                    android:layout_marginBottom="32dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/date_from">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/label_sedmica"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="24dp"
-                            android:gravity="center_horizontal"
-                            android:text="U izabranoj sedmici ste klanjali 26/35 namaza"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
-
-                        </com.google.android.material.textview.MaterialTextView>
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/green_inner_circle"
+                            android:indeterminate="false"
+                            android:progress="75"
+                            app:indicatorSize="80dp"
+                            app:trackColor="@color/teal_200" />
 
                         <TextView
-                            android:id="@+id/sedmicni_prikaz"
+                            android:id="@+id/prayer_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="8dp"
-                            android:text="@string/sedmi_ni_prikaz_aktivnosti"
+                            android:layout_gravity="center"
+                            android:text="0/5"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:textColor="@color/white"
+                            tools:text="0/5" />
+                    </FrameLayout>
 
 
-                        <TextView
-                            android:id="@+id/pon_dan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="32dp"
-                            android:text="@string/P_dan"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                            app:layout_constraintBottom_toTopOf="@+id/label_sedmica"
-                            app:layout_constraintEnd_toEndOf="@+id/pon_indicator"
-                            app:layout_constraintStart_toStartOf="@+id/pon_indicator"
-                            app:layout_constraintTop_toBottomOf="@+id/pon_indicator" />
+                    <androidx.emoji2.widget.EmojiTextView
+                        android:id="@+id/today_emoji"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginEnd="100dp"
+                        android:padding="10dp"
+                        android:text="🤩"
+                        android:textColor="#626363"
+                        android:textSize="40sp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/uto_dan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/u_dan"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                            app:layout_constraintBottom_toBottomOf="@+id/pon_dan"
-                            app:layout_constraintEnd_toEndOf="@+id/uto_indicator"
-                            app:layout_constraintStart_toStartOf="@+id/uto_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/pon_dan" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/today_message"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/congrats_gods_blessings"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintEnd_toEndOf="@+id/today_emoji"
+                        app:layout_constraintHorizontal_bias="0.484"
+                        app:layout_constraintStart_toStartOf="@+id/today_emoji"
+                        app:layout_constraintTop_toBottomOf="@+id/today_emoji" />
 
-                        <TextView
-                            android:id="@+id/sri_dan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/s_dan"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                            app:layout_constraintBottom_toBottomOf="@+id/uto_dan"
-                            app:layout_constraintEnd_toEndOf="@+id/sri_indicator"
-                            app:layout_constraintStart_toStartOf="@+id/sri_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/uto_dan" />
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Do"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintBottom_toBottomOf="@+id/date_to"
+                        app:layout_constraintEnd_toStartOf="@+id/date_to"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/date_from"
+                        app:layout_constraintTop_toTopOf="@+id/date_to" />
 
-                        <TextView
-                            android:id="@+id/cet_dan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/c_dan"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                            app:layout_constraintBottom_toBottomOf="@+id/sri_dan"
-                            app:layout_constraintEnd_toEndOf="@+id/cet_indicator"
-                            app:layout_constraintStart_toStartOf="@+id/cet_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/sri_dan" />
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Od"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        app:layout_constraintBottom_toBottomOf="@+id/date_from"
+                        app:layout_constraintEnd_toStartOf="@+id/date_from"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/date_from" />
 
-                        <TextView
-                            android:id="@+id/Pet_dan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/p_dan"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                            app:layout_constraintBottom_toBottomOf="@+id/cet_dan"
-                            app:layout_constraintEnd_toEndOf="@+id/pet_indicator"
-                            app:layout_constraintStart_toStartOf="@+id/pet_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/cet_dan" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/date_from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
+                        app:layout_constraintEnd_toStartOf="@+id/textView6"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView5"
+                        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                        tools:text="11.11.2012" />
 
-                        <TextView
-                            android:id="@+id/sub_dan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/s_dan"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                            app:layout_constraintBottom_toBottomOf="@+id/Pet_dan"
-                            app:layout_constraintEnd_toEndOf="@+id/sub_indicator"
-                            app:layout_constraintStart_toStartOf="@+id/sub_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/Pet_dan" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/date_to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/textView6"
+                        app:layout_constraintTop_toTopOf="@+id/date_from"
+                        tools:text="11.11.2012" />
 
-                        <TextView
-                            android:id="@+id/ned_dan"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:text="@string/n_Dan"
-                            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                            app:layout_constraintBottom_toBottomOf="@+id/sub_dan"
-                            app:layout_constraintEnd_toEndOf="@+id/ned_indicator"
-                            app:layout_constraintStart_toStartOf="@+id/ned_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/sub_dan" />
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView"
+                        android:layout_width="360dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="70dp"
+                        android:layout_marginBottom="32dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/date_from">
 
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/pon_indicator"
-                            style="@style/IndicatorStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:indeterminate="false"
-                            app:layout_constraintEnd_toStartOf="@+id/uto_indicator"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintHorizontal_chainStyle="spread"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz">
-
-                        </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/uto_indicator"
-                            style="@style/IndicatorStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toStartOf="@+id/sri_indicator"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/pon_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/pon_indicator">
-
-                        </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/sri_indicator"
-                            style="@style/IndicatorStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toStartOf="@+id/cet_indicator"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/uto_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/uto_indicator">
-
-                        </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/cet_indicator"
-                            style="@style/IndicatorStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toStartOf="@+id/pet_indicator"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/sri_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/sri_indicator">
-
-                        </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/pet_indicator"
-                            style="@style/IndicatorStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintEnd_toStartOf="@+id/sub_indicator"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/cet_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/cet_indicator">
-
-                        </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/sub_indicator"
-                            style="@style/IndicatorStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:indeterminate="false"
-                            app:layout_constraintEnd_toStartOf="@+id/ned_indicator"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/pet_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/pet_indicator">
-
-                        </com.google.android.material.progressindicator.CircularProgressIndicator>
-
-                        <com.google.android.material.progressindicator.CircularProgressIndicator
-                            android:id="@+id/ned_indicator"
-                            style="@style/IndicatorStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:indeterminate="false"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.5"
-                            app:layout_constraintStart_toEndOf="@+id/sub_indicator"
-                            app:layout_constraintTop_toTopOf="@+id/sub_indicator">
-
-                        </com.google.android.material.progressindicator.CircularProgressIndicator>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/label_sedmica"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="24dp"
+                                android:gravity="center_horizontal"
+                                android:text="U izabranoj sedmici ste klanjali 26/35 namaza"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent">
 
-    </com.google.android.material.card.MaterialCardView>
+                            </com.google.android.material.textview.MaterialTextView>
+
+                            <TextView
+                                android:id="@+id/sedmicni_prikaz"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="8dp"
+                                android:text="@string/sedmi_ni_prikaz_aktivnosti"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/pon_dan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="32dp"
+                                android:text="@string/P_dan"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                app:layout_constraintBottom_toTopOf="@+id/label_sedmica"
+                                app:layout_constraintEnd_toEndOf="@+id/pon_indicator"
+                                app:layout_constraintStart_toStartOf="@+id/pon_indicator"
+                                app:layout_constraintTop_toBottomOf="@+id/pon_indicator" />
+
+                            <TextView
+                                android:id="@+id/uto_dan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="@string/u_dan"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                app:layout_constraintBottom_toBottomOf="@+id/pon_dan"
+                                app:layout_constraintEnd_toEndOf="@+id/uto_indicator"
+                                app:layout_constraintStart_toStartOf="@+id/uto_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/pon_dan" />
+
+                            <TextView
+                                android:id="@+id/sri_dan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="@string/s_dan"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                app:layout_constraintBottom_toBottomOf="@+id/uto_dan"
+                                app:layout_constraintEnd_toEndOf="@+id/sri_indicator"
+                                app:layout_constraintStart_toStartOf="@+id/sri_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/uto_dan" />
+
+                            <TextView
+                                android:id="@+id/cet_dan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="@string/c_dan"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                app:layout_constraintBottom_toBottomOf="@+id/sri_dan"
+                                app:layout_constraintEnd_toEndOf="@+id/cet_indicator"
+                                app:layout_constraintStart_toStartOf="@+id/cet_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/sri_dan" />
+
+                            <TextView
+                                android:id="@+id/Pet_dan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="@string/p_dan"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                app:layout_constraintBottom_toBottomOf="@+id/cet_dan"
+                                app:layout_constraintEnd_toEndOf="@+id/pet_indicator"
+                                app:layout_constraintStart_toStartOf="@+id/pet_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/cet_dan" />
+
+                            <TextView
+                                android:id="@+id/sub_dan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="@string/s_dan"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                app:layout_constraintBottom_toBottomOf="@+id/Pet_dan"
+                                app:layout_constraintEnd_toEndOf="@+id/sub_indicator"
+                                app:layout_constraintStart_toStartOf="@+id/sub_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/Pet_dan" />
+
+                            <TextView
+                                android:id="@+id/ned_dan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:text="@string/n_Dan"
+                                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                                app:layout_constraintBottom_toBottomOf="@+id/sub_dan"
+                                app:layout_constraintEnd_toEndOf="@+id/ned_indicator"
+                                app:layout_constraintStart_toStartOf="@+id/ned_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/sub_dan" />
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/pon_indicator"
+                                style="@style/IndicatorStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:indeterminate="false"
+                                app:layout_constraintEnd_toStartOf="@+id/uto_indicator"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintHorizontal_chainStyle="spread"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/sedmicni_prikaz">
+
+                            </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/uto_indicator"
+                                style="@style/IndicatorStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toStartOf="@+id/sri_indicator"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toEndOf="@+id/pon_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/pon_indicator">
+
+                            </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/sri_indicator"
+                                style="@style/IndicatorStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toStartOf="@+id/cet_indicator"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toEndOf="@+id/uto_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/uto_indicator">
+
+                            </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/cet_indicator"
+                                style="@style/IndicatorStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toStartOf="@+id/pet_indicator"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toEndOf="@+id/sri_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/sri_indicator">
+
+                            </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/pet_indicator"
+                                style="@style/IndicatorStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toStartOf="@+id/sub_indicator"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toEndOf="@+id/cet_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/cet_indicator">
+
+                            </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/sub_indicator"
+                                style="@style/IndicatorStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:indeterminate="false"
+                                app:layout_constraintEnd_toStartOf="@+id/ned_indicator"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toEndOf="@+id/pet_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/pet_indicator">
+
+                            </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+                            <com.google.android.material.progressindicator.CircularProgressIndicator
+                                android:id="@+id/ned_indicator"
+                                style="@style/IndicatorStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:indeterminate="false"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toEndOf="@+id/sub_indicator"
+                                app:layout_constraintTop_toTopOf="@+id/sub_indicator">
+
+                            </com.google.android.material.progressindicator.CircularProgressIndicator>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

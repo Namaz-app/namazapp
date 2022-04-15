@@ -21,6 +21,11 @@ class DashboardViewModel(
     var todayDate = MutableStateFlow(LocalDate.now())
         private set
 
+    var prayedCount = getStatisticsUseCase.getTrackingForTodayFlow().map { it.count { it.completed } }
+        private set
+
+
+
     init {
         userName.value = getCurrentUser.getName()
     }
