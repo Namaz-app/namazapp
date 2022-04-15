@@ -24,7 +24,8 @@ class DashboardViewModel(
     var prayedCount = getStatisticsUseCase.getTrackingForTodayFlow().map { it.count { it.completed } }
         private set
 
-
+    var emoji = prayedCount.map { getEmojiAndCongratsForPrayedPrayers.get(it) }
+        private set
 
     init {
         userName.value = getCurrentUser.getName()
@@ -80,8 +81,8 @@ class DashboardViewModel(
             val emoji = getEmojiAndCongratsForPrayedPrayers.get(prayedTodayCount)
             PrayingStatisticsStats.Data(data = selectedDates,
                 prayedTodayCount = prayedTodayCount,
-                congratsTextId = emoji.first,
-                emoji = emoji.second,
+                congratsTextId = emoji.congratsTextId,
+                emoji = emoji.emoji,
                 selectedDaysStats = SelectedDaysStats(selectedDates.trackedPrayers.size,
                     selectedDates.totalCount)
             )

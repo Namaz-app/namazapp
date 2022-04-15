@@ -56,17 +56,14 @@ class DashboardFragment : Fragment() {
         }
         collectLatestLifecycleFlow(viewModel.prayedCount) {
             binding.prayerCount.text = getString(R.string.prayed_today_stats, it)
-
         }
 
-
-
-        binding.userName.setOnClickListener {
-            print(10)
+        collectLatestLifecycleFlow(viewModel.emoji) {
+            binding.todayEmoji.text = it.emoji
+            binding.todayMessage.text = getString(it.congratsTextId)
         }
 
-
-
+        
         val rvAdapter = RendererRecyclerViewAdapter()
         rvAdapter.registerRenderer(
             ViewRenderer<GetStatisticsUseCase.SinglePrayerStats, ViewFinder>(
