@@ -19,11 +19,11 @@ val presentationModule = module {
     }
 
     viewModel {
-        TrackingViewModel(androidContext(), get(), get(), get())
+        TrackingViewModel(get(), get(), get())
     }
 
     viewModel {
-        DashboardViewModel(get(), get(),get())
+        DashboardViewModel(get(), get())
     }
 
     viewModel {

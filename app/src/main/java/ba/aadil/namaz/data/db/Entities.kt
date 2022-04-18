@@ -4,7 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.domain.PrayerEvents
+import java.time.Instant
 import java.time.format.DateTimeFormatter
 
 @Entity(tableName = "schedule")
@@ -42,14 +43,13 @@ data class City(
     }
 }
 
-@Entity(tableName = "tracking")
-data class Track(
+@Entity(tableName = "prayer_tracking_info")
+data class PrayerTrackingInfo(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val prayer: Events.Prayers,
+    val prayer: PrayerEvents,
     val completed: Boolean,
-    val date: String,
-    val prayerDateTime: Long,
-    val completedDateTime: Long,
+    val prayerDateTime: Instant,
+    val completedDateTime: Instant,
 ) {
     companion object {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE

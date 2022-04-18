@@ -4,7 +4,7 @@ import ba.aadil.namaz.data.db.CityOffset
 import ba.aadil.namaz.data.db.OffsetDao
 import ba.aadil.namaz.data.db.PrayerSchedule
 import ba.aadil.namaz.data.db.PrayerScheduleDao
-import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.domain.PrayerEvents
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -33,28 +33,28 @@ class PrayerSchedulesUseCase(
                 LocalTime.parse(dailyPrayer.noonPrayer)
                 return EventsSchedule(
                     morningPrayer = getFormattedTimeForEvents(
-                        Events.Prayers.MorningPrayer,
+                        PrayerEvents.MorningPrayer,
                         dailyPrayer,
                         offset
                     ),
-                    sunrise = getFormattedTimeForEvents(Events.Sunrise, dailyPrayer, offset),
+                    sunrise = getFormattedTimeForEvents(PrayerEvents.Sunrise, dailyPrayer, offset),
                     noonPrayer = getFormattedTimeForEvents(
-                        Events.Prayers.NoonPrayer,
+                        PrayerEvents.NoonPrayer,
                         dailyPrayer,
                         offset
                     ),
                     afterNoonPrayer = getFormattedTimeForEvents(
-                        Events.Prayers.AfterNoonPrayer,
+                        PrayerEvents.AfterNoonPrayer,
                         dailyPrayer,
                         offset
                     ),
                     sunsetPrayer = getFormattedTimeForEvents(
-                        Events.Prayers.SunsetPrayer,
+                        PrayerEvents.SunsetPrayer,
                         dailyPrayer,
                         offset
                     ),
                     nightPrayer = getFormattedTimeForEvents(
-                        Events.Prayers.NightPrayer,
+                        PrayerEvents.NightPrayer,
                         dailyPrayer,
                         offset
                     ),
@@ -78,34 +78,34 @@ class PrayerSchedulesUseCase(
 
         prayerSchedule.firstOrNull()?.let { dailyPrayer ->
             offset.firstOrNull()?.let { offset ->
-                val eventsMap = hashMapOf<Events, String>()
-                eventsMap[Events.Prayers.MorningPrayer] = getFormattedTimeForEvents(
-                    Events.Prayers.MorningPrayer,
+                val eventsMap = hashMapOf<PrayerEvents, String>()
+                eventsMap[PrayerEvents.MorningPrayer] = getFormattedTimeForEvents(
+                    PrayerEvents.MorningPrayer,
                     dailyPrayer,
                     offset
                 )
-                eventsMap[Events.Sunrise] = getFormattedTimeForEvents(
-                    Events.Sunrise,
+                eventsMap[PrayerEvents.Sunrise] = getFormattedTimeForEvents(
+                    PrayerEvents.Sunrise,
                     dailyPrayer,
                     offset
                 )
-                eventsMap[Events.Prayers.NoonPrayer] = getFormattedTimeForEvents(
-                    Events.Prayers.NoonPrayer,
+                eventsMap[PrayerEvents.NoonPrayer] = getFormattedTimeForEvents(
+                    PrayerEvents.NoonPrayer,
                     dailyPrayer,
                     offset
                 )
-                eventsMap[Events.Prayers.AfterNoonPrayer] = getFormattedTimeForEvents(
-                    Events.Prayers.AfterNoonPrayer,
+                eventsMap[PrayerEvents.AfterNoonPrayer] = getFormattedTimeForEvents(
+                    PrayerEvents.AfterNoonPrayer,
                     dailyPrayer,
                     offset
                 )
-                eventsMap[Events.Prayers.SunsetPrayer] = getFormattedTimeForEvents(
-                    Events.Prayers.SunsetPrayer,
+                eventsMap[PrayerEvents.SunsetPrayer] = getFormattedTimeForEvents(
+                    PrayerEvents.SunsetPrayer,
                     dailyPrayer,
                     offset
                 )
-                eventsMap[Events.Prayers.NightPrayer] = getFormattedTimeForEvents(
-                    Events.Prayers.NightPrayer,
+                eventsMap[PrayerEvents.NightPrayer] = getFormattedTimeForEvents(
+                    PrayerEvents.NightPrayer,
                     dailyPrayer,
                     offset
                 )
@@ -116,7 +116,7 @@ class PrayerSchedulesUseCase(
     }
 
     private fun getFormattedTimeForEvents(
-        event: Events,
+        event: PrayerEvents,
         dailyPrayer: PrayerSchedule,
         offset: CityOffset
     ): String {
@@ -135,12 +135,12 @@ class PrayerSchedulesUseCase(
 
         return prayerTimeFormat.format(
             when (event) {
-                Events.Prayers.MorningPrayer -> morningPrayer
-                Events.Sunrise -> sunrise
-                Events.Prayers.NoonPrayer -> noonPrayer
-                Events.Prayers.AfterNoonPrayer -> afterNoonPrayer
-                Events.Prayers.SunsetPrayer -> sunsetPrayer
-                Events.Prayers.NightPrayer -> nightPrayer
+                PrayerEvents.MorningPrayer -> morningPrayer
+                PrayerEvents.Sunrise -> sunrise
+                PrayerEvents.NoonPrayer -> noonPrayer
+                PrayerEvents.AfterNoonPrayer -> afterNoonPrayer
+                PrayerEvents.SunsetPrayer -> sunsetPrayer
+                PrayerEvents.NightPrayer -> nightPrayer
             }
         )
     }
@@ -154,5 +154,5 @@ class PrayerSchedulesUseCase(
         val nightPrayer: String
     )
 
-    data class EventsMap(val map: Map<Events, String>)
+    data class EventsMap(val map: Map<PrayerEvents, String>)
 }

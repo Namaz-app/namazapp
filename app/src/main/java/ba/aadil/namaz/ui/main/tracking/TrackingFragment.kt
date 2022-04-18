@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentTrackingBinding
-import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.domain.PrayerEvents
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
@@ -46,7 +46,7 @@ class TrackingFragment : Fragment() {
                     finder,
                     _,
                 ->
-                finder.setText(R.id.prayer_name, model.prayerName)
+                finder.setText(R.id.prayer_name, model.prayerNameId)
                 finder.setChecked(R.id.prayer_tracking_checkbox, model.track)
                 finder.setOnCheckedChangeListener(R.id.prayer_tracking_checkbox) {
                     trackingViewModel.markAsPrayed(model.prayer, it)
@@ -89,7 +89,7 @@ class TrackingFragment : Fragment() {
         trackingViewModel.getTracking()
     }
 
-    class TrackingUIModel(val prayerName: String, val track: Boolean, val prayer: Events.Prayers) :
+    class TrackingUIModel(val prayerNameId: Int, val track: Boolean, val prayer: PrayerEvents) :
         ViewModel
 
     class TrackingHeader(val userName: String, val prayerCount: Int, val date: String) :

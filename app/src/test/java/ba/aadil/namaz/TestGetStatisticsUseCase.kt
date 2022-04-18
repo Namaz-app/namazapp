@@ -1,8 +1,7 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.data.db.Track
-import ba.aadil.namaz.data.db.TrackingDao
-import ba.aadil.namaz.domain.usecase.GetStatisticsUseCase
+import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
 import io.mockk.every
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals
@@ -12,8 +11,8 @@ import java.time.LocalDate
 class TestGetStatisticsUseCase {
     @Test
     fun testStatisticsUseCaseForTwoDays() {
-        val mockDao = mockk<TrackingDao>()
-        val prayedPrayers = mockk<Track>()
+        val mockDao = mockk<PrayerTrackingInfoDao>()
+        val prayedPrayers = mockk<PrayerTrackingInfo>()
 
         every { mockDao.getAllCompletedPrayersBetweenTwoDates(any(), any()) } returns listOf(
             prayedPrayers
@@ -29,8 +28,8 @@ class TestGetStatisticsUseCase {
 
     @Test
     fun testStatisticsUseCaseForSevenDays() {
-        val mockDao = mockk<TrackingDao>()
-        val prayedPrayers = mockk<Track>()
+        val mockDao = mockk<PrayerTrackingInfoDao>()
+        val prayedPrayers = mockk<PrayerTrackingInfo>()
 
         every { mockDao.getAllCompletedPrayersBetweenTwoDates(any(), any()) } returns listOf(
             prayedPrayers

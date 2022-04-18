@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.firebase.auth.FirebaseAuth
 
-class GetCurrentUser(val sharedPreferences: SharedPreferences) {
+class UserRepository(val sharedPreferences: SharedPreferences) {
     private val userNameKey = "user_name"
     private val userBirthdayKey = "user_birthday"
 
@@ -28,9 +28,7 @@ class GetCurrentUser(val sharedPreferences: SharedPreferences) {
             putInt(userBirthdayKey, year)
         }
     }
-
     fun completedOnboarding(): Boolean {
         return sharedPreferences.getBoolean("onboarding_completed", true)
     }
-
 }

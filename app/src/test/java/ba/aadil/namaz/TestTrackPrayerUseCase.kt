@@ -1,9 +1,8 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.core.Result
-import ba.aadil.namaz.data.db.Track
-import ba.aadil.namaz.data.db.TrackingDao
-import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
+import ba.aadil.namaz.domain.PrayerEvents
 import ba.aadil.namaz.domain.usecase.GetPrayerTimeForDate
 import ba.aadil.namaz.domain.usecase.TrackPrayerUseCase
 import junit.framework.Assert.assertEquals
@@ -15,14 +14,14 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-class TrackPrayerUseCaseTest {
+class PrayerTrackingInfoPrayerUseCaseTest {
     @Test
     fun testTrackCreatesDbEntry() {
-        val fakeDao = FakeTrackingDao()
+        val fakeDao = FakePrayerTrackingInfoDao()
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: Events.Prayers,
+                event: PrayerEvents.Prayers,
             ): Result<LocalDateTime> {
                 return Result(null, null)
             }
@@ -30,23 +29,23 @@ class TrackPrayerUseCaseTest {
 
         runBlocking {
             val now = LocalDate.now()
-            trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.AfterNoonPrayer, now)
-            assertEquals(Events.Prayers.AfterNoonPrayer, fakeDao.startTrackingValue?.prayer)
+            trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.Prayers.AfterNoonPrayer, now)
+            assertEquals(PrayerEvents.Prayers.AfterNoonPrayer, fakeDao.startTrackingValue?.prayer)
             assertEquals(
-                now.format(Track.dateFormatter),
-                fakeDao.startTrackingValue?.date?.format(Track.dateFormatter)
+                now.format(PrayerTrackingInfo.dateFormatter),
+                fakeDao.startTrackingValue?.date?.format(PrayerTrackingInfo.dateFormatter)
             )
         }
     }
 
     @Test
     fun testPrayerTimeEntry() {
-        val fakeDao = FakeTrackingDao()
+        val fakeDao = FakePrayerTrackingInfoDao()
         val fakeDate = LocalDateTime.now()
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: Events.Prayers,
+                event: PrayerEvents.Prayers,
             ): Result<LocalDateTime> {
                 return Result(fakeDate, null)
             }
@@ -54,7 +53,7 @@ class TrackPrayerUseCaseTest {
 
         runBlocking {
             val now = LocalDate.now()
-            trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.MorningPrayer, now)
+            trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.Prayers.MorningPrayer, now)
             assertEquals(
                 fakeDao.startTrackingValue?.prayerDateTime, fakeDate.toEpochSecond(
                     ZoneOffset.ofTotalSeconds(0)
@@ -65,13 +64,13 @@ class TrackPrayerUseCaseTest {
 
     @Test
     fun testMarkAsCompletedUpdatesDbAndPrayerTime() {
-        val fakeDao = FakeTrackingDao()
+        val fakeDao = FakePrayerTrackingInfoDao()
         val fakeDate = LocalDateTime.now()
-        val testTrack = Track(
+        val testTrack = PrayerTrackingInfo(
             0,
-            Events.Prayers.MorningPrayer,
+            PrayerEvents.Prayers.MorningPrayer,
             false,
-            fakeDate.format(Track.dateFormatter),
+            fakeDate.format(PrayerTrackingInfo.dateFormatter),
             0,
             0
         )
@@ -79,7 +78,7 @@ class TrackPrayerUseCaseTest {
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: Events.Prayers,
+                event: PrayerEvents.Prayers,
             ): Result<LocalDateTime> {
                 return Result(fakeDate, null)
             }
@@ -88,13 +87,13 @@ class TrackPrayerUseCaseTest {
         val today = LocalDate.now()
 
         runBlocking {
-            val track = trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.MorningPrayer, today)
+            val track = trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.Prayers.MorningPrayer, today)
             assertEquals(false, track?.completed)
 
             val completedTime = LocalDateTime.now()
             trackPrayerUseCase.togglePrayed(
-                Events.Prayers.MorningPrayer,
-                today.format(Track.dateFormatter),
+                PrayerEvents.Prayers.MorningPrayer,
+                today.format(PrayerTrackingInfo.dateFormatter),
                 completedTime,
                 true
             )
@@ -106,23 +105,23 @@ class TrackPrayerUseCaseTest {
         }
     }
 
-    class FakeTrackingDao : TrackingDao {
-        var startTrackingValue: Track? = null
-        var prayerForDayValue = mutableListOf<Track>()
-        var togglePrayerValue: Events.Prayers? = null
+    class FakePrayerTrackingInfoDao : PrayerTrackingInfoDao {
+        var startTrackingValue: PrayerTrackingInfo? = null
+        var prayerForDayValue = mutableListOf<PrayerTrackingInfo>()
+        var togglePrayerValue: PrayerEvents.Prayers? = null
         var toggleCompleted = false
         var completedTimeLong: Long = 0
 
-        override fun getPrayerForDay(prayer: Events.Prayers, date: String): List<Track> {
+        override fun getPrayerForDay(prayer: PrayerEvents.Prayers, date: String): List<PrayerTrackingInfo> {
             return prayerForDayValue
         }
 
-        override fun startTracking(track: Track) {
-            startTrackingValue = track
+        override fun insertPrayerTrackingInfo(prayerTrackingInfo: PrayerTrackingInfo) {
+            startTrackingValue = prayerTrackingInfo
         }
 
         override fun togglePrayerCompletion(
-            prayer: Events.Prayers,
+            prayer: PrayerEvents.Prayers,
             date: String,
             completed: Boolean,
             completedTime: Long,
@@ -135,14 +134,14 @@ class TrackPrayerUseCaseTest {
         override fun getAllCompletedPrayersBetweenTwoDates(
             startMillis: Long,
             endMillis: Long,
-        ): List<Track> {
+        ): List<PrayerTrackingInfo> {
             return listOf()
         }
 
         override fun getAllCompletedPrayersBetweenTwoDatesFlow(
             startEpoch: Long,
             endEpoch: Long,
-        ): Flow<List<Track>> {
+        ): Flow<List<PrayerTrackingInfo>> {
             return flowOf()
         }
     }

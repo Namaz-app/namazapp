@@ -1,27 +1,28 @@
 package ba.aadil.namaz.ui.main.tracking
 
-import android.content.Context
 import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.R
-import ba.aadil.namaz.data.db.Track
-import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.domain.PrayerEvents
 import ba.aadil.namaz.domain.usecase.TrackPrayerUseCase
 import ba.aadil.namaz.domain.usecase.GetBadges
-import ba.aadil.namaz.domain.usecase.GetCurrentUser
+import ba.aadil.namaz.domain.usecase.UserRepository
+import ba.aadil.namaz.util.toInstant
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 class TrackingViewModel(
-    private val context: Context,
     private val trackPrayerUseCase: TrackPrayerUseCase,
     private val getBadges: GetBadges,
-    private val getCurrentUser: GetCurrentUser,
+    private val userRepository: UserRepository,
 ) : androidx.lifecycle.ViewModel() {
     private val _state = MutableStateFlow<TrackingPrayersState>(TrackingPrayersState.Loading)
     val state: StateFlow<TrackingPrayersState> = _state
@@ -31,61 +32,61 @@ class TrackingViewModel(
             _state.value = withContext(Dispatchers.IO) {
                 val now = LocalDate.now()
                 val morningPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.MorningPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.MorningPrayer, now)
                 val noonPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.NoonPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.NoonPrayer, now)
                 val afternoonPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.AfterNoonPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.AfterNoonPrayer, now)
                 val sunsetPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.SunsetPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.SunsetPrayer, now)
                 val nightPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(Events.Prayers.NightPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.NightPrayer, now)
 
                 val trackingModels = listOf(
                     TrackingFragment.TrackingUIModel(
-                        context.getString(R.string.morningPrayer),
+                       R.string.morningPrayer,
                         morningPrayer?.completed ?: false,
-                        Events.Prayers.MorningPrayer
+                        PrayerEvents.MorningPrayer
                     ),
                     TrackingFragment.TrackingUIModel(
-                        context.getString(R.string.noonPrayer),
+                       R.string.noonPrayer,
                         noonPrayer?.completed ?: false,
-                        Events.Prayers.NoonPrayer
+                        PrayerEvents.NoonPrayer
                     ),
                     TrackingFragment.TrackingUIModel(
-                        context.getString(R.string.afternoonPrayer),
+                       R.string.afternoonPrayer,
                         afternoonPrayer?.completed ?: false,
-                        Events.Prayers.AfterNoonPrayer
+                        PrayerEvents.AfterNoonPrayer
                     ),
                     TrackingFragment.TrackingUIModel(
-                        context.getString(R.string.sunsetPrayer),
+                       R.string.sunsetPrayer,
                         sunsetPrayer?.completed ?: false,
-                        Events.Prayers.SunsetPrayer
+                        PrayerEvents.SunsetPrayer
                     ),
                     TrackingFragment.TrackingUIModel(
-                        context.getString(R.string.nightPrayer),
+                       R.string.nightPrayer,
                         nightPrayer?.completed ?: false,
-                        Events.Prayers.NightPrayer
+                        PrayerEvents.NightPrayer
                     ),
                 )
                 TrackingPrayersState.Data(
                     listOf(
-                        TrackingFragment.TrackingHeader(getCurrentUser.getName(),
+                        TrackingFragment.TrackingHeader(userRepository.getName(),
                             trackingModels.count { it.track },
-                            Track.longDateFormatter.format(LocalDate.now())),
+                            PrayerTrackingInfo.longDateFormatter.format(LocalDate.now())),
                     ) + trackingModels
                 )
             }
         }
     }
 
-    fun markAsPrayed(prayer: Events.Prayers, completed: Boolean) {
+    fun markAsPrayed(prayer: PrayerEvents, completed: Boolean) {
         val now = LocalDateTime.now()
         val todayDate = LocalDate.now()
         viewModelScope.launch(Dispatchers.IO) {
             trackPrayerUseCase.togglePrayed(
                 prayer,
-                Track.dateFormatter.format(todayDate),
+                todayDate.toInstant(),
                 now,
                 completed
             )

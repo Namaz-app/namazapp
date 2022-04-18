@@ -1,6 +1,6 @@
 package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.data.db.Track
+import ba.aadil.namaz.data.db.PrayerTrackingInfo
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.chrono.HijrahDate
@@ -11,8 +11,8 @@ class GetCurrentDateTimeAndCity(private val getCurrentCityUseCase: GetCurrentCit
     suspend fun get(): Data {
         HijrahDate.now()
         return Data(city = getCurrentCityUseCase.getName(),
-            date = "${LocalDate.now().format(Track.dateFormatter)} / ${
-                HijrahDate.now().format(Track.hijraFormatter)
+            date = "${LocalDate.now().format(PrayerTrackingInfo.dateFormatter)} / ${
+                HijrahDate.now().format(PrayerTrackingInfo.hijraFormatter)
             }",
             time = LocalTime.now().format(timeFormatter))
     }

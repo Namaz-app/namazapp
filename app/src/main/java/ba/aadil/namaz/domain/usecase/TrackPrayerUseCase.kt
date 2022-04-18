@@ -1,51 +1,53 @@
 package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.data.db.Track
-import ba.aadil.namaz.data.db.TrackingDao
-import ba.aadil.namaz.domain.Events
+import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
+import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.util.toInstant
+import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 class TrackPrayerUseCase(
-    private val trackingDao: TrackingDao,
+    private val prayerTrackingInfoDao: PrayerTrackingInfoDao,
     private val getPrayerTimeForDate: GetPrayerTimeForDate,
 ) {
-    suspend fun getOrTrackPrayer(prayer: Events.Prayers, date: LocalDate): Track? {
-        val dateFormatted = date.format(Track.dateFormatter)
+    suspend fun getOrTrackPrayer(prayer: PrayerEvents, date: LocalDate): PrayerTrackingInfo? {
+        val dateFormatted = date.format(PrayerTrackingInfo.dateFormatter)
         val currentData =
-            trackingDao.getPrayerForDay(prayer, dateFormatted)
-        val prayerDateTime =
-            getPrayerTimeForDate.get(date, prayer).getOrNull()?.toEpochSecond(ZoneOffset.ofTotalSeconds(0))
-                ?: 0
+            prayerTrackingInfoDao.getPrayerTrackingInfoForDay(prayer, Instant.from(date))
+        val prayerDateTime = getPrayerTimeForDate.get(date, prayer).getOrNull()
+            ?.toInstant(ZoneOffset.from(Instant.now())) ?: return null
+
 
         if (currentData.isEmpty()) {
-            trackingDao.startTracking(
-                Track(
+            prayerTrackingInfoDao.insertPrayerTrackingInfo(
+                PrayerTrackingInfo(
                     id = 0,
                     prayer = prayer,
                     completed = false,
-                    date = dateFormatted,
                     prayerDateTime = prayerDateTime,
-                    0
+                    Instant.now()
                 )
             )
         }
 
-        return trackingDao.getPrayerForDay(prayer, dateFormatted).firstOrNull()
+        return prayerTrackingInfoDao.getPrayerTrackingInfoForDay(prayer, date.toInstant())
+            .firstOrNull()
     }
 
     fun togglePrayed(
-        prayer: Events.Prayers,
-        prayerDate: String,
+        prayer: PrayerEvents,
+        prayerDate: Instant,
         time: LocalDateTime,
         completed: Boolean
     ) {
-        trackingDao.togglePrayerCompletion(
+        prayerTrackingInfoDao.setPrayerCompleted(
             prayer,
             prayerDate,
             completed,
-            time.toEpochSecond(ZoneOffset.ofTotalSeconds(0))
+            time.toInstant(ZoneOffset.ofTotalSeconds(0))
         )
     }
 }

@@ -57,10 +57,10 @@
                         android:id="@+id/date_today"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         android:layout_marginTop="8dp"
                         android:drawableStart="@drawable/ic_round_calendar_month_24"
                         android:drawablePadding="10dp"
-                        android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="@+id/today_message2"
                         app:layout_constraintTop_toBottomOf="@+id/today_message2"
                         tools:text="Novembar 22, 2021" />
@@ -74,16 +74,18 @@
                         app:layout_constraintTop_toTopOf="@+id/today_message">
 
                         <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/prayer_count_indicator"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/green_inner_circle"
                             android:indeterminate="false"
                             android:progress="75"
-                            app:indicatorSize="80dp"
+                            app:trackThickness="5dp"
+                            app:indicatorSize="90dp"
                             app:trackColor="@color/teal_200" />
 
                         <TextView
-                            android:id="@+id/prayer_count"
+                            android:id="@+id/prayer_count_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -96,10 +98,10 @@
 
                     <androidx.emoji2.widget.EmojiTextView
                         android:id="@+id/today_emoji"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="28dp"
-                        android:layout_marginEnd="100dp"
+                        android:layout_marginRight="70dp"
                         android:padding="10dp"
                         android:text="🤩"
                         android:textColor="#626363"
@@ -109,23 +111,26 @@
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/today_message"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
                         android:gravity="center_horizontal"
-                        android:text="@string/congrats_gods_blessings"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                        app:layout_constraintEnd_toEndOf="@+id/today_emoji"
-                        app:layout_constraintHorizontal_bias="0.484"
-                        app:layout_constraintStart_toStartOf="@+id/today_emoji"
+                        android:text="@string/congrats_gods_blessings3"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/frameLayout"
                         app:layout_constraintTop_toBottomOf="@+id/today_emoji" />
 
                     <TextView
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:text="Do"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         app:layout_constraintBottom_toBottomOf="@+id/date_to"
                         app:layout_constraintEnd_toStartOf="@+id/date_to"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -136,8 +141,10 @@
                         android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="8dp"
                         android:text="Od"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                         app:layout_constraintBottom_toBottomOf="@+id/date_from"
                         app:layout_constraintEnd_toStartOf="@+id/date_from"
                         app:layout_constraintHorizontal_bias="0.5"
@@ -160,6 +167,7 @@
                         android:id="@+id/date_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
                         android:drawableEnd="@drawable/ic_round_calendar_month_24_light"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"

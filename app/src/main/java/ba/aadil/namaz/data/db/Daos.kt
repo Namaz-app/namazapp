@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ba.aadil.namaz.domain.Events
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -26,32 +25,6 @@ interface BadgesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun storeBadge(badge: Badge)
-}
-
-@Dao
-interface TrackingDao {
-    @Query("select * from tracking where date=:date and prayer=:prayer")
-    fun getPrayerForDay(prayer: Events.Prayers, date: String): List<Track>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun startTracking(track: Track)
-
-    @Query("update tracking set completed=:completed, completedDateTime=:completionTime where prayer=:prayer and date=:date")
-    fun togglePrayerCompletion(
-        prayer: Events.Prayers,
-        date: String,
-        completed: Boolean,
-        completionTime: Long,
-    )
-
-    @Query("select * from tracking where completedDateTime>=:startMillis and completedDateTime<=:endMillis")
-    fun getAllCompletedPrayersBetweenTwoDates(startMillis: Long, endMillis: Long): List<Track>
-
-    @Query("select * from tracking where prayerDateTime>=:startEpoch and prayerDateTime<=:endEpoch")
-    fun getAllCompletedPrayersBetweenTwoDatesFlow(
-        startEpoch: Long,
-        endEpoch: Long,
-    ): Flow<List<Track>>
 }
 
 @Dao

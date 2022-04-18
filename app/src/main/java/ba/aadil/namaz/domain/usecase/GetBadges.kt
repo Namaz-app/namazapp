@@ -2,22 +2,20 @@ package ba.aadil.namaz.domain.usecase
 
 import ba.aadil.namaz.data.db.Badge
 import ba.aadil.namaz.data.db.BadgesDao
-import ba.aadil.namaz.data.db.TrackingDao
+import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-class GetBadges(val trackingDao: TrackingDao, val badgesDao: BadgesDao) {
+class GetBadges(val prayerTrackingInfoDao: PrayerTrackingInfoDao, val badgesDao: BadgesDao) {
     suspend fun checkAndStoreBadges(): List<ConsecutivePrayerBadge> {
         val badges = mutableListOf<ConsecutivePrayerBadge>()
         listOf(1, 7, 14, 21, 28, 35, 42).forEach { pastDays ->
-            val endDate = LocalDateTime.now().toEpochSecond(ZoneOffset.ofTotalSeconds(0))
-            val startDate =
-                LocalDate.now().minusDays(pastDays.toLong()).atStartOfDay()
-                    .toEpochSecond(ZoneOffset.ofTotalSeconds(0))
+            val endDate = LocalDateTime.now().toInstant(ZoneOffset.ofTotalSeconds(0))
+            val startDate = LocalDate.now().minusDays(pastDays.toLong()).atStartOfDay()
+                .toInstant(ZoneOffset.ofTotalSeconds(0))
             val completed =
-                trackingDao.getAllCompletedPrayersBetweenTwoDates(startMillis = startDate,
-                    endMillis = endDate)
+                prayerTrackingInfoDao.getAllPrayersBetweenTwoDates(startDate, endDate)
             if (completed.filter { it.completed }.size == pastDays * 5) {
                 badges.add(ConsecutivePrayerBadge(days = pastDays))
             }
