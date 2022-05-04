@@ -3,6 +3,7 @@ package ba.aadil.namaz.data.db
 import androidx.room.TypeConverter
 import ba.aadil.namaz.domain.PrayerEvents
 import java.time.Instant
+import java.time.ZonedDateTime
 
 class PrayerEventsConverter {
     @TypeConverter
@@ -30,19 +31,31 @@ class PrayerEventsConverter {
     }
 }
 
-class Converters {
-    companion object {
+object InstantConverter {
         @TypeConverter
         @JvmStatic
-        fun fromInstant(value: Instant): Long {
-            return value.toEpochMilli()
+        fun fromInstant(value: Instant): String {
+            return value.toString()
         }
 
         @TypeConverter
         @JvmStatic
-        fun toInstant(value: Long): Instant {
-            return Instant.ofEpochMilli(value)
+        fun toInstant(value: String): Instant {
+            return Instant.parse(value)
         }
+}
+
+object ZonedDateTimeConverter {
+    @TypeConverter
+    @JvmStatic
+    fun fromInstant(value: ZonedDateTime): String {
+        return value.toString()
+    }
+
+    @TypeConverter
+    @JvmStatic
+    fun toInstant(value: String): ZonedDateTime {
+        return ZonedDateTime.parse(value)
     }
 }
 

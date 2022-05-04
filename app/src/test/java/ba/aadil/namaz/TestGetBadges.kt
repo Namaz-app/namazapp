@@ -2,7 +2,7 @@ package ba.aadil.namaz
 
 import ba.aadil.namaz.data.db.Badge
 import ba.aadil.namaz.data.db.BadgesDao
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
 import ba.aadil.namaz.domain.PrayerEvents
 import ba.aadil.namaz.domain.usecase.GetBadges

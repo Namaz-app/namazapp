@@ -1,6 +1,6 @@
 package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.chrono.HijrahDate

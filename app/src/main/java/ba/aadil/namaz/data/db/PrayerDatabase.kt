@@ -6,13 +6,18 @@ import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 
 @Database(
     entities = [PrayerSchedule::class, CityOffset::class, PrayerTrackingInfo::class, Badge::class, City::class],
     version = 5,
     exportSchema = true
 )
-@TypeConverters(Converters::class, PrayerEventsConverter::class)
+@TypeConverters(
+    InstantConverter::class,
+    ZonedDateTimeConverter::class,
+    PrayerEventsConverter::class,
+)
 abstract class PrayerDatabase : RoomDatabase() {
     abstract fun prayerScheduleDao(): PrayerScheduleDao
     abstract fun offsetDao(): OffsetDao

@@ -1,6 +1,6 @@
 package ba.aadil.namaz.domain.usecase
 
-import ba.aadil.namaz.data.db.PrayerTrackingInfo.Companion.timeFormatterNoSeconds
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo.Companion.timeFormatterNoSeconds
 import ba.aadil.namaz.domain.PrayerEvents
 import java.time.Duration
 import java.time.LocalDate

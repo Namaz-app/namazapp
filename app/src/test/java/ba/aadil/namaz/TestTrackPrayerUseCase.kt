@@ -1,6 +1,6 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
 import ba.aadil.namaz.domain.PrayerEvents
 import ba.aadil.namaz.domain.usecase.GetPrayerTimeForDate
@@ -88,10 +88,10 @@ class PrayerTrackingInfoPrayerUseCaseTest {
 
         runBlocking {
             val track = trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.Prayers.MorningPrayer, today)
-            assertEquals(false, track?.completed)
+            assertEquals(false, track?.isCompleted)
 
             val completedTime = LocalDateTime.now()
-            trackPrayerUseCase.togglePrayed(
+            trackPrayerUseCase.updatePrayer(
                 PrayerEvents.Prayers.MorningPrayer,
                 today.format(PrayerTrackingInfo.dateFormatter),
                 completedTime,

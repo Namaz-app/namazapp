@@ -4,35 +4,37 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import androidx.room.Update
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import ba.aadil.namaz.domain.PrayerEvents
 import kotlinx.coroutines.flow.Flow
 import java.time.Instant
 
 @Dao
 interface PrayerTrackingInfoDao {
+
     @Query("select * from prayer_tracking_info where prayerDateTime=:date and prayer=:prayer")
-    fun getPrayerTrackingInfoForDay(prayer: PrayerEvents, date: Instant): List<PrayerTrackingInfo>
+    suspend fun getPrayerTrackingInfoForDay(prayer: PrayerEvents, date: Instant): List<PrayerTrackingInfo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPrayerTrackingInfo(prayerTrackingInfo: PrayerTrackingInfo)
+    suspend fun insertPrayerTrackingInfo(prayerTrackingInfo: PrayerTrackingInfo)
 
-    @Query("update prayer_tracking_info set completed=:isCompleted, completedDateTime=:completionTime where prayer=:prayer and prayerDateTime=:date")
-    fun setPrayerCompleted(
-        prayer: PrayerEvents,
-        date: Instant,
-        isCompleted: Boolean,
-        completionTime: Instant,
+    @Query("select * from prayer_tracking_info " +
+        "where prayerDateTime>=:startDate " +
+        "and prayerDateTime<=:endDate " +
+        "and isCompleted == 1"
     )
-
-    @Query("select * from prayer_tracking_info where prayerDateTime>=:startDate and prayerDateTime<=:endDate")
-    fun getAllPrayersBetweenTwoDates(
+    suspend fun getCompletedPrayersBetweenTwoDates(
         startDate: Instant,
         endDate: Instant,
     ): List<PrayerTrackingInfo>
 
-    @Query("select * from prayer_tracking_info where prayerDateTime>=:startDate and prayerDateTime<=:endDate")
-    fun getAllPrayersBetweenTwoDatesFlow(
+    @Query("select * from prayer_tracking_info " +
+        "where prayerDateTime>=:startDate " +
+        "and prayerDateTime<=:endDate " +
+        "and isCompleted == 1"
+    )
+    fun getCompletedPrayersBetweenTwoDatesFlow(
         startDate: Instant,
         endDate: Instant,
     ): Flow<List<PrayerTrackingInfo>>

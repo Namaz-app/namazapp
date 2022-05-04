@@ -1,35 +1,35 @@
 package ba.aadil.namaz.ui.main.dashboard
 
-import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.R
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
-import ba.aadil.namaz.domain.PrayerEvents
 import ba.aadil.namaz.domain.usecase.UserRepository
 import ba.aadil.namaz.util.toInstant
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import java.time.DayOfWeek
-import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalUnit
 
 class DashboardViewModel(
     private val userRepository: UserRepository,
     private val prayerTrackingInfoDao: PrayerTrackingInfoDao
 ) : androidx.lifecycle.ViewModel() {
 
-    var userName = MutableStateFlow("")
+    var userName = MutableStateFlow(userRepository.getName())
         private set
 
     var todayDate = MutableStateFlow(LocalDate.now())
         private set
 
     var prayedCount =
-        getPrayerTrackingInfoForToday().map { it.count { it.completed } }
+        getPrayerTrackingInfoForToday().map { prayers ->
+            prayers.count { prayer ->
+                prayer.isCompleted
+            }
+        }
         private set
 
     var emojiData = prayedCount.map {
@@ -60,19 +60,27 @@ class DashboardViewModel(
     var toDate = MutableStateFlow(LocalDate.now())
         private set
 
-    var selectedWeekStats: Flow<List<PrayerTrackingInfo>> =
-        combine(fromDate, toDate) { fromDate, toDate ->
-            val endDatePlusDay = toDate.plusDays(1)
-            val prayed = prayerTrackingInfoDao.getAllPrayersBetweenTwoDates(
+    var selectedWeekStats: Flow<List<DailyPrayerCount>> =
+        fromDate.combine(toDate) { fromDate, toDate ->
+            prayerTrackingInfoDao.getCompletedPrayersBetweenTwoDatesFlow(
                 fromDate.toInstant(),
-                endDatePlusDay.toInstant()
+                toDate.plusDays(1).toInstant()
             )
-            prayed
-        }.flowOn(Dispatchers.IO)
-
-    init {
-        userName.value = userRepository.getName()
-    }
+        }.flatMapLatest {
+            it
+        }.map { prayers ->
+            prayers.groupBy { prayer ->
+                val dayOfWeek = prayer.prayerDateTime.dayOfWeek
+                dayOfWeek
+            }.map { (dayOfTheWeek, prayers) ->
+                DailyPrayerCount(
+                    dayOfTheWeek,
+                    prayers.count { prayer ->
+                        prayer.isCompleted
+                    }
+                )
+            }
+        }
 
     fun updateToDate(newDate: LocalDate) {
         toDate.value = when {
@@ -87,52 +95,13 @@ class DashboardViewModel(
     }
 
     private fun getPrayerTrackingInfoForToday(): Flow<List<PrayerTrackingInfo>> {
-        val endDatePlusDay = LocalDate.now().plusDays(1)
-        return prayerTrackingInfoDao.getAllPrayersBetweenTwoDatesFlow(
+        val endDatePlusDay = Instant.now().plus(1, ChronoUnit.DAYS)
+        return prayerTrackingInfoDao.getCompletedPrayersBetweenTwoDatesFlow(
             Instant.now(),
             endDatePlusDay.toInstant()
         )
     }
 
-    // private fun getStatsBetweenDays(startDate: LocalDate, endDate: LocalDate) {
-    //     val endDatePlusDay = endDate.plusDays(1)
-    //     val prayed = prayerTrackingInfoDao.getAllPrayersBetweenTwoDates(
-    //         Instant.from(startDate),
-    //         Instant.from(endDatePlusDay)
-    //     )
-    //     prayed
-    //     val days =
-    //         Duration.between(startDate.atStartOfDay(), endDatePlusDay.atStartOfDay()).toDays()
-    //             .toInt()
-    //     val totalPrayers = days * 5
-    //
-    //     prayed
-    //     val completedMap = hashMapOf<PrayerEvents, Int>()
-    //     prayed.filter { track -> track.completed }.forEach { track ->
-    //         completedMap[track.prayer] = (completedMap[track.prayer] ?: 0) + 1
-    //     }
-    //
-    //     listOf(
-    //         PrayerEvents.MorningPrayer,
-    //         PrayerEvents.NoonPrayer,
-    //         PrayerEvents.AfterNoonPrayer,
-    //         PrayerEvents.SunsetPrayer,
-    //         PrayerEvents.NightPrayer,
-    //     ).forEach {
-    //         completedMap[it] = completedMap[it] ?: 0
-    //     }
-    //
-    //     val prayerStats = completedMap.keys.map { key ->
-    //         GetStatisticsUseCase.SinglePrayerStats(
-    //             key,
-    //             completedMap[key] ?: 0,
-    //             days,
-    //             key.sortWeight
-    //         )
-    //     }
-    //     return PrayerStatistics(prayed, prayerStats, totalPrayers)
-    // }
-
-    data class DayWithPrayerCount(val dayOfWeek: DayOfWeek, val prayedCount: Int)
+    data class DailyPrayerCount(val dayOfWeek: DayOfWeek, val prayedCount: Int)
     data class EmojiData(val congratsTextId: Int, val emojiText: String)
 }

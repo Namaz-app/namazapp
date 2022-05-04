@@ -1,6 +1,6 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import ba.aadil.namaz.domain.PrayerEvents
 import ba.aadil.namaz.domain.usecase.GetNextOrCurrentPrayerTime
 import ba.aadil.namaz.domain.usecase.PrayerSchedulesUseCase
