@@ -1,7 +1,7 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
+import ba.aadil.namaz.domain.PrayerEvent
 import ba.aadil.namaz.domain.usecase.GetNextOrCurrentPrayerTime
 import ba.aadil.namaz.domain.usecase.PrayerSchedulesUseCase
 import io.mockk.coEvery
@@ -41,7 +41,7 @@ class TestRemainingTimeTillNextPrayer {
         runBlocking {
             val (time, nextPrayer) = nextPrayerTime.getNext(now)
             assertEquals("12:00:00", time.format(PrayerTrackingInfo.timeFormatter))
-            assertEquals(PrayerEvents.Prayers.NoonPrayer, nextPrayer)
+            assertEquals(PrayerEvent.Prayers.NoonPrayer, nextPrayer)
         }
     }
 }

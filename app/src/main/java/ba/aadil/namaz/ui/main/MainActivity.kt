@@ -8,7 +8,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.ActivityMainBinding
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.domain.PrayerEvent
 import ba.aadil.namaz.ui.landing.LandingActivity
 import ba.aadil.namaz.ui.main.tracking.TrackingViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val prayerId = intent?.getIntExtra("prayer", 1) ?: 1
-        trackingViewModel.markAsPrayed(PrayerEvents.fromSortWeight(prayerId), true)
+        trackingViewModel.markAsPrayed(PrayerEvent.fromSortWeight(prayerId), true)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

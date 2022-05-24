@@ -2,8 +2,8 @@ package ba.aadil.namaz.ui.main.tracking
 
 import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.R
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
+import ba.aadil.namaz.domain.PrayerEvent
 import ba.aadil.namaz.domain.usecase.TrackPrayerUseCase
 import ba.aadil.namaz.domain.usecase.GetBadges
 import ba.aadil.namaz.domain.usecase.UserRepository
@@ -14,10 +14,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 class TrackingViewModel(
     private val trackPrayerUseCase: TrackPrayerUseCase,
@@ -32,41 +30,41 @@ class TrackingViewModel(
             _state.value = withContext(Dispatchers.IO) {
                 val now = LocalDate.now()
                 val morningPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.MorningPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvent.MorningPrayer, now)
                 val noonPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.NoonPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvent.NoonPrayer, now)
                 val afternoonPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.AfterNoonPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvent.AfterNoonPrayer, now)
                 val sunsetPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.SunsetPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvent.SunsetPrayer, now)
                 val nightPrayer =
-                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.NightPrayer, now)
+                    trackPrayerUseCase.getOrTrackPrayer(PrayerEvent.NightPrayer, now)
 
                 val trackingModels = listOf(
                     TrackingFragment.TrackingUIModel(
                        R.string.morningPrayer,
                         morningPrayer?.completed ?: false,
-                        PrayerEvents.MorningPrayer
+                        PrayerEvent.MorningPrayer
                     ),
                     TrackingFragment.TrackingUIModel(
                        R.string.noonPrayer,
                         noonPrayer?.completed ?: false,
-                        PrayerEvents.NoonPrayer
+                        PrayerEvent.NoonPrayer
                     ),
                     TrackingFragment.TrackingUIModel(
                        R.string.afternoonPrayer,
                         afternoonPrayer?.completed ?: false,
-                        PrayerEvents.AfterNoonPrayer
+                        PrayerEvent.AfterNoonPrayer
                     ),
                     TrackingFragment.TrackingUIModel(
                        R.string.sunsetPrayer,
                         sunsetPrayer?.completed ?: false,
-                        PrayerEvents.SunsetPrayer
+                        PrayerEvent.SunsetPrayer
                     ),
                     TrackingFragment.TrackingUIModel(
                        R.string.nightPrayer,
                         nightPrayer?.completed ?: false,
-                        PrayerEvents.NightPrayer
+                        PrayerEvent.NightPrayer
                     ),
                 )
                 TrackingPrayersState.Data(
@@ -80,14 +78,13 @@ class TrackingViewModel(
         }
     }
 
-    fun markAsPrayed(prayer: PrayerEvents, completed: Boolean) {
+    fun markAsPrayed(prayer: PrayerEvent, completed: Boolean) {
         val now = LocalDateTime.now()
         val todayDate = LocalDate.now()
         viewModelScope.launch(Dispatchers.IO) {
             trackPrayerUseCase.togglePrayed(
                 prayer,
                 todayDate.toInstant(),
-                now,
                 completed
             )
             getBadges.checkAndStoreBadges()

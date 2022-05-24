@@ -4,10 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import ba.aadil.namaz.data.db.PrayerDatabase
-import ba.aadil.namaz.data.db.PrayerDatabase.Companion.MIGRATION_1_2
-import ba.aadil.namaz.data.db.PrayerDatabase.Companion.MIGRATION_2_3
-import ba.aadil.namaz.data.db.PrayerDatabase.Companion.MIGRATION_3_4
-import ba.aadil.namaz.data.db.PrayerDatabase.Companion.MIGRATION_4_5
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -16,10 +12,7 @@ val dataModule = module {
         Room.databaseBuilder(
             get(),
             PrayerDatabase::class.java, "prayers.db"
-        ).addMigrations(MIGRATION_1_2,
-            MIGRATION_2_3,
-            MIGRATION_3_4,
-            MIGRATION_4_5).createFromAsset("vaktija.db")
+        ).createFromAsset("vaktija.db")
             .build()
     }
     single {

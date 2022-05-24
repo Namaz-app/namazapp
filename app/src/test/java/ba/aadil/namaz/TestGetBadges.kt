@@ -2,9 +2,9 @@ package ba.aadil.namaz
 
 import ba.aadil.namaz.data.db.Badge
 import ba.aadil.namaz.data.db.BadgesDao
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.domain.PrayerEvent
 import ba.aadil.namaz.domain.usecase.GetBadges
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
@@ -33,7 +33,7 @@ class TestGetBadges {
 
     fun getMockTrack(id: Int): PrayerTrackingInfo {
         return PrayerTrackingInfo(id,
-            PrayerEvents.Prayers.MorningPrayer,
+            PrayerEvent.Prayers.MorningPrayer,
             true,
             "",
             0,

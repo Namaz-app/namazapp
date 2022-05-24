@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentTrackingBinding
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.domain.PrayerEvent
 import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
 import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
@@ -89,7 +89,7 @@ class TrackingFragment : Fragment() {
         trackingViewModel.getTracking()
     }
 
-    class TrackingUIModel(val prayerNameId: Int, val track: Boolean, val prayer: PrayerEvents) :
+    class TrackingUIModel(val prayerNameId: Int, val track: Boolean, val prayer: PrayerEvent) :
         ViewModel
 
     class TrackingHeader(val userName: String, val prayerCount: Int, val date: String) :

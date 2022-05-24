@@ -1,21 +1,15 @@
 package ba.aadil.namaz.ui.main.dashboard
 
-import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.R
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
-import ba.aadil.namaz.domain.PrayerEvents
 import ba.aadil.namaz.domain.usecase.UserRepository
 import ba.aadil.namaz.util.toInstant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import java.time.DayOfWeek
-import java.time.Duration
 import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
 
 class DashboardViewModel(
     private val userRepository: UserRepository,

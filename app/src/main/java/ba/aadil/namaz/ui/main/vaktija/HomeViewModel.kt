@@ -2,7 +2,7 @@ package ba.aadil.namaz.ui.main.vaktija
 
 import androidx.lifecycle.viewModelScope
 import ba.aadil.namaz.domain.usecase.GetCurrentDateTimeAndCity
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.domain.PrayerEvent
 import ba.aadil.namaz.domain.usecase.GetNextOrCurrentPrayerTime
 import ba.aadil.namaz.domain.usecase.PrayerSchedulesUseCase
 import com.github.vivchar.rendererrecyclerviewadapter.ViewModel
@@ -26,8 +26,8 @@ class HomeViewModel(
     val data = _data.asStateFlow()
     private val _dateTimeCity = MutableStateFlow<GetCurrentDateTimeAndCity.Data?>(null)
     private val _untilNextPrayer =
-        MutableStateFlow<Pair<LocalDateTime, PrayerEvents>>(Pair(LocalDateTime.now(),
-            PrayerEvents.MorningPrayer))
+        MutableStateFlow<Pair<LocalDateTime, PrayerEvent>>(Pair(LocalDateTime.now(),
+            PrayerEvent.MorningPrayer))
 
     init {
         viewModelScope.launch {

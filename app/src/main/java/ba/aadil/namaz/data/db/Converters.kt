@@ -1,36 +1,37 @@
 package ba.aadil.namaz.data.db
 
 import androidx.room.TypeConverter
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.domain.PrayerEvent
 import java.time.Instant
+import java.time.LocalDate
 
 class PrayerEventsConverter {
     @TypeConverter
-    fun fromPrayerType(value: PrayerEvents): Int {
+    fun fromPrayerType(value: PrayerEvent): Int {
         return when (value) {
-            PrayerEvents.Sunrise -> 0
-            PrayerEvents.MorningPrayer -> 1
-            PrayerEvents.NoonPrayer -> 2
-            PrayerEvents.AfterNoonPrayer -> 3
-            PrayerEvents.SunsetPrayer -> 4
-            PrayerEvents.NightPrayer -> 5
+            PrayerEvent.Sunrise -> 0
+            PrayerEvent.MorningPrayer -> 1
+            PrayerEvent.NoonPrayer -> 2
+            PrayerEvent.AfterNoonPrayer -> 3
+            PrayerEvent.SunsetPrayer -> 4
+            PrayerEvent.NightPrayer -> 5
         }
     }
 
     @TypeConverter
-    fun fromIntToPrayer(value: Int): PrayerEvents {
+    fun fromIntToPrayer(value: Int): PrayerEvent {
         return when (value) {
-            0 -> PrayerEvents.Sunrise
-            1 -> PrayerEvents.MorningPrayer
-            2 -> PrayerEvents.NoonPrayer
-            3 -> PrayerEvents.AfterNoonPrayer
-            4 -> PrayerEvents.SunsetPrayer
-            else -> PrayerEvents.NightPrayer
+            0 -> PrayerEvent.Sunrise
+            1 -> PrayerEvent.MorningPrayer
+            2 -> PrayerEvent.NoonPrayer
+            3 -> PrayerEvent.AfterNoonPrayer
+            4 -> PrayerEvent.SunsetPrayer
+            else -> PrayerEvent.NightPrayer
         }
     }
 }
 
-class Converters {
+class InstantConverter {
     companion object {
         @TypeConverter
         @JvmStatic
@@ -45,4 +46,21 @@ class Converters {
         }
     }
 }
+
+class LocalDateConverter {
+    companion object {
+        @TypeConverter
+        @JvmStatic
+        fun fromInstant(value: LocalDate): String {
+            return value.toString()
+        }
+
+        @TypeConverter
+        @JvmStatic
+        fun toInstant(value: String): LocalDate {
+            return LocalDate.parse(value)
+        }
+    }
+}
+
 

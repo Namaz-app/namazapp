@@ -9,7 +9,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import ba.aadil.namaz.ui.main.MainActivity
 import ba.aadil.namaz.R
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.domain.PrayerEvent
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -25,15 +25,15 @@ class ShowNotificationsForPrayers {
         const val markCurrentPrayerAsPrayedKey = "mark-current-prayer-as-prayed"
         private val shownReminders =
             Collections.synchronizedMap(object :
-                LinkedHashMap<Pair<PrayerEvents, LocalDate>, Boolean>() {
-                override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Pair<PrayerEvents, LocalDate>, Boolean>?): Boolean {
+                LinkedHashMap<Pair<PrayerEvent, LocalDate>, Boolean>() {
+                override fun removeEldestEntry(eldest: MutableMap.MutableEntry<Pair<PrayerEvent, LocalDate>, Boolean>?): Boolean {
                     return size >= 10
                 }
             })
 
         fun showRemainingTimeNotification(
             context: Context,
-            prayer: PrayerEvents,
+            prayer: PrayerEvent,
             time: LocalDateTime,
         ): Notification {
             val duration = Duration.between(LocalDateTime.now(), time)
@@ -61,8 +61,8 @@ class ShowNotificationsForPrayers {
 
         fun showReminderNotification(
             context: Context,
-            nextPrayer: PrayerEvents,
-            currentPrayer: PrayerEvents,
+            nextPrayer: PrayerEvent,
+            currentPrayer: PrayerEvent,
             reminderMinutesBefore: Int,
         ) {
             val mainActivityPendingIntent = Intent(context, MainActivity::class.java).apply {
@@ -95,12 +95,12 @@ class ShowNotificationsForPrayers {
             shownReminders[Pair(nextPrayer, LocalDate.now())] = true
         }
 
-        fun markAsShown(prayer: PrayerEvents, localDate: LocalDate) {
+        fun markAsShown(prayer: PrayerEvent, localDate: LocalDate) {
             val key = Pair(prayer, localDate)
             shownReminders[key] = true
         }
 
-        fun shouldShowRemainderNotification(prayer: PrayerEvents): Boolean {
+        fun shouldShowRemainderNotification(prayer: PrayerEvent): Boolean {
             val key = Pair(prayer, LocalDate.now())
             return shownReminders[key] == false || !shownReminders.containsKey(key)
         }

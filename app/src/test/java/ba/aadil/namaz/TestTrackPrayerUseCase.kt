@@ -1,8 +1,8 @@
 package ba.aadil.namaz
 
-import ba.aadil.namaz.data.db.PrayerTrackingInfo
+import ba.aadil.namaz.data.db.model.PrayerTrackingInfo
 import ba.aadil.namaz.data.db.dao.PrayerTrackingInfoDao
-import ba.aadil.namaz.domain.PrayerEvents
+import ba.aadil.namaz.domain.PrayerEvent
 import ba.aadil.namaz.domain.usecase.GetPrayerTimeForDate
 import ba.aadil.namaz.domain.usecase.TrackPrayerUseCase
 import junit.framework.Assert.assertEquals
@@ -21,7 +21,7 @@ class PrayerTrackingInfoPrayerUseCaseTest {
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: PrayerEvents.Prayers,
+                event: PrayerEvent.Prayers,
             ): Result<LocalDateTime> {
                 return Result(null, null)
             }
@@ -29,8 +29,8 @@ class PrayerTrackingInfoPrayerUseCaseTest {
 
         runBlocking {
             val now = LocalDate.now()
-            trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.Prayers.AfterNoonPrayer, now)
-            assertEquals(PrayerEvents.Prayers.AfterNoonPrayer, fakeDao.startTrackingValue?.prayer)
+            trackPrayerUseCase.getOrTrackPrayer(PrayerEvent.Prayers.AfterNoonPrayer, now)
+            assertEquals(PrayerEvent.Prayers.AfterNoonPrayer, fakeDao.startTrackingValue?.prayer)
             assertEquals(
                 now.format(PrayerTrackingInfo.dateFormatter),
                 fakeDao.startTrackingValue?.date?.format(PrayerTrackingInfo.dateFormatter)
@@ -45,7 +45,7 @@ class PrayerTrackingInfoPrayerUseCaseTest {
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: PrayerEvents.Prayers,
+                event: PrayerEvent.Prayers,
             ): Result<LocalDateTime> {
                 return Result(fakeDate, null)
             }
@@ -53,7 +53,7 @@ class PrayerTrackingInfoPrayerUseCaseTest {
 
         runBlocking {
             val now = LocalDate.now()
-            trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.Prayers.MorningPrayer, now)
+            trackPrayerUseCase.getOrTrackPrayer(PrayerEvent.Prayers.MorningPrayer, now)
             assertEquals(
                 fakeDao.startTrackingValue?.prayerDateTime, fakeDate.toEpochSecond(
                     ZoneOffset.ofTotalSeconds(0)
@@ -68,7 +68,7 @@ class PrayerTrackingInfoPrayerUseCaseTest {
         val fakeDate = LocalDateTime.now()
         val testTrack = PrayerTrackingInfo(
             0,
-            PrayerEvents.Prayers.MorningPrayer,
+            PrayerEvent.Prayers.MorningPrayer,
             false,
             fakeDate.format(PrayerTrackingInfo.dateFormatter),
             0,
@@ -78,7 +78,7 @@ class PrayerTrackingInfoPrayerUseCaseTest {
         val trackPrayerUseCase = TrackPrayerUseCase(fakeDao, object : GetPrayerTimeForDate {
             override suspend fun get(
                 date: LocalDate,
-                event: PrayerEvents.Prayers,
+                event: PrayerEvent.Prayers,
             ): Result<LocalDateTime> {
                 return Result(fakeDate, null)
             }
@@ -87,12 +87,12 @@ class PrayerTrackingInfoPrayerUseCaseTest {
         val today = LocalDate.now()
 
         runBlocking {
-            val track = trackPrayerUseCase.getOrTrackPrayer(PrayerEvents.Prayers.MorningPrayer, today)
+            val track = trackPrayerUseCase.getOrTrackPrayer(PrayerEvent.Prayers.MorningPrayer, today)
             assertEquals(false, track?.completed)
 
             val completedTime = LocalDateTime.now()
             trackPrayerUseCase.togglePrayed(
-                PrayerEvents.Prayers.MorningPrayer,
+                PrayerEvent.Prayers.MorningPrayer,
                 today.format(PrayerTrackingInfo.dateFormatter),
                 completedTime,
                 true
@@ -108,11 +108,11 @@ class PrayerTrackingInfoPrayerUseCaseTest {
     class FakePrayerTrackingInfoDao : PrayerTrackingInfoDao {
         var startTrackingValue: PrayerTrackingInfo? = null
         var prayerForDayValue = mutableListOf<PrayerTrackingInfo>()
-        var togglePrayerValue: PrayerEvents.Prayers? = null
+        var togglePrayerValue: PrayerEvent.Prayers? = null
         var toggleCompleted = false
         var completedTimeLong: Long = 0
 
-        override fun getPrayerForDay(prayer: PrayerEvents.Prayers, date: String): List<PrayerTrackingInfo> {
+        override fun getPrayerForDay(prayer: PrayerEvent.Prayers, date: String): List<PrayerTrackingInfo> {
             return prayerForDayValue
         }
 
@@ -121,7 +121,7 @@ class PrayerTrackingInfoPrayerUseCaseTest {
         }
 
         override fun togglePrayerCompletion(
-            prayer: PrayerEvents.Prayers,
+            prayer: PrayerEvent.Prayers,
             date: String,
             completed: Boolean,
             completedTime: Long,

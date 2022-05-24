@@ -8,12 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ba.aadil.namaz.R
 import ba.aadil.namaz.databinding.FragmentDashboardBinding
-import ba.aadil.namaz.domain.PrayerEvents
 import ba.aadil.namaz.ui.collectLatestLifecycleFlow
-import com.github.vivchar.rendererrecyclerviewadapter.RendererRecyclerViewAdapter
-import com.github.vivchar.rendererrecyclerviewadapter.ViewFinder
-import com.github.vivchar.rendererrecyclerviewadapter.ViewRenderer
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
